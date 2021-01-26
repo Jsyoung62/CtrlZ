@@ -5,9 +5,25 @@ module.exports = {
   },
   extends: [
     "eslint:recommended",
-    "plugin:vue/recommended" // Use this if you are using Vue.js 2.x.
+    "plugin:vue/recommended", // Use this if you are using Vue.js 2.x.
+    'prettier',
+    'plugin:prettier/recommended',
   ],
+  plugins: ['prettier'],
   rules: {
+    'prettier/prettier': [
+      'error',
+      {
+        singleQuote: false,
+        semi: true,
+        useTabs: false,
+        trailingComma: 'all',
+        printWidth: 100,
+        bracketSpacing: false,
+        arrowParens: 'avoid',
+        endOfLine: 'lf',
+      },
+    ],
     "indent": [ "error", 2],
     "quotes": ["error", "double", { "allowTemplateLiterals": true }], 
     "no-var": 2,
