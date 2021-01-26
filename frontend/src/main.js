@@ -8,4 +8,4 @@ new Vue({
   router,
   // eslint-disable-next-line id-length, comma-dangle
   render: (h) => h(App),
-},).$mount("#app",);
+}).$mount("#app");
