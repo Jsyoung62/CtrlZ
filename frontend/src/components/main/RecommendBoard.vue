@@ -1,7 +1,7 @@
 <template>
   <div class="recommend">
     <h1>추천 챌린지</h1>
-    <div class="board" />
+    <div class="board"></div>
   </div>
 </template>
 <script>
