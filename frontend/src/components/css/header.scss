@@ -1,0 +1,17 @@
+@import "./colors";
+
+.header {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    padding: 23px 0;
+    color: $primary-green;
+
+    .title {
+        position: absolute;
+        top: 20px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+}

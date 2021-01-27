@@ -1,0 +1,17 @@
+@import "../colors";
+
+@mixin board($height) {
+    width: 100%;
+    height: $height;
+    background-color: $basic-white;
+    border: 1px solid #F2F2F2;
+    border-radius: 13px;
+}
+
+.scoreBoard {
+    margin-bottom: 23px;
+    .contents {
+        @include board(84px);
+    }
+}
+

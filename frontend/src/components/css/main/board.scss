@@ -1,0 +1,21 @@
+@import "./main.scss";
+
+.board {
+    margin-bottom: 23px;
+    .boardHeader {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        margin-bottom: 8px;
+        p {
+            margin: 0 0 8px 8px;
+            color: #939394;
+            font-size: 11px;
+            font-weight: 400;
+        }
+    }
+    .boardContents {
+        @include board(100%);
+    }
+}
+
