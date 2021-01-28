@@ -25,6 +25,22 @@ module.exports = {
         arrowParens: 'always'
       },
     ],
+    "vue/max-attributes-per-line": ["error", {
+      "singleline": 3,
+      "multiline": {
+        "max": 1,
+        "allowFirstLine": false
+      }
+    }],
+    "vue/html-self-closing": ["error", {
+      "html": {
+        "void": "always",
+        "normal": "never",
+        "component": "always"
+      },
+      "svg": "always",
+      "math": "always"
+    }],
     "indent": [ "error", 2],
     "quotes": ["error", "double", { "allowTemplateLiterals": true }], 
     "no-var": 2,
@@ -68,7 +84,6 @@ module.exports = {
     "space-in-parens": ["error", "never"],
     "array-bracket-spacing": ["error", "always", { "arraysInArrays": false }],
     "object-curly-spacing": ["error", "always", { "objectsInObjects": false, "arraysInObjects": false }],
-    "max-len": ["error", { "code": 100, "tabWidth": 2, "ignoreUrls": true, "ignoreTemplateLiterals": true }],
     "comma-style": ["error", "last"],
     "comma-dangle": ["error", "only-multiline"],
     "semi": ["error", "always"],

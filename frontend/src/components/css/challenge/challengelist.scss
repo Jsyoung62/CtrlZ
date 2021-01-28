@@ -1,0 +1,43 @@
+@import "../colors.scss";
+
+@mixin challenge($width, $height) {
+    width: $width;
+    height: $height;
+    background-color: $basic-white;
+    border: 1px solid #F2F2F2;
+    border-radius: 13px;
+}
+
+.challenge{
+    margin-bottom: 46px;
+    h2 {
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 1.5;
+        letter-spacing: 0.32px;
+    }
+    h3 {
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 1.5;
+        letter-spacing: 0.32px;
+    }
+    h4 {
+        color: $primary-green;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 1.5;
+        letter-spacing: 0.32px;
+    }
+    p {
+        position: absolute;
+        color: $primary-green;
+        font-weight: 400;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+    }
+    .contents {
+        @include challenge(100%, 216px);
+    }
+}
