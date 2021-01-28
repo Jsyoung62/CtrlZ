@@ -1,13 +1,11 @@
 <template>
   <div class="badge">
-    <img :src="BadgeImage" />
+    <img src="@/assets/badge.png" />
     <h3>{{ name }}</h3>
     <p>{{ date }}</p>
   </div>
 </template>
 <script>
-import BadgeImage from "@/assets/badge.png";
-
 export default {
   name: "Badge",
   props: {
@@ -19,11 +17,10 @@ export default {
       type: String,
       required: true,
     },
-  },
-  data: () => {
-    return {
-      BadgeImage,
-    };
+    icon: {
+      type: String,
+      required: true,
+    },
   },
 };
 </script>
