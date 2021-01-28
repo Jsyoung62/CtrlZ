@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     open() {
-      document.getElementsByClassName("sideNav")[0].style.transform = "translateX(105%)";
+      document.getElementsByClassName("sideNav")[0].style.transform = "translateX(320%)";
     },
   },
 };
