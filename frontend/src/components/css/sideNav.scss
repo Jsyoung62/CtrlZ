@@ -1,0 +1,36 @@
+@import"./colors";
+
+.sideNav {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: -300%;
+    padding: 30px 23px 35px 30px;
+    width: 90%;
+    height: calc(100% + 30px);
+    background-color: $basic-white;
+    z-index: 1;
+    color: $basic-black;
+    font-weight: bold;
+    font-size: 24px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    transition: transform 0.5s ease-in-out;
+
+    .navHeader {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 25px;
+
+        .material-icons {
+            cursor: pointer;
+        }
+    }
+    a {
+        text-decoration: none;
+        color: inherit;
+        margin: 13px 0;
+    }
+}
