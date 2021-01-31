@@ -1,0 +1,67 @@
+@import "../colors.scss";
+
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+
+    a {
+        color: $primary-green;
+        font-size: 15px;
+        font-weight: bold;
+    }
+    .loginButton {
+        width: 100%;
+        height: 57px;
+        margin: 37px 0 6px 0;
+        background-color: $primary-green;
+        color: $secondary-white;
+        font-weight: bold;
+        font-size: 17px;
+        border-radius: 18px;
+    }
+    .joinText {
+        margin-bottom: 64px;
+        color: $basic-black;
+        font-weight: 400;
+        font-size: 15px;
+        .joinButton {
+            font-weight: 700;
+        }
+    }
+    .findPasswordButton {
+        align-self: flex-end;
+        margin-top: -10px;
+    }
+    .googleLoginButton {
+        width: 243px;
+        cursor: pointer;
+    }
+}
+
+form {
+    margin-top: 48px;
+    width: 100%;
+
+    div {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 27px;
+
+        label {
+            font-size: 15px;
+            color: #838383;
+        }
+        input {
+            margin-top: 8px;
+            padding-bottom: 11px;
+            background-color: transparent;
+            color: $basic-black;
+            font-weight: bold;
+            font-size: 15px;
+            border-bottom: 1px solid $basic-black;
+        }
+    }
+}
