@@ -51,5 +51,4 @@ public class PostServiceImpl implements PostService{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }
