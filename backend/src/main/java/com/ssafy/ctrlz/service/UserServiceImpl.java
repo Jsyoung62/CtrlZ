@@ -73,4 +73,29 @@ public class UserServiceImpl implements UserService {
 		 return userRepository.deleteUserByUserId(userId);
 	}
 
+	@Override
+	public Optional<User> findUserByUserEmailAndUserPassword(String userEmail, String userPassword) {	
+		return userRepository.findUserByUserEmailAndUserPassword(userEmail, userPassword);
+	}
+
+	@Override
+	public User getUserByUserEmail(String userEmail) {	
+		return userRepository.getUserByUserEmail(userEmail);
+	}
+
+	@Override
+	public User getUserByUserId(Long userId) {	
+		return userRepository.getUserByUserId(userId);
+	}
+
+	@Override
+	public User getUserByUserName(String userName) {	
+		return userRepository.getUserByUserName(userName);
+	}
+
+	@Override
+	public Optional<User> deleteUserByUserId(Long userId) {	
+		return userRepository.deleteUserByUserId(userId);
+	}
+
 }

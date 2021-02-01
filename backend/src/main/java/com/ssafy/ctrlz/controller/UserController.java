@@ -38,27 +38,23 @@ public class UserController {
 	private UserService userService;
 	
 	@Autowired
-	private UserRepository userRepository;
-	
-	@Autowired
 	private JwtService jwtService;
 		
-	@PostMapping("/")
+	@PostMapping("")
 	@ApiOperation(value = "가입하기", notes = "중복 이메일, 이름을 검사합니다.")
 	public Object userRegister(@RequestBody User user) {
 		
-		if(userRepository.getUserByUserEmail(user.getUserEmail()) != null){
+		if(userService.getUserByUserEmail(user.getUserEmail()) != null){
 			return new ResponseEntity<>("Fail",HttpStatus.NOT_FOUND);
 		}
-		if(userRepository.getUserByUserName(user.getUserName()) != null) {
+		if(userService.getUserByUserName(user.getUserName()) != null) {
 			return new ResponseEntity<>("Fail",HttpStatus.NOT_FOUND);
 		}
 		userService.createAccount(user);
 		return new ResponseEntity<>("Success", HttpStatus.OK);
-	}
+		}
 	
-	
-	@GetMapping("/")
+	@GetMapping("")
 	@ApiOperation(value = "로그인", notes = "성공시 jwt 토큰을 반환합니다.")
 	public Object userLogin(@RequestParam(required = true) String userEmail, @RequestParam(required = true) String userPassword) {
 	
@@ -68,16 +64,16 @@ public class UserController {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
 			md.update(userPassword.getBytes());
 			user.setUserPassword(String.format("%040x", new BigInteger(1,md.digest())));
-		}catch(NoSuchAlgorithmException e){
+			}catch(NoSuchAlgorithmException e){
 			e.printStackTrace();
-		}
+			}
 		
 		String original = user.getUserPassword();
 		Optional<User> userOpt = userService.loginAccount(userEmail, original);
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		HttpStatus status = null;
 		if(userOpt.isPresent()) {
-			User userInfo = userRepository.getUserByUserEmail(userEmail);
+			User userInfo = userService.getUserByUserEmail(userEmail);
 			userInfo.setUserPassword(original);
 			String token = jwtService.create(userInfo);
 			resultMap.put("auth-token", token);
@@ -85,19 +81,19 @@ public class UserController {
 			resultMap.put("message", "Success");
 			status = HttpStatus.ACCEPTED;
 			return new ResponseEntity<>(resultMap, status); 
-		}
+			}
 		else {
 			resultMap.put("message", "FAIL");
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
 			return new ResponseEntity<>(resultMap, status);
-		}
+			}
 	}
 	
 	@PostMapping("/profile/update")
     @ApiOperation(value = "회원정보 수정")
 	public Object userUpdate(Long userId,String userName, String userIntroduce,
 							 MultipartFile userImage, String userEmail, String userPassword) {
-		if(userRepository.getUserByUserName(userName) != null) {
+		if(userService.getUserByUserName(userName) != null) {
 			return new ResponseEntity<>("Fail",HttpStatus.NOT_FOUND);
 		}
 		userService.updateAccount(userId,userName,userIntroduce,userImage,userEmail,userPassword);
@@ -108,7 +104,7 @@ public class UserController {
 	@ApiOperation(value = "회원정보 조회")
 	public Object userProfile(Long userId) {   
          return userService.profileAccount(userId);
-     }
+	}
 	
 	@DeleteMapping("/delete/{userId}")
 	@ApiOperation(value = "회원 삭제")
