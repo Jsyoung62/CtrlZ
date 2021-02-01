@@ -90,7 +90,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/profile/update")
-    @ApiOperation(value = "회원정보 수정")
+	@ApiOperation(value = "회원정보 수정")
 	public Object userUpdate(Long userId,String userName, String userIntroduce,
 							 MultipartFile userImage, String userEmail, String userPassword) {
 		if(userService.getUserByUserName(userName) != null) {
