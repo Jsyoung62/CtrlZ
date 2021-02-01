@@ -1,12 +1,8 @@
 <template>
-  <div class="login">
-    <Logo />
-    <h1 class="title">
-      로그인
-    </h1>
-
+  <div class="login container">
+    <Title title="로그인" />
     <form action="" method="post">
-      <div class="emailWrapper">
+      <div>
         <label for="email">이메일</label>
         <input id="email" v-model="email" type="email" />
       </div>
@@ -21,9 +17,11 @@
     <button type="submit" class="loginButton" @click="checkForm">
       로그인
     </button>
-    <p class="joinText">
+    <p class="registerText">
       계정이 없나요?
-      <a class="joinButton">회원가입</a>
+      <router-link to="register">
+        <a class="registerButton">회원가입</a>
+      </router-link>
     </p>
     <img
       class="googleLoginButton"
@@ -32,13 +30,14 @@
   </div>
 </template>
 <script>
-import Logo from "@/assets/logo.vue";
+import Title from "@/components/user/title.vue";
+import "@/components/css/user/user.scss";
 import "@/components/css/user/login.scss";
 
 export default {
   name: "Login",
   components: {
-    Logo,
+    Title,
   },
   data: () => {
     return {
