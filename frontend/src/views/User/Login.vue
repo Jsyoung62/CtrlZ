@@ -19,8 +19,8 @@
     </button>
     <p class="registerText">
       계정이 없나요?
-      <router-link to="register">
-        <a class="registerButton">회원가입</a>
+      <router-link to="register" class="registerButton">
+        회원가입
       </router-link>
     </p>
     <img

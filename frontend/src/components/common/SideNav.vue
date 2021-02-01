@@ -12,7 +12,7 @@
     <a href="/">마이페이지</a>
     <a href="/">ZBTI 테스트</a>
     <router-link to="login">
-      <a href="/">로그인</a>
+      로그인
     </router-link>
   </nav>
 </template>
