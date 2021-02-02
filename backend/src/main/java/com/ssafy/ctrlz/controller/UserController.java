@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.ssafy.ctrlz.model.User;
-import com.ssafy.ctrlz.repository.UserRepository;
 import com.ssafy.ctrlz.service.JwtService;
 import com.ssafy.ctrlz.service.UserService;
 import io.swagger.annotations.Api;
@@ -56,31 +55,29 @@ public class UserController {
 	
 	@GetMapping("")
 	@ApiOperation(value = "로그인", notes = "성공시 jwt 토큰을 반환합니다.")
-	public Object userLogin(@RequestParam(required = true) String userEmail, @RequestParam(required = true) String userPassword) {
+	public Object userLogin(@RequestBody User user) {
 	
-		User user = new User();
-		
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
-			md.update(userPassword.getBytes());
+			md.update(user.getUserPassword().getBytes());
 			user.setUserPassword(String.format("%040x", new BigInteger(1,md.digest())));
 			}catch(NoSuchAlgorithmException e){
 			e.printStackTrace();
 			}
 		
 		String original = user.getUserPassword();
-		Optional<User> userOpt = userService.loginAccount(userEmail, original);
+		Optional<User> userOpt = userService.loginAccount(user.getUserEmail(), original);
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		HttpStatus status = null;
 		if(userOpt.isPresent()) {
-			User userInfo = userService.getUserByUserEmail(userEmail);
+			User userInfo = userService.getUserByUserEmail(user.getUserEmail());
 			userInfo.setUserPassword(original);
 			String token = jwtService.create(userInfo);
 			resultMap.put("auth-token", token);
 			resultMap.put("accesstoken",token);
 			resultMap.put("message", "Success");
 			status = HttpStatus.ACCEPTED;
-			return new ResponseEntity<>(resultMap, status); 
+			return new ResponseEntity<>(resultMap, status);
 			}
 		else {
 			resultMap.put("message", "FAIL");

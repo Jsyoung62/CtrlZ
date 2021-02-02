@@ -1,5 +1,7 @@
 package com.ssafy.ctrlz.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,32 +25,41 @@ import io.swagger.annotations.ApiOperation;
 public class PostController {
 	
 	@Autowired
-	private PostService postservice;
+	private PostService postService;
 	
 	@PostMapping("")
 	@ApiOperation(value = "게시글 작성", notes = "한장의 사진과 내용을 작성합니다.")
-	public Object writePost(Long postId,Long userId, String challengeId,String postContent, MultipartFile postImage) {
+	public Object writePost(Long postId, Long userId, String challengeId, String postContent, MultipartFile postImage) {
 
-		postservice.createPost(postId, userId, challengeId, postContent, postImage);
+		postService.createPost(postId, userId, challengeId, postContent, postImage);
 		return new ResponseEntity<>("Success", HttpStatus.OK);
 	}
 	
 	@GetMapping("")
 	@ApiOperation(value = "게시글 조회", notes = "전체 게시글을 조회합니다.")
-	public Object selectPost(Post post) {
-		
-		postservice.selectPost(post);
-		
-		return new ResponseEntity<>("Success", HttpStatus.OK);
+	public List<Post> selectPost(){
 				
+		return postService.selectPost();
 	}
 	
 	@GetMapping("/detail")
 	@ApiOperation(value = "게시글 세부 조회", notes = "게시글 ID에 맞는 게시글을 조회합니다.")
 	public Object getPost(long postId) {
 		
-		postservice.getPost(postId);
-		return new ResponseEntity<>("Success", HttpStatus.OK);
+		return postService.getPost(postId);
 	}
-
+	
+	@GetMapping("/findByChallengeId")
+	@ApiOperation(value = "챌린지로 게시글 검색", notes = "챌린지 ID에 맞는 게시글을 조회합니다.")
+	public List<Post> selectPostbyChallengeId(String challengeId){
+		
+		return postService.getPostByChallengeId(challengeId);
+	}
+	
+	@GetMapping("/findByPostUserId")
+	@ApiOperation(value = "유저ID로 게시글 검색", notes = "유저ID에 맞는 게시글을 조회합니다.")
+	public List<Post> selectPostbyUserId(Long userId){
+		
+		return postService.findPostByUserId(userId);
+	}
 }
