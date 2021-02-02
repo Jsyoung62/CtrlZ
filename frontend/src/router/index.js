@@ -1,11 +1,17 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import Main from "../views/Main.vue";
 import ChallengeList from "@/views/challenge/ChallengeList.vue";
 import ChallengeDetail from "@/views/challenge/ChallengeDetail.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: "/",
+    name: "Main",
+    component: Main,
+  },
   {
     path: "/challenge/list",
     name: "ChallengeList",

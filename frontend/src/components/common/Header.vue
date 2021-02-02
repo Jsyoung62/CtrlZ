@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <a href="#">
-      <span class="material-icons">
+      <span class="material-icons" @click="open">
         dehaze
       </span>
     </a>
@@ -21,6 +21,11 @@ export default {
       type: String,
       default: "",
       required: false,
+    },
+  },
+  methods: {
+    open() {
+      document.getElementsByClassName("sideNav")[0].style.transform = "translateX(320%)";
     },
   },
 };
