@@ -10,7 +10,7 @@ import com.ssafy.ctrlz.repository.BadgeRepository;
 public class BadgeServiceImpl implements BadgeService {
 
 	@Autowired
-	BadgeRepository badgeRepository;
+	private BadgeRepository badgeRepository;
 
 	@Override
 	public UserBadge save(UserBadge userBadge) {

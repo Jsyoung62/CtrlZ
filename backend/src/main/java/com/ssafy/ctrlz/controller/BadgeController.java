@@ -24,15 +24,15 @@ import io.swagger.annotations.ApiOperation;
 public class BadgeController {
 
 	@Autowired
-	BadgeService badgeService;
+	private BadgeService badgeService;
 
-	@ApiOperation(value = "전체 뱃지 현황")
+	@ApiOperation(value = "전체 뱃지 조회")
 	@GetMapping(value = "/findAll")
 	public ResponseEntity<List<UserBadge>> findAll() {
 		return new ResponseEntity<List<UserBadge>>(badgeService.findAll(), HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "유저별 뱃지 현황")
+	@ApiOperation(value = "유저별 뱃지 조회")
 	@GetMapping(value = "/find")
 	public ResponseEntity<List<UserBadge>> findBadgesByUserId(@RequestParam String userId) {
 		return new ResponseEntity<List<UserBadge>>(badgeService.findByUserId(userId), HttpStatus.OK);
