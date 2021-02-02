@@ -11,7 +11,9 @@
     <a href="/">전체 챌린지</a>
     <a href="/">마이페이지</a>
     <a href="/">ZBTI 테스트</a>
-    <a href="/">로그인</a>
+    <router-link to="login">
+      로그인
+    </router-link>
   </nav>
 </template>
 <script>

@@ -1,0 +1,29 @@
+@import "../colors.scss";
+
+.login {
+    form {
+        div {
+            margin-bottom: 27px;
+        }
+    }
+
+    a {
+        color: $primary-green;
+        font-size: 15px;
+        font-weight: bold;
+    }
+    .registerText {
+        margin-bottom: 64px;
+        color: $basic-black;
+        font-weight: 400;
+        font-size: 15px;
+    }
+    .findPasswordButton {
+        align-self: flex-end;
+        margin-top: -10px;
+    }
+    .googleLoginButton {
+        width: 243px;
+        cursor: pointer;
+    }
+}
