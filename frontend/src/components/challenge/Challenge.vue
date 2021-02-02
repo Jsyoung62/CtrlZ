@@ -1,23 +1,37 @@
 <template>
   <div class="challenge">
-    <h3 class="category">
-      {{ category }}
-    </h3>
-    <div class="contents"></div>
-    <h4 class="theme">
-      {{ theme }}
-    </h4>
-    <h2 class="title">
-      {{ title }}
-    </h2>
-    <p class="participants">
-      {{ participants }}
-    </p>
+    <div v-if="category" class="categoryBox">
+      <h2 v-if="category" class="category">
+        {{ category }}
+      </h2>
+    </div>
+
+    <div v-if="title" class="contentsBox">
+      <div class="contents"></div>
+      <div class="themeBox">
+        <h4 class="theme">
+          {{ theme }}
+        </h4>
+      </div>
+
+      <div class="titleBox">
+        <h3 class="title">
+          {{ title }}
+        </h3>
+        <p class="participants">
+          {{ participants }}
+        </p>
+      </div>
+
+      <h4 class="description">
+        {{ description }}
+      </h4>
+    </div>
   </div>
 </template>
 
 <script>
-import "../css/challenge/challengelist.scss";
+import "../css/challenge/challengeList.scss";
 
 export default {
   name: "Challenge",
@@ -34,9 +48,15 @@ export default {
     },
     title: {
       type: String,
-      required: true,
+      default: "",
+      required: false,
     },
     participants: {
+      type: String,
+      default: "",
+      required: false,
+    },
+    description: {
       type: String,
       default: "",
       required: false,

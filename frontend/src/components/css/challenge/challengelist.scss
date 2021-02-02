@@ -1,43 +1,130 @@
 @import "../colors.scss";
 
-@mixin challenge($width, $height) {
-    width: $width;
-    height: $height;
+@mixin challenge($padding-top) {
+    width: 100%;
+    padding-top: $padding-top;
     background-color: $basic-white;
     border: 1px solid #F2F2F2;
     border-radius: 13px;
 }
 
 .challenge{
-    margin-bottom: 46px;
     h2 {
+        color: $primary-green;
         font-weight: bold;
-        font-size: 20px;
-        line-height: 1.5;
+        font-size: 22px;
+        line-height: 15px;
         letter-spacing: 0.32px;
     }
+
     h3 {
         font-weight: bold;
-        font-size: 18px;
-        line-height: 1.5;
+        font-size: 20px;
+        line-height: 15px;
         letter-spacing: 0.32px;
     }
+
     h4 {
         color: $primary-green;
         font-weight: bold;
         font-size: 16px;
-        line-height: 1.5;
+        line-height: 21px;
         letter-spacing: 0.32px;
     }
+
     p {
-        position: absolute;
         color: $primary-green;
-        font-weight: 400;
-        font-size: 14px;
+        font-weight: bold;
+        font-size: 15px;
+        line-height: 21px;
         display: flex;
-        align-items: center;
+        align-items: flex-end;
     }
+
+    .categoryBox {
+        margin-top: 50px;
+    }
+
+    .category {
+        display: flex;
+        flex-basis: 100%;
+        align-items: center;
+        margin: 8px 0px;
+    }
+    
+    .category::after {
+        content: "";
+        flex-grow: 1;
+        background: $primary-green;
+        height: 1px;
+        margin: 0px 0px 0px 16px;
+    }
+
+    .contentsBox {
+        margin-top: 20px;
+    }
+
     .contents {
-        @include challenge(100%, 216px);
+        @include challenge(calc(100% * 9/16));
+        margin-bottom: 11px;
+    }
+      
+    .titleBox {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        flex-wrap: wrap;
+    }
+
+    .title:hover {
+        color: $primary-green
+    }
+}
+
+.normalChallenge{
+    margin-bottom: 50px;
+
+    .listBox {
+        display: grid;
+        justify-items: stretch;
+        grid-template-columns: 48% 48%;
+        column-gap: 4%;
+        flex-wrap: wrap;
+    }
+
+    .contentsBox {
+        h3 {
+            font-weight: bold;
+            font-size: 15px;
+            line-height: 22px;
+            letter-spacing: 0.32px;
+        }
+
+        h4 {
+            color: $primary-green;
+            font-weight: bold;
+            font-size: 11px;
+            line-height: 16px;
+            letter-spacing: 0.32px;
+        }
+
+        p {
+            color: $primary-green;
+            font-weight: normal;
+            font-size: 9px;
+            line-height: 13px;
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    .titleBox {
+        display: flex;
+        flex-flow: column wrap;
+        align-items: flex-start;
+    }
+
+    .contents {
+        @include challenge(calc(100% * 3/4))
     }
 }

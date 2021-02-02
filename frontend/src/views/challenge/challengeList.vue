@@ -12,7 +12,7 @@ import Header from "@/components/common/Header.vue";
 import WeeklyChallenge from "@/components/challenge/WeeklyChallenge.vue";
 import SponsoredChallenge from "@/components/challenge/SponsoredChallenge.vue";
 import NormalChallenge from "@/components/challenge/NormalChallenge.vue";
-import "@/components/css/challenge/challengelist.scss";
+import "@/components/css/challenge/challengeList.scss";
 
 export default {
   name: "ChallengeList",
