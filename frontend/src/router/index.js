@@ -7,12 +7,12 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/challengelist",
+    path: "/challenge/list",
     name: "ChallengeList",
     component: ChallengeList,
   },
   {
-    path: "/challengedetail",
+    path: "/challenge/detail",
     name: "ChallengeDetail",
     component: ChallengeDetail,
   },
