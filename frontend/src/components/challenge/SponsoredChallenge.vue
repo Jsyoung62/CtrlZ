@@ -1,10 +1,10 @@
 <template>
   <div class="sponsoredChallenge">
-    <Challenge
-      category="Ctrl Z x RunDay"
-      title="줍고 살리고 달리고"
-      participants="1,234명 도전 중"
-    />
+    <h2 class="topic">
+      Crtl Z x RunDay
+    </h2>
+
+    <Challenge title="줍고 살리고 달리고" participants="1,234명 도전 중" />
   </div>
 </template>
 

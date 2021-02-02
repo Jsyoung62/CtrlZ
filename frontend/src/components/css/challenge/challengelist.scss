@@ -8,31 +8,49 @@
     border-radius: 13px;
 }
 
+@mixin category($font-size, $line-height) {
+    color: $primary-green;
+    font-weight: bold;
+    font-size: $font-size;
+    line-height: $line-height;
+    letter-spacing: 0.32px;
+}
+
+@mixin title($font-size, $line-height) {
+    font-weight: bold;
+    font-size: $font-size;
+    line-height: $line-height;
+    letter-spacing: 0.32px;
+}
+
 .challenge{
-    h2 {
-        color: $primary-green;
-        font-weight: bold;
-        font-size: 22px;
-        line-height: 15px;
-        letter-spacing: 0.32px;
+    margin-top: 20px;
+
+    .contents {
+        @include challenge(calc(100% * 9/16));
+        margin-bottom: 11px;
     }
 
-    h3 {
-        font-weight: bold;
-        font-size: 20px;
-        line-height: 15px;
-        letter-spacing: 0.32px;
+    .category {
+        @include category(16px, 21px);
+    }
+          
+    .titleBox {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: space-between;
     }
 
-    h4 {
-        color: $primary-green;
-        font-weight: bold;
-        font-size: 16px;
-        line-height: 21px;
-        letter-spacing: 0.32px;
+    .title {
+        @include title(20px, 15px);
     }
 
-    p {
+    .title:hover {
+        color: $primary-green
+    }
+
+    .participants {
         color: $primary-green;
         font-weight: bold;
         font-size: 15px;
@@ -40,45 +58,27 @@
         display: flex;
         align-items: flex-end;
     }
+}
 
-    .categoryBox {
-        margin-top: 50px;
-    }
+.topic {
+    margin-top: 50px;
+    color: $primary-green;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 15px;
+    letter-spacing: 0.32px;
+    display: flex;
+    flex-basis: 100%;
+    align-items: center;
+}
 
-    .category {
-        display: flex;
-        flex-basis: 100%;
-        align-items: center;
-        margin: 8px 0px;
-    }
-    
-    .category::after {
-        content: "";
-        flex-grow: 1;
-        background: $primary-green;
-        height: 1px;
-        margin: 0px 0px 0px 16px;
-    }
-
-    .contentsBox {
-        margin-top: 20px;
-    }
-
-    .contents {
-        @include challenge(calc(100% * 9/16));
-        margin-bottom: 11px;
-    }
-      
-    .titleBox {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-        flex-wrap: wrap;
-    }
-
-    .title:hover {
-        color: $primary-green
-    }
+.topic::after {
+    content: "";
+    flex-grow: 1;
+    height: 2px;
+    background: rgba(116, 164, 127, 0.5);
+    border-radius: 10px;
+    margin: 0px 0px 0px 16px;
 }
 
 .normalChallenge{
@@ -91,40 +91,31 @@
         column-gap: 4%;
         flex-wrap: wrap;
     }
-
-    .contentsBox {
-        h3 {
-            font-weight: bold;
-            font-size: 15px;
-            line-height: 22px;
-            letter-spacing: 0.32px;
-        }
-
-        h4 {
-            color: $primary-green;
-            font-weight: bold;
-            font-size: 11px;
-            line-height: 16px;
-            letter-spacing: 0.32px;
-        }
-
-        p {
-            color: $primary-green;
-            font-weight: normal;
-            font-size: 9px;
-            line-height: 13px;
-            display: flex;
-            align-items: center;
-        }
+    
+    .contents {
+        @include challenge(calc(100% * 3/4));
     }
 
+    .category {
+        @include category(11px, 16px);
+    }
+  
     .titleBox {
         display: flex;
         flex-flow: column wrap;
         align-items: flex-start;
     }
 
-    .contents {
-        @include challenge(calc(100% * 3/4))
+    .title {
+        @include title(15px, 22px);
+    }
+
+    .participants {
+        color: $primary-green;
+        font-weight: normal;
+        font-size: 9px;
+        line-height: 13px;
+        display: flex;
+        align-items: center;
     }
 }
