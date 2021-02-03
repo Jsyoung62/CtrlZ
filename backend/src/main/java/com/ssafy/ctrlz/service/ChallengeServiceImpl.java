@@ -3,6 +3,7 @@ package com.ssafy.ctrlz.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.ssafy.ctrlz.exception.NoDataFoundException;
 import com.ssafy.ctrlz.model.Challenge;
 import com.ssafy.ctrlz.repository.ChallengeRepository;
 
@@ -10,36 +11,71 @@ import com.ssafy.ctrlz.repository.ChallengeRepository;
 public class ChallengeServiceImpl implements ChallengeService {
 
 	@Autowired
-	ChallengeRepository challengeRepository;
+	private ChallengeRepository challengeRepository;
 
 	@Override
 	public List<Challenge> findAll() {
-		return challengeRepository.findAll();
+		List<Challenge> challengeList = challengeRepository.findAll();
+
+		if (challengeList.size() > 0) {
+			return challengeList;
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override
 	public Challenge findByChallenge(String challengeId) {
-		return challengeRepository.getOne(challengeId);
+		return challengeRepository.findById(challengeId).orElseThrow(() -> new NoDataFoundException("challenge"));
 	}
 
 	@Override
 	public List<Challenge> findByLevel(String levelId) {
-		return challengeRepository.findByLevelId(levelId);
+		List<Challenge> challengeList = challengeRepository.findByLevelId(levelId);
+
+		if (challengeList.size() > 0) {
+			return challengeList;
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override
 	public List<Challenge> findByChallengeType(String challengeType) {
-		return challengeRepository.findByChallengeType(challengeType);
+		List<Challenge> challengeList = challengeRepository.findByChallengeType(challengeType);
+
+		if (challengeList.size() > 0) {
+			return challengeList;
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override
 	public List<Challenge> findByChallengeInProgress(String now) {
-		return challengeRepository.findBychallengeClosedGreaterThan(now);
+		List<Challenge> challengeList = challengeRepository.findBychallengeClosedGreaterThan(now);
+
+		if (challengeList.size() > 0) {
+			return challengeList;
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override
 	public List<Challenge> findByChallengeClosed(String now) {
-		return challengeRepository.findBychallengeClosedLessThan(now);
+		List<Challenge> challengeList = challengeRepository.findBychallengeClosedLessThan(now);
+
+		if (challengeList.size() > 0) {
+			return challengeList;
+		}
+		else {
+			return null;
+		}
 	}
 
 }

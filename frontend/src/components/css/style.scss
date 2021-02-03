@@ -59,6 +59,15 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+button, input {
+  outline: none;
+  border: none;
+}
+button, a {
+  cursor: pointer;
+  text-decoration: none;
+  font-family: "Spoqa Han Sans Neo", "sans-serif";
+}
 
 /*
  * Clearfix

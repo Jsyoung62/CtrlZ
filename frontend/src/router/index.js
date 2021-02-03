@@ -3,6 +3,8 @@ import VueRouter from "vue-router";
 import Main from "../views/Main.vue";
 import ChallengeList from "@/views/challenge/ChallengeList.vue";
 import ChallengeDetail from "@/views/challenge/ChallengeDetail.vue";
+import Login from "../views/User/Login.vue";
+import Register from "../views/User/Register.vue";
 
 Vue.use(VueRouter);
 
@@ -21,6 +23,16 @@ const routes = [
     path: "/challenge/detail",
     name: "ChallengeDetail",
     component: ChallengeDetail,
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: Login,
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: Register,
   },
 ];
 
