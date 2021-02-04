@@ -1,0 +1,23 @@
+@import "../colors.scss";
+
+.challengeTitle {
+    .category {
+        display: flex;
+        flex-direction: row;
+        margin-top: 15px;
+        font-weight: bold;
+        font-size: 16px;
+        color: $primary-green3;
+
+        p {
+            margin-right: 3px;
+        }
+    }
+    
+    .title {
+        margin-top: 4px;
+        font-weight: bold;
+        font-size: 24px;
+        color: $basic-black;
+    }
+}

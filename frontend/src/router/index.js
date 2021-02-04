@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Main from "../views/Main.vue";
 import ChallengeList from "@/views/challenge/ChallengeList.vue";
 import ChallengeDetail from "@/views/challenge/ChallengeDetail.vue";
+import InProgressChallenge from "@/views/challenge/InProgressChallenge.vue";
 import Login from "../views/User/Login.vue";
 import Register from "../views/User/Register.vue";
 import FindPassword from "../views/User/FindPassword.vue";
@@ -24,6 +25,11 @@ const routes = [
     path: "/challenge/detail",
     name: "ChallengeDetail",
     component: ChallengeDetail,
+  },
+  {
+    path: "/challenge/inprogress",
+    name: "InProgressChallenge",
+    component: InProgressChallenge,
   },
   {
     path: "/login",

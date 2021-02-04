@@ -1,0 +1,58 @@
+@import "../colors.scss";
+
+.inProgressChallenge {
+
+    .header {
+        margin: 0 30px;
+    }
+
+    .thumbnail {
+        margin: 0;
+        width: 100%;
+        height: calc((9 / (16* 100%)));
+    }
+    
+    .contentsContainer {
+        padding: 0 20px;
+        display: flex;
+        flex-direction: column;
+
+        .status {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            position: relative;
+            margin-top: 10px;
+
+            p {
+                color: $primary-green;
+                font-weight: bold;
+                font-size: 20px;
+            }
+
+            button {
+                position: absolute;
+                right: 0;
+                width: 162px;
+                height: 49px;
+                background-color: $primary-green;
+                border-radius: 13px;
+                color: $basic-white;
+                font-weight: bold;
+                font-size: 16px;
+            }
+        }
+        
+        .status .wrapper {
+            margin-right: 25px;
+            
+            .title {
+                margin-bottom: 5px;
+                color: $primary-green3;
+                font-weight: bold;
+                font-size: 14px;
+            }
+        }
+    }
+    
+}
