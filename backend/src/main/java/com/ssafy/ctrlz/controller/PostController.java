@@ -62,4 +62,13 @@ public class PostController {
 		
 		return postService.findPostByUserId(userId);
 	}
+	
+	@PostMapping("/like")
+	@ApiOperation(value = "좋아요 누르기", notes = "유저가 좋아요를 누르면 +1 다시 한번 누르면 -1이 됩니다.")
+	public Object postLike(Long postId) {
+		
+		
+		
+		return new ResponseEntity<>("Success", HttpStatus.OK);
+	}
 }

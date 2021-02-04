@@ -39,7 +39,7 @@ public class UserController {
 	@Autowired
 	private JwtService jwtService;
 		
-	@PostMapping("")
+	@PostMapping("/register")
 	@ApiOperation(value = "가입하기", notes = "중복 이메일, 이름을 검사합니다.")
 	public Object userRegister(@RequestBody User user) {
 		
@@ -53,7 +53,7 @@ public class UserController {
 		return new ResponseEntity<>("Success", HttpStatus.OK);
 		}
 	
-	@GetMapping("")
+	@PostMapping("/login")
 	@ApiOperation(value = "로그인", notes = "성공시 jwt 토큰을 반환합니다.")
 	public Object userLogin(@RequestBody User user) {
 	
@@ -73,7 +73,6 @@ public class UserController {
 			User userInfo = userService.getUserByUserEmail(user.getUserEmail());
 			userInfo.setUserPassword(original);
 			String token = jwtService.create(userInfo);
-			resultMap.put("auth-token", token);
 			resultMap.put("accesstoken",token);
 			resultMap.put("message", "Success");
 			status = HttpStatus.ACCEPTED;
@@ -110,4 +109,27 @@ public class UserController {
 		if(userOpt.isPresent()) return new ResponseEntity<>("Success", HttpStatus.OK);
 		else return new ResponseEntity<>("Fail", HttpStatus.NOT_FOUND);
 	}
+	
+	@GetMapping("/emailcheck")
+	@ApiOperation(value = "회원 이메일 중복 체크")
+	public Object userEmailCheck(User user) {
+		
+		if(userService.getUserByUserEmail(user.getUserEmail()) != null){
+			return new ResponseEntity<>("Fail",HttpStatus.NOT_FOUND);
+		}else {
+		return new ResponseEntity<>("Success", HttpStatus.OK);
+		}
+		}
+	
+	@GetMapping("/namecheck")
+	@ApiOperation(value = "회원 이름 중복 체크")
+	public Object userNameCheck(User user) {
+		
+		if(userService.getUserByUserName(user.getUserName()) != null){
+			return new ResponseEntity<>("Fail",HttpStatus.NOT_FOUND);
+		}else {
+		return new ResponseEntity<>("Success", HttpStatus.OK);
+		}
+		}
+	
 }
