@@ -10,7 +10,7 @@ import com.ssafy.ctrlz.repository.BadgeRepository;
 public class BadgeServiceImpl implements BadgeService {
 
 	@Autowired
-	BadgeRepository badgeRepository;
+	private BadgeRepository badgeRepository;
 
 	@Override
 	public UserBadge save(UserBadge userBadge) {
@@ -27,7 +27,6 @@ public class BadgeServiceImpl implements BadgeService {
 		else {
 			return null;
 		}
-		
 	}
 
 	@Override
@@ -40,7 +39,6 @@ public class BadgeServiceImpl implements BadgeService {
 		else {
 			return null;
 		}
-		
 	}
 
 }

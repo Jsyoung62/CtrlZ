@@ -14,33 +14,47 @@
       <form action="" method="post">
         <div>
           <label for="userName">닉네임</label>
-          <input id="userName" v-model="userName" type="text" />
+          <input id="userName" v-model="userName" type="text" :class="userNameStatus" />
         </div>
 
         <div>
           <label for="userEmail">이메일</label>
-          <input id="userEmail" v-model="userEmail" type="email" />
+          <input id="userEmail" v-model="userEmail" type="email" :class="userEmailStatus" />
         </div>
 
         <div>
           <label for="userPassword">비밀번호</label>
-          <input id="userPassword" v-model="userPassword" type="password" />
+          <input
+            id="userPassword"
+            v-model="userPassword"
+            type="password"
+            :class="userPasswordStatus"
+          />
         </div>
 
         <div>
           <label for="password">비밀번호 확인</label>
-          <input id="passwordConfirm" v-model="passwordConfirm" type="password" />
+          <input
+            id="passwordConfirm"
+            v-model="passwordConfirm"
+            type="password"
+            :class="passwordConfirmStatus"
+          />
         </div>
       </form>
 
-      <button type="submit" class="registerButton" @click="checkForm">
+      <button type="submit" class="registerButton" @click="register">
         회원가입
       </button>
     </div>
   </div>
 </template>
 <script>
+import axios from "axios";
 import Title from "@/components/user/title.vue";
+
+axios.defaults.baseURL = "https://i4a202.p.ssafy.io:8888";
+axios.defaults.headers.post["Content-Type"] = "application/json";
 
 export default {
   name: "Register",
@@ -57,17 +71,34 @@ export default {
       validateUserEmail: false,
       validateUserPassword: false,
       registerSuccess: false,
+      userNameStatus: "",
+      userEmailStatus: "",
+      userPasswordStatus: "",
+      passwordConfirmStatus: "",
     };
   },
   watch: {
     userName() {
       this.validateUserName = this.checkUserName(this.userName);
+      this.validateUserName ? (this.userNameStatus = "success") : (this.userNameStatus = "fail");
     },
     userEmail() {
       this.validateUserEmail = this.checkEmail(this.userEmail);
+      this.validateUserEmail ? (this.userEmailStatus = "success") : (this.userEmailStatus = "fail");
     },
     userPassword() {
       this.validateUserPassword = this.checkPassword(this.userPassword);
+      this.checkPasswordConfirm()
+        ? (this.passwordConfirmStatus = "success")
+        : (this.passwordConfirmStatus = "fail");
+      this.validateUserPassword
+        ? (this.userPasswordStatus = "success")
+        : (this.userPasswordStatus = "fail");
+    },
+    passwordConfirm() {
+      this.checkPasswordConfirm()
+        ? (this.passwordConfirmStatus = "success")
+        : (this.passwordConfirmStatus = "fail");
     },
   },
   methods: {
@@ -85,11 +116,38 @@ export default {
         password.length >= 8
       );
     },
+    checkPasswordConfirm() {
+      if (this.passwordConfirm === "") return false;
+      return this.userPassword === this.passwordConfirm;
+    },
     checkForm() {
-      //   if (this.validateUserName && this.validateUserEmail && this.validateUserPassword) {
-      this.registerSuccess = true;
-      return true;
-      //   }
+      if (
+        this.validateUserName &&
+        this.validateUserEmail &&
+        this.validateUserPassword &&
+        this.password === this.passwordConfirm
+      ) {
+        return true;
+      }
+    },
+    register() {
+      if (this.checkForm) {
+        axios({
+          url: "/user",
+          method: "POST",
+          data: {
+            userName: this.userName,
+            userEmail: this.userEmail,
+            userPassword: this.userPassword,
+          },
+        })
+          .then(() => {
+            this.registerSuccess = true;
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
     },
   },
 };

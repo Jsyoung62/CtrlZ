@@ -12,39 +12,40 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import com.ssafy.ctrlz.model.Comment;
 import com.ssafy.ctrlz.model.UserBadge;
-import com.ssafy.ctrlz.service.BadgeService;
+import com.ssafy.ctrlz.service.CommentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@Api(tags = "Badge", description = "뱃지 API")
+@Api(tags = "Comment", description = "댓글 API")
 @CrossOrigin
 @RestController
-@RequestMapping("/badge")
-public class BadgeController {
-
+@RequestMapping("/comment")
+public class CommentController {
+	
 	@Autowired
-	private BadgeService badgeService;
-
-	@ApiOperation(value = "전체 뱃지 조회")
+	private CommentService commentService;
+	
+	@ApiOperation(value = "전체 댓글 조회")
 	@GetMapping(value = "/findAll")
-	public ResponseEntity<List<UserBadge>> findAll() {
-		return new ResponseEntity<List<UserBadge>>(badgeService.findAll(), HttpStatus.OK);
+	public ResponseEntity<List<Comment>> findAll() {
+		return new ResponseEntity<List<Comment>>(commentService.findAll(), HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "게시글별 댓글 조회")
+	@GetMapping(value = "/find")
+	public ResponseEntity<List<Comment>> findCommentByPostId(@RequestParam String postId) {
+		return new ResponseEntity<List<Comment>>(commentService.findByPostId(postId), HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "게시글별 댓글 등록")
+	@PostMapping(value = "/add")
+	public ResponseEntity<Comment> addComment(@RequestBody Comment comment) {
+		
+		commentService.save(comment);
+		
+		return new ResponseEntity<Comment>(commentService.save(comment), HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "유저별 뱃지 조회")
-	@GetMapping(value = "/find")
-	public ResponseEntity<List<UserBadge>> findBadgesByUserId(@RequestParam String userId) {
-		return new ResponseEntity<List<UserBadge>>(badgeService.findByUserId(userId), HttpStatus.OK);
-	}
-	
-	@ApiOperation(value = "유저별 뱃지 등록")
-	@PostMapping(value = "/add")
-	public ResponseEntity<UserBadge> addUserBadge(@RequestBody UserBadge userBadge) { 
-		
-		badgeService.save(userBadge);
-		
-		return new ResponseEntity<UserBadge>(badgeService.save(userBadge), HttpStatus.OK);
-	}
-	
 }
