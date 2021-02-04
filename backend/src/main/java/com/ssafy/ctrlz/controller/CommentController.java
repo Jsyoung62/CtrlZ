@@ -18,7 +18,7 @@ import com.ssafy.ctrlz.service.CommentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@Api(tags = "Comment", description = "´ñ±Û API")
+@Api(tags = "Comment", description = "ëŒ“ê¸€ API")
 @CrossOrigin
 @RestController
 @RequestMapping("/comment")
@@ -27,34 +27,25 @@ public class CommentController {
 	@Autowired
 	private CommentService commentService;
 	
-	@ApiOperation(value = "ÀüÃ¼ ´ñ±Û Á¶È¸")
+	@ApiOperation(value = "ì „ì²´ ëŒ“ê¸€ ì¡°íšŒ")
 	@GetMapping(value = "/findAll")
 	public ResponseEntity<List<Comment>> findAll() {
 		return new ResponseEntity<List<Comment>>(commentService.findAll(), HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "°Ô½Ã±Ûº° ´ñ±Û Á¶È¸")
+	@ApiOperation(value = "ê²Œì‹œê¸€ë³„ ëŒ“ê¸€ ì¡°íšŒ")
 	@GetMapping(value = "/find")
 	public ResponseEntity<List<Comment>> findCommentByPostId(@RequestParam String postId) {
 		return new ResponseEntity<List<Comment>>(commentService.findByPostId(postId), HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "°Ô½Ã±Ûº° ´ñ±Û µî·Ï")
+	@ApiOperation(value = "ê²Œì‹œê¸€ë³„ ëŒ“ê¸€ ë“±ë¡")
 	@PostMapping(value = "/add")
-	public ResponseEntity<Comment> addComment(@RequestBody Map<String, Object> param) {
-		Comment comment = new Comment();
-		String postId = (String) param.get("postId");
-		String userId = (String) param.get("userId");
-		String commentContent = (String) param.get("commentContent");
-		
-		comment.setPostId(postId);
-		comment.setUserId(userId);
-		comment.setCommentContent(commentContent);
+	public ResponseEntity<Comment> addComment(@RequestBody Comment comment) {
 		
 		commentService.save(comment);
 		
 		return new ResponseEntity<Comment>(commentService.save(comment), HttpStatus.OK);
-		
 	}
 
 }

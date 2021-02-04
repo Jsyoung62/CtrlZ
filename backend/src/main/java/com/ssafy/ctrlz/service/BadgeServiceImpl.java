@@ -27,7 +27,6 @@ public class BadgeServiceImpl implements BadgeService {
 		else {
 			return null;
 		}
-		
 	}
 
 	@Override
@@ -40,7 +39,6 @@ public class BadgeServiceImpl implements BadgeService {
 		else {
 			return null;
 		}
-		
 	}
 
 }
