@@ -22,5 +22,8 @@ export default new Vuex.Store({
     LOGOUT: (state) => {
       state.userInfo = {};
     },
+    GOOGLELOGIN: (state, userInfo) => {
+      state.userInfo = userInfo;
+    },
   },
 });
