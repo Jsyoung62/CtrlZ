@@ -27,7 +27,6 @@ public class CommentServiceImpl implements CommentService {
 		else {
 			return null;
 		}
-		
 	}
 
 	@Override
@@ -40,7 +39,6 @@ public class CommentServiceImpl implements CommentService {
 		else {
 			return null;
 		}
-		
 	}
 
 }
