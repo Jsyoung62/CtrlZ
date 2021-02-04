@@ -40,13 +40,7 @@ public class BadgeController {
 	
 	@ApiOperation(value = "유저별 뱃지 등록")
 	@PostMapping(value = "/add")
-	public ResponseEntity<UserBadge> addUserBadge(@RequestBody Map<String, Object> param) { 
-		UserBadge userBadge = new UserBadge();
-		String userId = (String) param.get("userId");
-		String badgeId = (String) param.get("badgeId");
-		
-		userBadge.setUserId(userId);
-		userBadge.setBadgeId(badgeId);
+	public ResponseEntity<UserBadge> addUserBadge(@RequestBody UserBadge userBadge) { 
 		
 		badgeService.save(userBadge);
 		
