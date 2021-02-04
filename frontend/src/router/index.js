@@ -5,6 +5,7 @@ import ChallengeList from "@/views/challenge/ChallengeList.vue";
 import ChallengeDetail from "@/views/challenge/ChallengeDetail.vue";
 import Login from "../views/User/Login.vue";
 import Register from "../views/User/Register.vue";
+import FindPassword from "../views/User/FindPassword.vue";
 
 Vue.use(VueRouter);
 
@@ -33,6 +34,11 @@ const routes = [
     path: "/register",
     name: "Register",
     component: Register,
+  },
+  {
+    path: "/find",
+    name: "FindPassword",
+    component: FindPassword,
   },
 ];
 

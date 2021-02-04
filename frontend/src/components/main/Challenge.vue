@@ -1,8 +1,12 @@
 <template>
   <div class="challenge">
     <h3>{{ name }}</h3>
-    <LeafOn v-for="index in achived" :key="index" />
-    <LeafOff v-for="index in nonAchived" :key="index" />
+    <div class="leaf">
+      <LeafOn v-for="index in achived" :key="index" />
+    </div>
+    <div class="leaf">
+      <LeafOff v-for="index in nonAchived" :key="index" />
+    </div>
   </div>
 </template>
 <script>
