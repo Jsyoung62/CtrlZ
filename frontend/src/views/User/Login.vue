@@ -13,8 +13,10 @@
       </div>
     </form>
 
-    <a class="findPasswordButton">비밀번호 찾기</a>
-    <button type="submit" class="loginButton" @click="checkForm">
+    <router-link to="find" class="toFindButton">
+      비밀번호 찾기
+    </router-link>
+    <button type="submit" class="loginButton" @click="login">
       로그인
     </button>
     <p class="registerText">
@@ -30,9 +32,12 @@
   </div>
 </template>
 <script>
+import axios from "axios";
 import Title from "@/components/user/title.vue";
 import "@/components/css/user/user.scss";
 import "@/components/css/user/login.scss";
+
+axios.defaults.baseURL = "https://i4a202.p.ssafy.io:8888";
 
 export default {
   name: "Login",
@@ -44,15 +49,11 @@ export default {
       email: "",
       password: "",
       validateEmail: false,
-      validatePassword: false,
     };
   },
   watch: {
     email() {
       this.validateEmail = this.checkEmail(this.email);
-    },
-    password() {
-      this.validatePassword = this.checkPassword(this.password);
     },
   },
   methods: {
@@ -60,17 +61,32 @@ export default {
       const re = /^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
     },
-    checkPassword(password) {
-      return (
-        (/[A-Z]/.test(password) || /[a-z]/.test(password)) &&
-        /[0-9]/.test(password) &&
-        password.length >= 8
-      );
-    },
     checkForm() {
-      if (this.validateEmail && this.validatePassword) {
+      if (this.validateEmail && this.password.length > 0) {
         return true;
       }
+    },
+    login() {
+      if (this.checkForm) {
+        axios({
+          url: "/user",
+          method: "GET",
+          params: {
+            userEmail: this.email,
+            userPassword: this.password,
+          },
+        })
+          .then((res) => {
+            const token = res.data.accesstoken;
+            this.$store.commit("LOGIN", token);
+            this.$router.push("/");
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+        return;
+      }
+      console.log("로그인 실패");
     },
   },
 };
