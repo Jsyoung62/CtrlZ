@@ -10,8 +10,7 @@
   </div>
 </template>
 <script>
-import LeafOn from "@/assets/leafOn.vue";
-import LeafOff from "@/assets/leafOff.vue";
+import { LeafOn, LeafOff } from "@/assets/index";
 export default {
   name: "Challenge",
   components: {

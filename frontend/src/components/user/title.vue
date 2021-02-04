@@ -7,7 +7,7 @@
   </div>
 </template>
 <script>
-import Logo from "@/assets/logo.vue";
+import { Logo } from "@/assets/index.js";
 
 export default {
   name: "PageTitle",
