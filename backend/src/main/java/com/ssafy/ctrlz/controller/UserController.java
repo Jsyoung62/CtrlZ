@@ -17,11 +17,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.ssafy.ctrlz.model.User;
-import com.ssafy.ctrlz.repository.UserRepository;
 import com.ssafy.ctrlz.service.JwtService;
 import com.ssafy.ctrlz.service.UserService;
 import io.swagger.annotations.Api;
@@ -40,7 +38,7 @@ public class UserController {
 	@Autowired
 	private JwtService jwtService;
 		
-	@PostMapping("")
+	@PostMapping("/register")
 	@ApiOperation(value = "가입하기", notes = "중복 이메일, 이름을 검사합니다.")
 	public Object userRegister(@RequestBody User user) {
 		
@@ -52,41 +50,39 @@ public class UserController {
 		}
 		userService.createAccount(user);
 		return new ResponseEntity<>("Success", HttpStatus.OK);
+		
 		}
 	
-	@GetMapping("")
+	@PostMapping("/login")
 	@ApiOperation(value = "로그인", notes = "성공시 jwt 토큰을 반환합니다.")
-	public Object userLogin(@RequestParam(required = true) String userEmail, @RequestParam(required = true) String userPassword) {
+	public Object userLogin(@RequestBody User user) {
 	
-		User user = new User();
-		
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
-			md.update(userPassword.getBytes());
+			md.update(user.getUserPassword().getBytes());
 			user.setUserPassword(String.format("%040x", new BigInteger(1,md.digest())));
 			}catch(NoSuchAlgorithmException e){
 			e.printStackTrace();
 			}
 		
 		String original = user.getUserPassword();
-		Optional<User> userOpt = userService.loginAccount(userEmail, original);
+		Optional<User> userOpt = userService.loginAccount(user.getUserEmail(), original);
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		HttpStatus status = null;
 		if(userOpt.isPresent()) {
-			User userInfo = userService.getUserByUserEmail(userEmail);
+			User userInfo = userService.getUserByUserEmail(user.getUserEmail());
 			userInfo.setUserPassword(original);
 			String token = jwtService.create(userInfo);
-			resultMap.put("auth-token", token);
 			resultMap.put("accesstoken",token);
 			resultMap.put("message", "Success");
 			status = HttpStatus.ACCEPTED;
-			return new ResponseEntity<>(resultMap, status); 
-			}
+			return new ResponseEntity<>(resultMap, status);
+		}
 		else {
 			resultMap.put("message", "FAIL");
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
 			return new ResponseEntity<>(resultMap, status);
-			}
+		}
 	}
 	
 	@PostMapping("/profile/update")
@@ -111,6 +107,27 @@ public class UserController {
 	public Object userDelete(@PathVariable Long userId) {
 		Optional<User> userOpt = userService.deleteAccount(userId);
 		if(userOpt.isPresent()) return new ResponseEntity<>("Success", HttpStatus.OK);
-		else return new ResponseEntity<>("Fail", HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>("Fail", HttpStatus.NOT_FOUND);
 	}
+	
+	@GetMapping("/emailcheck")
+	@ApiOperation(value = "회원 이메일 중복 체크")
+	public Object userEmailCheck(User user) {
+		
+		if(userService.getUserByUserEmail(user.getUserEmail()) != null){
+			return new ResponseEntity<>("Fail",HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>("Success", HttpStatus.OK);
+		}
+	
+	@GetMapping("/namecheck")
+	@ApiOperation(value = "회원 이름 중복 체크")
+	public Object userNameCheck(User user) {
+		
+		if(userService.getUserByUserName(user.getUserName()) != null){
+			return new ResponseEntity<>("Fail",HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>("Success", HttpStatus.OK);
+		}
+
 }

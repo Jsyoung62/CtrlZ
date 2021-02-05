@@ -28,7 +28,7 @@ public class PostServiceImpl implements PostService{
 		try {
 			postImage.transferTo(saveFile);
 //            saveName = "http://i4a202.p.ssafy.io/postimg/" + saveName;
-        } catch (IOException e) {
+		} catch (IOException e) {
             e.printStackTrace();
         }
 		post.setPostId(postId);
@@ -41,14 +41,43 @@ public class PostServiceImpl implements PostService{
 	}
 
 	@Override
-	public List<Post> selectPost(Post post) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Post> selectPost() {
+		List<Post> postList = postRepository.findAll();
+		
+		if(postList.size() > 0) {
+			return postList;
+		}else {
+			return null;
+		}
+	
 	}
 
 	@Override
 	public Post getPost(long postId) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return postRepository.getPostByPostId(postId);
+	}
+
+	@Override
+	public List<Post> getPostByChallengeId(String challengeId) {
+		List<Post> postByChallengeId = postRepository.getPostByChallengeId(challengeId);
+		
+		if(postByChallengeId.size() > 0) {
+			return postByChallengeId;
+		}else {
+			return null;
+		}
+		
+	}
+
+	@Override
+	public List<Post> findPostByUserId(Long userId) {
+		List<Post> postByUserId = postRepository.findPostByUserId(userId);
+		
+		if(postByUserId.size() > 0) {
+			return postByUserId;
+		}else {
+			return null;
+		}
 	}
 }
