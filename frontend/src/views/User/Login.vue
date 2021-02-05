@@ -28,11 +28,13 @@
     <img
       class="googleLoginButton"
       src="@/assets/googleButton/btn_google_signin_light_normal_web.png"
+      @click="googleLogin"
     />
   </div>
 </template>
 <script>
 import axios from "axios";
+import firebase from "firebase";
 import Title from "@/components/user/title.vue";
 import "@/components/css/user/index.scss";
 import "@/components/css/user/login.scss";
@@ -87,6 +89,26 @@ export default {
         return;
       }
       console.log("로그인 실패");
+    },
+    googleLogin() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then((res) => {
+          const userInfo = {
+            userId: res.user.uid,
+            userEmail: res.user.email,
+            userName: res.user.displayName,
+            userImage: res.user.photoURL,
+            userIntroduce: "",
+          };
+          this.$store.commit("GOOGLELOGIN", userInfo);
+          this.$router.push("/");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
   },
 };
