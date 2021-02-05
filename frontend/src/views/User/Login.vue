@@ -34,7 +34,7 @@
 <script>
 import axios from "axios";
 import Title from "@/components/user/title.vue";
-import "@/components/css/user/user.scss";
+import "@/components/css/user/index.scss";
 import "@/components/css/user/login.scss";
 
 axios.defaults.baseURL = "https://i4a202.p.ssafy.io:8888";

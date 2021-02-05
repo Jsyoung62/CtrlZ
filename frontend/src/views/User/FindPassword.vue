@@ -16,7 +16,7 @@
 </template>
 <script>
 import Title from "@/components/user/title.vue";
-import "@/components/css/user/user.scss";
+import "@/components/css/user/index.scss";
 
 export default {
   name: "FindPassword",

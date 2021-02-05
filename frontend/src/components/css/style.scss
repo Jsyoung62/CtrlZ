@@ -87,20 +87,19 @@ button, a {
 }
 
 // moblie first responsive
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 375px) {
   /* For mobile phones: */
   #app {
     width: 100%;
-    padding: 0 30px;
   }
 }
-@media only screen and (min-width: 481px){ 
+@media only screen and (min-width: 376px){ 
   html {
     display: flex;
     justify-content: center;
   }
   #app {
-    width: 480px;
+    width: 375px;
   }
 } 
 

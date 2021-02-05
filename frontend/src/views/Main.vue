@@ -17,7 +17,7 @@ import ScoreBoard from "@/components/main/ScoreBoard.vue";
 import BadgeBoard from "@/components/main/BadgeBoard.vue";
 import ChallengeBoard from "@/components/main/ChallengeBoard.vue";
 import RecommendBorad from "@/components/main/RecommendBoard.vue";
-import "@/components/css/main/main.scss";
+import "@/components/css/main/index.scss";
 
 export default {
   name: "Main",
