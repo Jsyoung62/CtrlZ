@@ -28,7 +28,7 @@ public class PostServiceImpl implements PostService{
 		try {
 			postImage.transferTo(saveFile);
 //            saveName = "http://i4a202.p.ssafy.io/postimg/" + saveName;
-        } catch (IOException e) {
+		} catch (IOException e) {
             e.printStackTrace();
         }
 		post.setPostId(postId);
