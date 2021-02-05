@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,12 +23,12 @@ import io.swagger.annotations.ApiOperation;
 public class ChallengeController {
 
 	@Autowired
-	ChallengeService challengeService;
+	private ChallengeService challengeService;
 
 	@ApiOperation(value = "전체 챌린지 데이터")
-	@GetMapping(value="/findAll")
-	public List<Challenge> findAll() {
-		return challengeService.findAll();
+	@GetMapping(value="/all")
+	public ResponseEntity<List<Challenge>> findAll() {
+		return new ResponseEntity<List<Challenge>>(challengeService.findAll(), HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "특정 챌린지 데이터")
@@ -34,31 +36,33 @@ public class ChallengeController {
 	public Challenge findByChallenge(@RequestParam String challengeId) {
 		return challengeService.findByChallenge(challengeId);
 	}
-	
+
 	@ApiOperation(value = "난이도별 챌린지 데이터")
 	@GetMapping(value="/level")
-	public List<Challenge> findByLevel(@RequestParam String levelId) {
-		return challengeService.findByLevel(levelId);
+	public ResponseEntity<List<Challenge>> findByLevel(@RequestParam String levelId) {
+		return new ResponseEntity<List<Challenge>>(challengeService.findByLevel(levelId), HttpStatus.OK);
 	}
-	
+
 	@ApiOperation(value = "타입별 챌린지 데이터")
 	@GetMapping(value="/type")
-	public List<Challenge> findByChallengeType(@RequestParam String challengeType) {
-		return challengeService.findByChallengeType(challengeType);
+	public ResponseEntity<List<Challenge>> findByChallengeType(@RequestParam String challengeType) {
+		return new ResponseEntity<List<Challenge>>(challengeService.findByChallengeType(challengeType), HttpStatus.OK);
 	}
-	
+
 	@ApiOperation(value = "진행중인 챌린지 데이터")
 	@GetMapping(value="/inprogress")
-	public List<Challenge> findByChallengeInProgress() {
+	public ResponseEntity<List<Challenge>> findByChallengeInProgress() {
 		String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-		return challengeService.findByChallengeInProgress(now);
+
+		return new ResponseEntity<List<Challenge>>(challengeService.findByChallengeInProgress(now), HttpStatus.OK);
 	}
-	
+
 	@ApiOperation(value = "종료된 챌린지 데이터")
 	@GetMapping(value="/closed")
-	public List<Challenge> findByChallengeClosed() {
+	public ResponseEntity<List<Challenge>> findByChallengeClosed() {
 		String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-		return challengeService.findByChallengeClosed(now);
+
+		return new ResponseEntity<List<Challenge>>(challengeService.findByChallengeClosed(now), HttpStatus.OK);
 	}
 
 }

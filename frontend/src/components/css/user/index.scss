@@ -1,0 +1,85 @@
+@import "../colors.scss";
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    padding: 0 30px;
+    
+    .registerSuccessText {
+        font-size: 20px;
+        font-weight: bold;
+        color: $primary-green;
+    }
+
+    .toLoginButton {
+        margin-top: 40px;
+    }
+
+    form {
+        margin-top: 48px;
+        width: 100%;
+    
+        div {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 18px;
+
+            label {
+                font-size: 15px;
+                color: #838383;
+            }
+
+            input {
+                margin-top: 8px;
+                padding-bottom: 11px;
+                background-color: transparent;
+                color: $basic-black;
+                font-weight: bold;
+                font-size: 15px;
+                border-bottom: 1px solid $basic-black;
+
+                &.success {
+                    border-bottom: 1px solid $success;
+                }
+
+                &.fail {
+                    border-bottom: 1px solid $fail;
+                }
+            }
+        }
+    }
+
+    button {
+        width: 100%;
+        height: 57px;
+        background-color: $primary-green;
+        color: $secondary-white;
+        font-weight: 700;
+        font-size: 17px;
+        border-radius: 18px;
+    }
+}
+
+.pageTitle {
+    text-align: center;
+
+    .title {
+        font-size: 20px;
+    }
+}
+
+.loginButton {
+    margin: 37px 0 6px 0;
+}
+
+.registerButton {
+    margin-top: 70px;
+}
+
+.findButton {
+    margin-top: 33px;
+}

@@ -15,8 +15,7 @@
   </div>
 </template>
 <script>
-import Gauge from "@/assets/gauge.vue";
-import GaugeBar from "@/assets/gaugeBar.vue";
+import { Gauge, GaugeBar } from "@/assets/index";
 
 export default {
   name: "ScoreBoard",

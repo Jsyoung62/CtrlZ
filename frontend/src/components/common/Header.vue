@@ -1,10 +1,8 @@
 <template>
   <div class="header">
-    <a href="#">
-      <span class="material-icons" @click="open">
-        dehaze
-      </span>
-    </a>
+    <span class="material-icons" @click="open">
+      dehaze
+    </span>
     <h1 class="title">
       {{ title }}
     </h1>

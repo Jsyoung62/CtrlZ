@@ -1,0 +1,115 @@
+<template>
+  <div class="login container">
+    <Title title="로그인" />
+    <form action="" method="post">
+      <div>
+        <label for="email">이메일</label>
+        <input id="email" v-model="email" type="email" />
+      </div>
+
+      <div>
+        <label for="password">비밀번호</label>
+        <input id="password" v-model="password" type="password" />
+      </div>
+    </form>
+
+    <router-link to="find" class="toFindButton">
+      비밀번호 찾기
+    </router-link>
+    <button type="submit" class="loginButton" @click="login">
+      로그인
+    </button>
+    <p class="registerText">
+      계정이 없나요?
+      <router-link to="register" class="toRegisterButton">
+        회원가입
+      </router-link>
+    </p>
+    <img
+      class="googleLoginButton"
+      src="@/assets/googleButton/btn_google_signin_light_normal_web.png"
+      @click="googleLogin"
+    />
+  </div>
+</template>
+<script>
+import axios from "axios";
+import firebase from "firebase";
+import Title from "@/components/user/title.vue";
+import "@/components/css/user/index.scss";
+import "@/components/css/user/login.scss";
+
+axios.defaults.baseURL = "https://i4a202.p.ssafy.io:8888";
+
+export default {
+  name: "Login",
+  components: {
+    Title,
+  },
+  data: () => {
+    return {
+      email: "",
+      password: "",
+      validateEmail: false,
+    };
+  },
+  watch: {
+    email() {
+      this.validateEmail = this.checkEmail(this.email);
+    },
+  },
+  methods: {
+    checkEmail(email) {
+      const re = /^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    },
+    checkForm() {
+      if (this.validateEmail && this.password.length > 0) {
+        return true;
+      }
+    },
+    login() {
+      if (this.checkForm) {
+        axios({
+          url: "/user",
+          method: "GET",
+          params: {
+            userEmail: this.email,
+            userPassword: this.password,
+          },
+        })
+          .then((res) => {
+            const token = res.data.accesstoken;
+            this.$store.commit("LOGIN", token);
+            this.$router.push("/");
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+        return;
+      }
+      console.log("로그인 실패");
+    },
+    googleLogin() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then((res) => {
+          const userInfo = {
+            userId: res.user.uid,
+            userEmail: res.user.email,
+            userName: res.user.displayName,
+            userImage: res.user.photoURL,
+            userIntroduce: "",
+          };
+          this.$store.commit("GOOGLELOGIN", userInfo);
+          this.$router.push("/");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+  },
+};
+</script>

@@ -10,6 +10,7 @@
 
 .main {
     position: relative;
+    padding: 0 30px;
 }
 
 .scoreBoard {
@@ -78,5 +79,11 @@
             font-size: 22px;
             color: $basic-white;
         }
+    }
+}
+
+.challenge {
+    .leaf {
+        display: inline;
     }
 }

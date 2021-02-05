@@ -20,13 +20,13 @@ module.exports = {
         tabWidth: 2,
         trailingComma: 'es5',
         printWidth: 100,
-        bracketSpacing: false,
+        bracketSpacing: true,
         endOfLine: 'lf',
         arrowParens: 'always'
       },
     ],
     "vue/max-attributes-per-line": ["error", {
-      "singleline": 3,
+      "singleline": 5,
       "multiline": {
         "max": 1,
         "allowFirstLine": false
