@@ -28,7 +28,7 @@ import io.swagger.annotations.ApiOperation;
 @CrossOrigin(origins = { "*" },allowedHeaders = "*", maxAge = 6000)
 @RestController
 @Transactional
-@Api(tags = "UserController", description = "회원API")
+@Api(tags = "UserController", description = "회원 API")
 @RequestMapping("/user")
 public class UserController {
 	
