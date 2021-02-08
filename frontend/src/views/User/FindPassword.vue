@@ -1,5 +1,5 @@
 <template>
-  <div class="findPassword container">
+  <div class="findPassword userContainer">
     <Title title="비밀번호 찾기" />
 
     <form action="" method="post">

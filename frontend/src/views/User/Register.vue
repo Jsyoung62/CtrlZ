@@ -1,6 +1,6 @@
 <template>
   <div class="register">
-    <div v-if="registerSuccess" class="container">
+    <div v-if="registerSuccess" class="userContainer">
       <Title title="축하합니다!" />
       <p class="registerSuccessText">
         회원가입에 성공했습니다
@@ -9,7 +9,7 @@
         로그인하러 가기
       </router-link>
     </div>
-    <div v-else class="container">
+    <div v-else class="userContainer">
       <Title title="회원가입" />
       <form action="" method="post">
         <div>
@@ -52,6 +52,7 @@
 <script>
 import axios from "axios";
 import Title from "@/components/user/title.vue";
+import "@/components/css/user/index.scss";
 
 axios.defaults.baseURL = "https://i4a202.p.ssafy.io:8888";
 axios.defaults.headers.post["Content-Type"] = "application/json";
