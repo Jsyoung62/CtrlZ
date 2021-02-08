@@ -8,6 +8,7 @@ import InProgressChallenge from "../views/Challenge/InProgressChallenge.vue";
 import Login from "../views/User/Login.vue";
 import Register from "../views/User/Register.vue";
 import FindPassword from "../views/User/FindPassword.vue";
+import Profile from "../views/User/Profile.vue";
 import ZBTI from "../views/Zbti/Zbti.vue";
 import ZbtiIntro from "../views/Zbti/ZbtiIntro.vue";
 import ZbtiTest from "../views/Zbti/ZbtiTest.vue";
@@ -57,6 +58,11 @@ const routes = [
     path: "/find",
     name: "FindPassword",
     component: FindPassword,
+  },
+  {
+    path: "/user/profile",
+    name: "Profile",
+    component: Profile,
   },
   {
     path: "/zbti",

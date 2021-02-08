@@ -16,9 +16,9 @@
       </p>
     </div>
 
-    <p class="description">
+    <div class="description">
       {{ description }}
-    </p>
+    </div>
   </div>
 </template>
 <script>

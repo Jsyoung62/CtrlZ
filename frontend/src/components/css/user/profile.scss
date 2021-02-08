@@ -1,0 +1,97 @@
+@import "../colors.scss";
+@import "../style.scss";
+@import "./index.scss";
+
+.profile {
+    padding: 0 30px;
+}
+
+// .challenge {
+//     padding : 0 30px;
+// }
+
+#profile {
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.32px;
+}
+#profile__name {
+    width: 175.56px;
+    height: 16px;
+    left: 152.39px;
+    top: 107px;
+
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 15px;
+   
+}
+
+#profile__introduce {
+    width: 188.6px;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.profile__Info {
+   margin-top: 13px;
+   margin-bottom: 30px;
+}
+
+#profile__modify {
+    width: 315px;
+    height: 30px;
+    left: 30px;
+    top: 241px;
+    color: #FFFDFA;
+    font-size: 14px;
+    
+    align-items: center;
+    text-align: center;
+    font-weight: normal;
+    font-style: normal;
+    letter-spacing: 0.705882px;
+    background-color: $primary-green;
+    border-radius: 8px;
+}
+
+.zscore__title {
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700px;
+    line-height: bold;
+    color: $primary-green;
+}
+
+.zscore__main {
+    width: 315px;
+    height: 116px;
+    left: 30px;
+    top: 40px;
+
+    background: #FFFFFF;
+    border: 1px solid #F2F2F2;
+    box-sizing: border-box;
+    border-radius: 13px;
+}
+
+#zscore__main__score {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 36px;
+    text-align: center;
+    letter-spacing: 0.323529px;
+}
+
+#catagory {
+    width: 55px;
+    height: 23px;
+    left: 191px;
+    top: 113px;
+    background: #FFBAEC;
+    border-radius: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: bold;
+}
