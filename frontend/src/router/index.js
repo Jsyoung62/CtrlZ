@@ -1,11 +1,14 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Main from "../views/Main.vue";
-import ChallengeDetail from "@/views/Challenge/ChallengeDetail.vue";
-import InProgressChallenge from "@/views/Challenge/InProgressChallenge.vue";
+import Challenge from "../views/Challenge/Challenge.vue";
+import ChallengeList from "../views/Challenge/ChallengeList.vue";
+import ChallengeDetail from "../views/Challenge/ChallengeDetail.vue";
+import InProgressChallenge from "../views/Challenge/InProgressChallenge.vue";
 import Login from "../views/User/Login.vue";
 import Register from "../views/User/Register.vue";
 import FindPassword from "../views/User/FindPassword.vue";
+import ZBTI from "../views/Zbti/Zbti.vue";
 import ZbtiIntro from "../views/Zbti/ZbtiIntro.vue";
 import ZbtiTest from "../views/Zbti/ZbtiTest.vue";
 import ZbtiResult from "../views/Zbti/ZbtiResult.vue";
@@ -19,14 +22,26 @@ const routes = [
     component: Main,
   },
   {
-    path: "/challenge/detail",
-    name: "ChallengeDetail",
-    component: ChallengeDetail,
-  },
-  {
-    path: "/challenge/inprogress",
-    name: "InProgressChallenge",
-    component: InProgressChallenge,
+    path: "/challenge",
+    name: "Challenge",
+    component: Challenge,
+    children: [
+      {
+        path: "",
+        name: "ChallengeList",
+        component: ChallengeList,
+      },
+      {
+        path: "detail",
+        name: "ChallengeDetail",
+        component: ChallengeDetail,
+      },
+      {
+        path: "inprogress",
+        name: "InProgressChallenge",
+        component: InProgressChallenge,
+      },
+    ],
   },
   {
     path: "/login",
@@ -45,19 +60,26 @@ const routes = [
   },
   {
     path: "/zbti",
-    name: "ZbtiIntro",
-    component: ZbtiIntro,
-  },
-  {
-    path: "/zbti/test",
-    name: "ZbtiTest",
-    component: ZbtiTest,
-  },
-  {
-    path: "/zbti/result",
-    name: "ZbtiResult",
-    component: ZbtiResult,
-    props: true,
+    name: "ZBTI",
+    component: ZBTI,
+    children: [
+      {
+        path: "",
+        name: "ZBTIIntro",
+        component: ZbtiIntro,
+      },
+      {
+        path: "test",
+        name: "ZbtiTest",
+        component: ZbtiTest,
+      },
+      {
+        path: "result",
+        name: "ZbtiResult",
+        component: ZbtiResult,
+        props: true,
+      },
+    ],
   },
 ];
 
