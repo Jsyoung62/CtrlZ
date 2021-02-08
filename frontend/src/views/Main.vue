@@ -1,7 +1,7 @@
 <template>
   <div class="main">
-    <Header />
-    <SideNav />
+    <Header title="Ctrl Z" />
+    <Navigation />
     <ScoreBoard />
     <BadgeBoard />
     <ChallengeBoard />
@@ -12,7 +12,7 @@
 <script>
 // @ is an alias to /src
 import Header from "@/components/common/Header.vue";
-import SideNav from "@/components/common/SideNav.vue";
+import Navigation from "@/components/common/Navigation.vue";
 import ScoreBoard from "@/components/main/ScoreBoard.vue";
 import BadgeBoard from "@/components/main/BadgeBoard.vue";
 import ChallengeBoard from "@/components/main/ChallengeBoard.vue";
@@ -23,7 +23,7 @@ export default {
   name: "Main",
   components: {
     Header,
-    SideNav,
+    Navigation,
     ScoreBoard,
     BadgeBoard,
     ChallengeBoard,
