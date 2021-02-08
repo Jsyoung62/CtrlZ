@@ -1,9 +1,12 @@
 <template>
   <div class="inProgressChallenge">
     <Header title="진행중인 챌린지" />
-    <img src="@/assets/ch_example.jpg" class="thumbnail" />
-    <ProgressBar :progress="progress" />
+    <Navigation />
 
+    <div class="thumbnailWrapper">
+      <img src="@/assets/mission.png" class="thumbnail" />
+      <progress :value="progress" max="100"></progress>
+    </div>
     <div class="contentsContainer">
       <ChallengeTitle :title="challengeName" :level="level" :challenge-type="challengeType" />
 
@@ -31,7 +34,7 @@
 </template>
 <script>
 import Header from "@/components/common/Header.vue";
-import ProgressBar from "@/components/challenge/ProgressBar.vue";
+import Navigation from "@/components/common/Navigation.vue";
 import ChallengeTitle from "@/components/challenge/ChallengeTitle.vue";
 import Missions from "@/components/challenge/Missions";
 import "@/components/css/challenge/inProgressChallenge.scss";
@@ -40,13 +43,13 @@ export default {
   name: "InProgressChallenge",
   components: {
     Header,
-    ProgressBar,
+    Navigation,
     ChallengeTitle,
     Missions,
   },
   data: () => {
     return {
-      challengeName: "텀블러 사용하기",
+      challengeName: "시작이 반이다",
       challengeType: "일상",
       level: "입문",
       challengeMissionTotal: 3,
