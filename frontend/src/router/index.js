@@ -1,7 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Main from "../views/Main.vue";
-import ChallengeList from "@/views/Challenge/ChallengeList.vue";
 import ChallengeDetail from "@/views/Challenge/ChallengeDetail.vue";
 import InProgressChallenge from "@/views/Challenge/InProgressChallenge.vue";
 import Login from "../views/User/Login.vue";
@@ -18,11 +17,6 @@ const routes = [
     path: "/",
     name: "Main",
     component: Main,
-  },
-  {
-    path: "/challenge",
-    name: "ChallengeList",
-    component: ChallengeList,
   },
   {
     path: "/challenge/detail",
