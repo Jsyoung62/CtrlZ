@@ -48,17 +48,19 @@ export default {
     })
       .then((response) => {
         this.zbtiTest = response.data;
+        this.selectInit();
       })
       .catch((error) => {
         console.error(error);
       });
   },
   methods: {
+    selectInit() {
+      this.zbtiTest.forEach((value, index) => {
+        this.selectCount[index] = 0;
+      });
+    },
     handleAnswerClick(answer) {
-      if (typeof this.selectCount[answer] === "undefined") {
-        this.selectCount[answer] = 0;
-      }
-
       this.selectCount[answer] += 1;
       this.testId = this.testId + 1;
 
