@@ -1,11 +1,15 @@
 package com.ssafy.ctrlz.controller;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +23,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
 import com.ssafy.ctrlz.model.User;
 import com.ssafy.ctrlz.service.JwtService;
 import com.ssafy.ctrlz.service.UserService;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -52,6 +58,20 @@ public class UserController {
 		return new ResponseEntity<>("Success", HttpStatus.OK);
 		
 		}
+	
+	@PostMapping("/google/register")
+	@ApiOperation(value = "구글 계정으로 가입하기", notes = "가입된 Gid면 가입하지않고 로그인처리 됩니다.")
+	public Object userGoogleRegister(@RequestBody User user) throws IOException {
+		
+		if(userService.getUserByUserGid(user.getUserGid()) != null) {
+			return new ResponseEntity<>("Google Login Success", HttpStatus.OK);
+//			 httpServletResponse.sendRedirect("http://localhost:8888/login");
+			
+		}else {
+			 userService.createAccount(user);
+			return new ResponseEntity<>("Google Register Success", HttpStatus.OK);
+		}
+	}
 	
 	@PostMapping("/login")
 	@ApiOperation(value = "로그인", notes = "성공시 jwt 토큰을 반환합니다.")

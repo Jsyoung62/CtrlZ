@@ -23,6 +23,8 @@ public interface UserService {
 	User getUserByUserId(Long userId);
 	//유저 이름으로 유저정보 가져오기
 	User getUserByUserName(String userName);
+	//유저 Gid 정보 확인하기
+	User getUserByUserGid(String userGid);
 	//유저 아이디로 유저정보 삭제하기
 	Optional<User> deleteUserByUserId(Long userId);
 
