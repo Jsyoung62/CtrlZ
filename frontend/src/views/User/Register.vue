@@ -51,7 +51,7 @@
 </template>
 <script>
 import axios from "axios";
-import Title from "@/components/user/title.vue";
+import Title from "@/components/user/Title.vue";
 import "@/components/css/user/index.scss";
 
 axios.defaults.baseURL = "https://i4a202.p.ssafy.io:8888";

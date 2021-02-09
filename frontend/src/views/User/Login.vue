@@ -35,7 +35,7 @@
 <script>
 import axios from "axios";
 import firebase from "firebase";
-import Title from "@/components/user/title.vue";
+import Title from "@/components/user/Title.vue";
 import "@/components/css/user/index.scss";
 import "@/components/css/user/login.scss";
 
