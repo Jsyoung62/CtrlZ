@@ -3,8 +3,7 @@
     <p class="topic">
       {{ topic }}
     </p>
-
-    <img src="@/assets/mission.png" class="thumbnail" />
+    <img :src="challengeImage" class="thumbnail" />
 
     <div class="titleWrapper">
       <p class="title">
@@ -43,6 +42,10 @@ export default {
       type: String,
       default: "",
       required: false,
+    },
+    challengeImage: {
+      type: String,
+      required: true,
     },
   },
 };
