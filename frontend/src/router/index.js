@@ -5,9 +5,11 @@ import Challenge from "../views/Challenge/Challenge.vue";
 import ChallengeList from "../views/Challenge/ChallengeList.vue";
 import ChallengeDetail from "../views/Challenge/ChallengeDetail.vue";
 import InProgressChallenge from "../views/Challenge/InProgressChallenge.vue";
+import Post from "../views/Post/Post.vue";
 import Login from "../views/User/Login.vue";
 import Register from "../views/User/Register.vue";
 import FindPassword from "../views/User/FindPassword.vue";
+import Profile from "../views/User/Profile.vue";
 import ZBTI from "../views/Zbti/Zbti.vue";
 import ZbtiIntro from "../views/Zbti/ZbtiIntro.vue";
 import ZbtiTest from "../views/Zbti/ZbtiTest.vue";
@@ -44,6 +46,11 @@ const routes = [
     ],
   },
   {
+    path: "/post",
+    name: "Post",
+    component: Post,
+  },
+  {
     path: "/login",
     name: "Login",
     component: Login,
@@ -57,6 +64,11 @@ const routes = [
     path: "/find",
     name: "FindPassword",
     component: FindPassword,
+  },
+  {
+    path: "/user/profile",
+    name: "Profile",
+    component: Profile,
   },
   {
     path: "/zbti",
