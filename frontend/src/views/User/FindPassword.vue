@@ -15,7 +15,7 @@
   </div>
 </template>
 <script>
-import Title from "@/components/user/title.vue";
+import Title from "@/components/user/Title.vue";
 import "@/components/css/user/index.scss";
 
 export default {
