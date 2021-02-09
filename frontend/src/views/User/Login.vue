@@ -71,9 +71,9 @@ export default {
     login() {
       if (this.checkForm) {
         axios({
-          url: "/user",
-          method: "GET",
-          params: {
+          url: "/user/login",
+          method: "POST",
+          data: {
             userEmail: this.email,
             userPassword: this.password,
           },
@@ -97,12 +97,21 @@ export default {
         .signInWithPopup(provider)
         .then((res) => {
           const userInfo = {
-            userId: res.user.uid,
+            // userId: res.user.uid,
             userEmail: res.user.email,
             userName: res.user.displayName,
             userImage: res.user.photoURL,
             userIntroduce: "",
           };
+          // axios({
+          //   url: "/user/post",
+          //   method: "POST",
+          //   data: {
+          //     userGid: res.user.uid,
+          //     userEmail: res.user.email,
+          //     userPassword: this.password,
+          //   },
+          // });
           this.$store.commit("GOOGLELOGIN", userInfo);
           this.$router.push("/");
         })

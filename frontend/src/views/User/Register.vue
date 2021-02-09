@@ -134,7 +134,7 @@ export default {
     register() {
       if (this.checkForm) {
         axios({
-          url: "/user",
+          url: "/user/register",
           method: "POST",
           data: {
             userName: this.userName,
