@@ -1,5 +1,6 @@
 <template>
   <div class="zbti test">
+    <img :src="zbtiTest[testId].testImage" class="testBackground" />
     <div class="question">
       {{ zbtiTest[testId].testQuestion }}
     </div>
@@ -16,7 +17,6 @@
       {{ zbtiTest[testId].testAnswer4 }}
     </div>
     <progress :value="value" max="100"></progress>
-    <!-- <img :src="zbtiTest[testId].testImage" /> -->
   </div>
 </template>
 
@@ -33,7 +33,7 @@ export default {
       zbtiTest: [],
       testId: 0,
       selectCount: [],
-      zbtiResult: "A",
+      zbtiResult: "",
     };
   },
   computed: {
@@ -55,8 +55,6 @@ export default {
   },
   methods: {
     handleAnswerClick(answer) {
-      console.log(`ZBTI 테스트 답안 버튼 동작 ${answer + 1}`);
-
       if (typeof this.selectCount[answer] === "undefined") {
         this.selectCount[answer] = 0;
       }
@@ -85,10 +83,16 @@ export default {
       }
     },
     indexToAnswer(index) {
-      if (index === 2) this.zbtiResult = "A";
-      else if (index === 1) this.zbtiResult = "B";
-      else if (index === 0) this.zbtiResult = "C";
-      else this.zbtiResult = "D";
+      if (index === 2) {
+        return (this.zbtiResult = "A");
+      }
+      if (index === 1) {
+        return (this.zbtiResult = "B");
+      }
+      if (index === 0) {
+        return (this.zbtiResult = "C");
+      }
+      return (this.zbtiResult = "D");
     },
     moveZbtiResult() {
       this.$router.push({

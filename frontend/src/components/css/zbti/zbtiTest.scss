@@ -3,6 +3,14 @@
 .test {
     color: $primary-green;
     white-space: pre-line;
+    position: relative;
+
+    .testBackground {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
 
     .question {
         font-weight: bold;
@@ -22,9 +30,10 @@
         justify-content: center;
         margin-bottom: 12px;
         line-height: 24px;
+        cursor: pointer;
     }
 
-    .answer:hover {
+    .answer:active {
         background-color: $primary-green3;
         color: $secondary-white;
     }
