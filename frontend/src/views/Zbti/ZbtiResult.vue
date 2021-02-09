@@ -25,8 +25,6 @@
 
 <script>
 import axios from "axios";
-import "@/components/css/zbti/index.scss";
-
 axios.defaults.baseURL = "https://i4a202.p.ssafy.io:8888";
 
 export default {

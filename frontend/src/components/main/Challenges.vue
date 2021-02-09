@@ -1,13 +1,11 @@
 <template>
-  <div class="challengeList">
-    <Header title="전체 챌린지" />
-    <Navigation />
-
-    <Categories />
-    <div class="challengeContainer">
+  <div class="recommendChallenges">
+    <p class="topic">
+      추천 챌린지
+    </p>
+    <div class="challengeWrapper">
       <div v-for="(challenge, index) in challenges" :key="index" class="challenge">
-        <img src="@/assets/mission.png" class="thumbnail" />
-
+        <img src="@/assets/ch_example.jpg" class="thumbnail" alt="thumbnail" />
         <p class="category">
           <span>#{{ challenge.level }}</span>
           <span>#{{ challenge.challengeType }}</span>
@@ -24,19 +22,10 @@
   </div>
 </template>
 <script>
-import Header from "@/components/common/Header.vue";
-import Navigation from "@/components/common/Navigation.vue";
-import Categories from "@/components/challenge/Categories.vue";
-import "@/components/css/challenge/index.scss";
-import "@/components/css/challenge/challenge.scss";
+import "@/components/css/main/challenges.scss";
 
 export default {
-  name: "ChallengeList",
-  components: {
-    Header,
-    Navigation,
-    Categories,
-  },
+  name: "Challenges",
   data: () => {
     return {
       challenges: [

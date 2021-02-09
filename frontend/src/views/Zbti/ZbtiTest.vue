@@ -21,7 +21,6 @@
 
 <script>
 import axios from "axios";
-import "@/components/css/zbti/index.scss";
 import "@/components/css/zbti/zbtiTest.scss";
 
 axios.defaults.baseURL = "https://i4a202.p.ssafy.io:8888";

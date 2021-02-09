@@ -1,5 +1,5 @@
 <template>
-  <div class="login container">
+  <div class="login userContainer">
     <Title title="로그인" />
     <form action="" method="post">
       <div>
