@@ -13,4 +13,6 @@ public interface ChallengeStatusRepository extends JpaRepository<ChallengeStatus
 
 	public List<ChallengeStatus> findByIdUserId(String userId);
 
+	public long countByIdChallengeId(String challengeId);
+
 }
