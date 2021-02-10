@@ -6,6 +6,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    splash: true,
     userInfo: {
       userId: "",
       userEmail: "",
@@ -15,6 +16,9 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    ENDSPLASH: (state) => {
+      state.splash = false;
+    },
     LOGIN: (state, token) => {
       const user = jwtDecode(token).user;
       state.userInfo = user;

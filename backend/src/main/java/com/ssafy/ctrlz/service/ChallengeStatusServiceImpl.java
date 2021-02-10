@@ -60,4 +60,9 @@ public class ChallengeStatusServiceImpl implements ChallengeStatusService {
 		return challengeStatusRepository.findById(challengeStatusId).orElseThrow(() -> new NoDataFoundException("challengeStatus"));
 	}
 
+	@Override
+	public long countByChallenge(String challengeId) {
+		return challengeStatusRepository.countByIdChallengeId(challengeId);
+	}
+
 }

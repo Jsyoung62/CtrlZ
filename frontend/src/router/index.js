@@ -1,6 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Main from "../views/Main.vue";
+import NotFound from "../views/404NotFound.vue";
+import ErrorPage from "../views/Error.vue";
 import Challenge from "../views/Challenge/Challenge.vue";
 import ChallengeList from "../views/Challenge/ChallengeList.vue";
 import ChallengeDetail from "../views/Challenge/ChallengeDetail.vue";
@@ -23,6 +25,16 @@ const routes = [
     path: "/",
     name: "Main",
     component: Main,
+  },
+  {
+    path: "/404",
+    name: "404",
+    component: NotFound,
+  },
+  {
+    path: "/error",
+    name: "Error",
+    component: ErrorPage,
   },
   {
     path: "/challenge",

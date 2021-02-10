@@ -6,7 +6,7 @@
       user-name="greengirl_927"
       user-introduce="건강한 지구를 만들기 위해 불편함을 감수하는 Z세대 그린걸입니다~"
     />
-    <ZScore score="73" />
+    <ZScore :score="score" />
     <ChallengeBoard />
     <ZFeed :images="images" />
   </div>
@@ -33,6 +33,7 @@ export default {
   },
   data: () => {
     return {
+      score: 73,
       images: [
         "http://i4a202.p.ssafy.io/img/dailymission.png",
         "http://i4a202.p.ssafy.io/img/dailymission.png",
