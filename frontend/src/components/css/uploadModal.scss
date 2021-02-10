@@ -1,0 +1,90 @@
+@import "./colors.scss";
+
+.modalMask {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 9998;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modalWrapper {
+    width: 80%;
+    height: 65%;
+    margin: 0px auto;
+    background-color: $secondary-white;
+    border-radius: 15px;
+}
+
+.modalTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70px;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 27px;
+    text-align: center;
+    border-bottom: 1px solid #C4C4C4;
+}
+
+.modalContent {
+    padding: 20px 20px;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 22px;
+    white-space: pre-line;
+}
+
+.modalImage {
+    margin-top: 15px;
+    width: 248px;
+    height: 248px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modalButton {
+    padding: 0 20px;
+}
+
+.uploadImageButton {
+    display: block;
+    width: 100%;
+    height: 54px;
+    background-color: $primary-green;
+    color: $secondary-white;
+    font-weight: 700;
+    font-size: 18px;
+    border-radius: 18px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+      
+.uploadImageButton:hover {
+   background-color: $primary-green3;
+}
+  
+.uploadImageButton:active {
+    background-color: $primary-green3;
+}
+  
+.uploadImage {
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}

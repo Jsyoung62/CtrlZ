@@ -6,6 +6,7 @@ import ChallengeList from "../views/Challenge/ChallengeList.vue";
 import ChallengeDetail from "../views/Challenge/ChallengeDetail.vue";
 import InProgressChallenge from "../views/Challenge/InProgressChallenge.vue";
 import Post from "../views/Post/Post.vue";
+import PostUpload from "../views/Post/PostUpload.vue";
 import Login from "../views/User/Login.vue";
 import Register from "../views/User/Register.vue";
 import FindPassword from "../views/User/FindPassword.vue";
@@ -49,6 +50,12 @@ const routes = [
     path: "/post",
     name: "Post",
     component: Post,
+  },
+  {
+    path: "/post/upload",
+    name: "PostUpload",
+    component: PostUpload,
+    props: true,
   },
   {
     path: "/login",
