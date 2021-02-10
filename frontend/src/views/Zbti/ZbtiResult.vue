@@ -25,7 +25,7 @@
 
 <script>
 import axios from "axios";
-axios.defaults.baseURL = "https://i4a202.p.ssafy.io:8888";
+axios.defaults.baseURL = "http://i4a202.p.ssafy.io:8888";
 
 export default {
   name: "ZbtiResult",

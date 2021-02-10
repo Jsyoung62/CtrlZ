@@ -88,7 +88,6 @@ export default {
           });
         return;
       }
-      console.log("로그인 실패");
     },
     googleLogin() {
       const provider = new firebase.auth.GoogleAuthProvider();
@@ -111,7 +110,6 @@ export default {
             this.$router.push("/");
             this.$store.commit("LOGIN", token);
             const token = res.data.accesstoken;
-            console.log(token);
           });
         })
         .catch((error) => {
