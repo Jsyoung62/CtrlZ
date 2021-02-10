@@ -28,14 +28,10 @@ export default {
     };
   },
   created() {
-    console.log("POST UPLOAD");
     this.postImage = this.$route.params.postImage;
-    console.log(this.postImage);
   },
   methods: {
-    handleUploadClick() {
-      console.log("Upload");
-    },
+    handleUploadClick() {},
   },
 };
 </script>
