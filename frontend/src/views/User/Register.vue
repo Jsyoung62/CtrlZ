@@ -135,7 +135,7 @@ export default {
     register() {
       if (this.checkForm) {
         axios({
-          url: "http://localhost:8888/user/register",
+          url: "http://i4a202.p.ssafy.io:8888/user/register",
           method: "POST",
           data: {
             userName: this.userName,

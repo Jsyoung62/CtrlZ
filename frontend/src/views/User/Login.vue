@@ -39,7 +39,7 @@ import Title from "@/components/user/Title.vue";
 import "@/components/css/user/index.scss";
 import "@/components/css/user/login.scss";
 
-// axios.defaults.baseURL = "http://localhost:8888";
+axios.defaults.baseURL = "http://i4a202.p.ssafy.io/:8888";
 
 export default {
   name: "Login",
@@ -96,15 +96,8 @@ export default {
         .auth()
         .signInWithPopup(provider)
         .then((res) => {
-          const userInfo = {
-            userId: res.user.uid,
-            userEmail: res.user.email,
-            userName: res.user.displayName,
-            userImage: res.user.photoURL,
-            userIntroduce: "",
-          };
           axios({
-            url: "http://localhost:8888/user/google/register",
+            url: "/user/google/register",
             method: "POST",
             data: {
               userGid: res.user.uid,
@@ -114,9 +107,12 @@ export default {
               userPassword: res.user.uid,
               userType: "Y",
             },
+          }).then((res) => {
+            this.$router.push("/");
+            this.$store.commit("LOGIN", token);
+            const token = res.data.accesstoken;
+            console.log(token);
           });
-          this.$store.commit("GOOGLELOGIN", userInfo);
-          this.$router.push("/");
         })
         .catch((error) => {
           console.error(error);
