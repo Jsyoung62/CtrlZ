@@ -1,0 +1,27 @@
+@import "../colors.scss";
+
+.postReview {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    height: 60px;
+    padding: 0 80px;
+
+    .iconWrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        color: $basic-black;
+        border: 1px;
+    }
+
+    .material-icons {
+        margin-bottom: 3px;
+    }
+
+    .green {
+        color: $primary-green3;
+    }
+}

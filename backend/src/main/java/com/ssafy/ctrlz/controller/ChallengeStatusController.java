@@ -43,7 +43,7 @@ public class ChallengeStatusController {
 	}
 
 	@ApiOperation(value = "챌린지별 현황 데이터")
-	@GetMapping(value="/challenge")
+	@GetMapping(value="/")
 	public ResponseEntity<List<ChallengeStatus>> findByChallenge(@RequestParam String challengeId) {
 		return new ResponseEntity<List<ChallengeStatus>>(challengeStatusService.findByChallenge(challengeId), HttpStatus.OK);
 	}
@@ -85,6 +85,12 @@ public class ChallengeStatusController {
 		}
 
 		return new ResponseEntity<ChallengeStatus>(challengeStatus, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "특정 챌린지 현황 참여자수")
+	@GetMapping(value="/count")
+	public long countByChallengeId(@RequestParam String challengeId) {
+		return challengeStatusService.countByChallenge(challengeId);
 	}
 
 }

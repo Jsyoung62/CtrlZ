@@ -3,6 +3,7 @@
     <p class="topic">
       {{ topic }}
     </p>
+
     <img :src="challengeImage" class="thumbnail" />
 
     <div class="titleWrapper">
@@ -10,7 +11,7 @@
         {{ title }}
       </p>
       <p class="participants">
-        {{ participants }}
+        {{ participants | numberWithComma }}
         명 참여 중
       </p>
     </div>
@@ -25,6 +26,11 @@ import "@/components/css/main/mission.scss";
 
 export default {
   name: "Mission",
+  filters: {
+    numberWithComma(num) {
+      return String(num).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+  },
   props: {
     topic: {
       type: String,
@@ -42,10 +48,6 @@ export default {
       type: String,
       default: "",
       required: false,
-    },
-    challengeImage: {
-      type: String,
-      required: true,
     },
   },
 };
