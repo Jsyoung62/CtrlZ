@@ -39,7 +39,7 @@ import Title from "@/components/user/Title.vue";
 import "@/components/css/user/index.scss";
 import "@/components/css/user/login.scss";
 
-axios.defaults.baseURL = "http://i4a202.p.ssafy.io/:8888";
+axios.defaults.baseURL = "http://i4a202.p.ssafy.io:8888";
 
 export default {
   name: "Login",
@@ -107,9 +107,10 @@ export default {
               userType: "Y",
             },
           }).then((res) => {
-            this.$router.push("/");
-            this.$store.commit("LOGIN", token);
             const token = res.data.accesstoken;
+            console.log(token);
+            this.$store.commit("LOGIN", token);
+            this.$router.push("/");
           });
         })
         .catch((error) => {
