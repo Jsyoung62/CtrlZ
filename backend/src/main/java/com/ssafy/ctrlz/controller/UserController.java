@@ -3,8 +3,6 @@ package com.ssafy.ctrlz.controller;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.ssafy.ctrlz.model.User;
-import com.ssafy.ctrlz.service.JwtService;
 import com.ssafy.ctrlz.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,17 +32,10 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@Autowired
-	private JwtService jwtService;
-		
 	@PostMapping("/register")
 	@ApiOperation(value = "가입하기", notes = "중복 이메일, 이름을 검사합니다.")
 	public Object userRegister(@RequestBody User user) {
-		System.out.println(user.getUserGid());
-		System.out.println(user.getUserType());
-		System.out.println(user.getUserEmail());
-		System.out.println(user.getUserName());
-		
+
 		if(userService.getUserByUserEmail(user.getUserEmail()) != null){
 			return new ResponseEntity<>("Fail",HttpStatus.NOT_FOUND);
 		}
@@ -64,47 +54,17 @@ public class UserController {
 		User userGoogle = userService.getUserByUserGid(user.getUserGid());
 		
 		if(userGoogle != null) {
-			
-			Optional<User> userOpt = userService.loginAccount(userGoogle.getUserEmail(), userGoogle.getUserPassword());
-			Map<String, Object> resultMap = new HashMap<String, Object>();
-			HttpStatus status = null;
-			if(userOpt.isPresent()) {
-				User userInfo = userService.getUserByUserEmail(userGoogle.getUserEmail());
-				userInfo.setUserPassword(userGoogle.getUserPassword());
-				String token = jwtService.create(userInfo);
-				resultMap.put("accesstoken",token);
-				resultMap.put("message", "Success");
-				status = HttpStatus.ACCEPTED;
-				return new ResponseEntity<>(resultMap, status);
-			}
-			else {
-				resultMap.put("message", "FAIL");
-				status = HttpStatus.INTERNAL_SERVER_ERROR;
-				return new ResponseEntity<>(resultMap, status);
-			}
-			
-		}else {
-			userService.createAccount(user);
-			
-			Optional<User> userOpt = userService.loginAccount(user.getUserEmail(), user.getUserPassword());
-			Map<String, Object> resultMap = new HashMap<String, Object>();
-			HttpStatus status = null;
-			if(userOpt.isPresent()) {
-				User userInfo = userService.getUserByUserEmail(user.getUserEmail());
-				userInfo.setUserPassword(user.getUserPassword());
-				String token = jwtService.create(userInfo);
-				resultMap.put("accesstoken",token);
-				resultMap.put("message", "Success");
-				status = HttpStatus.ACCEPTED;
-				return new ResponseEntity<>(resultMap, status);
-			}
+		return userService.userToken(userGoogle);
 		}
-		return new ResponseEntity<>("Google Success", HttpStatus.OK);
+		else {	
+		userService.createAccount(user);	
+	    return userService.userToken(user);
+		}
 	}
 	
 	@PostMapping("/login")
 	@ApiOperation(value = "로그인", notes = "성공시 jwt 토큰을 반환합니다.")
-	public Object userLogin(User user) {
+	public Object userLogin(@RequestBody User user) {
 			
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -113,25 +73,8 @@ public class UserController {
 			}catch(NoSuchAlgorithmException e){
 			e.printStackTrace();
 			}
-		
-		String original = user.getUserPassword();
-		Optional<User> userOpt = userService.loginAccount(user.getUserEmail(), original);
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		HttpStatus status = null;
-		if(userOpt.isPresent()) {
-			User userInfo = userService.getUserByUserEmail(user.getUserEmail());
-			userInfo.setUserPassword(original);
-			String token = jwtService.create(userInfo);
-			resultMap.put("accesstoken",token);
-			resultMap.put("message", "Success");
-			status = HttpStatus.ACCEPTED;
-			return new ResponseEntity<>(resultMap, status);
-		}
-		else {
-			resultMap.put("message", "FAIL");
-			status = HttpStatus.INTERNAL_SERVER_ERROR;
-			return new ResponseEntity<>(resultMap, status);
-		}
+			
+		return userService.userToken(user);
 	}
 	
 	@PostMapping("/profile/update")
