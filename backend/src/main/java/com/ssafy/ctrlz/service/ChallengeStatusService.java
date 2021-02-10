@@ -16,4 +16,6 @@ public interface ChallengeStatusService {
 
 	ChallengeStatus findByChallengeAndUser(ChallengeStatusId challengeStatusId);
 
+	long countByChallenge(String challengeId);
+
 }
