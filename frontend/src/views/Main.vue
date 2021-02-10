@@ -6,14 +6,14 @@
     <Mission
       topic="데일리 미션"
       :title="dailyChallengeName"
-      participants="3123"
+      :participants="dailyChallengeParticipants"
       description="매일 데일리 미션을 수행하며 생활 속에서 꾸준히 제로웨이스트를 실천해보세요!"
       :challenge-image="dailyChallengeImage"
     />
     <Mission
       topic="환경부와 런데이가 함께하는"
       :title="businessChallengeName"
-      participants="17211"
+      :participants="businessChallengeParticipants"
       description=""
       :challenge-image="businessChallengeImage"
     />
@@ -29,7 +29,7 @@ import Challenges from "@/components/main/Challenges.vue";
 import "@/components/css/main/index.scss";
 import axios from "axios";
 
-axios.defaults.baseURL = "https://i4a202.p.ssafy.io:8888";
+axios.defaults.baseURL = "http://i4a202.p.ssafy.io:8888";
 
 export default {
   name: "Main",
@@ -43,9 +43,10 @@ export default {
     return {
       businessChallengeName: "",
       businessChallengeImage: "",
+      businessChallengeParticipants: "",
       dailyChallengeImage: "",
       dailyChallengeName: "",
-      participants: "",
+      dailyChallengeParticipants: "",
       challenges: [],
     };
   },
@@ -56,6 +57,7 @@ export default {
     }).then((res) => {
       this.dailyChallengeName = res.data.challengeName;
       this.dailyChallengeImage = res.data.challengeImage;
+      this.dailyChallengeParticipants = res.data.participants;
     });
     axios({
       url: "/challenge/?challengeId=challenge_03",
@@ -63,13 +65,13 @@ export default {
     }).then((res) => {
       this.businessChallengeName = res.data.challengeName;
       this.businessChallengeImage = res.data.challengeImage;
+      this.businessChallengeParticipants = res.data.participants;
     });
     axios({
       url: "/challenge/all",
       method: "GET",
     }).then((res) => {
       this.challenges = res.data;
-      console.log(this.challenges);
     });
   },
 };

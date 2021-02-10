@@ -26,9 +26,11 @@ import "@/components/css/main/challenges.scss";
 
 export default {
   name: "Challenges",
-
   props: {
-    challenges: [],
+    challenges: {
+      type: Array,
+      required: true,
+    },
   },
 };
 </script>
