@@ -1,0 +1,36 @@
+@import "../colors.scss";
+
+.splash {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $primary-green;
+
+    .logo {
+        background-color: $basic-white;    
+        border-radius: 45px;
+        animation: float 1.5s ease-in-out forwards;
+    }
+
+    p {
+        margin-top: 30px;
+        font-family: Consolas,monaco,monospace; 
+        font-weight: bold;
+        font-size: 19px;
+        color: $basic-white;
+        animation: float 1.5s ease-in-out 0.5s forwards;
+    }
+}
+
+@keyframes float {
+    0% {
+	    transform: translatey(0px);
+    }
+    100% {
+	    box-shadow: 0 15px 10px 0 rgba(0,0,0,0.1);
+	    transform: translatey(-20px);
+    }
+}

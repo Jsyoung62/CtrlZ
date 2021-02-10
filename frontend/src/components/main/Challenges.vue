@@ -14,7 +14,7 @@
           {{ challenge.challengeName }}
         </p>
         <p class="participants">
-          {{ challenge.participants }}
+          {{ challenge.participants | numberWithComma }}
           명 도전 중
         </p>
       </div>
@@ -26,6 +26,11 @@ import "@/components/css/main/challenges.scss";
 
 export default {
   name: "Challenges",
+  filters: {
+    numberWithComma(num) {
+      return String(num).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+  },
   data: () => {
     return {
       challenges: [

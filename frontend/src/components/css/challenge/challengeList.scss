@@ -1,0 +1,120 @@
+@import "../colors.scss";
+
+@mixin challenge($padding-top) {
+    width: 100%;
+    padding-top: $padding-top;
+    background-color: $basic-white;
+    border: 1px solid #F2F2F2;
+    border-radius: 13px;
+}
+
+@mixin category($font-size, $line-height) {
+    color: $primary-green;
+    font-weight: bold;
+    font-size: $font-size;
+    line-height: $line-height;
+    letter-spacing: 0.32px;
+}
+
+@mixin title($font-size, $line-height) {
+    font-weight: bold;
+    font-size: $font-size;
+    line-height: $line-height;
+    letter-spacing: 0.32px;
+}
+
+.challenge{
+    margin-top: 20px;
+
+    .contents {
+        @include challenge(calc(100% * 9/16));
+        margin-bottom: 11px;
+    }
+
+    .category {
+        @include category(16px, 21px);
+    }
+          
+    .titleBox {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: space-between;
+    }
+
+    .title {
+        @include title(20px, 15px);
+    }
+
+    .title:hover {
+        color: $primary-green
+    }
+
+    .participants {
+        color: $primary-green;
+        font-weight: bold;
+        font-size: 15px;
+        line-height: 21px;
+        display: flex;
+        align-items: flex-end;
+    }
+}
+
+.topic {
+    margin-top: 50px;
+    color: $primary-green;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 15px;
+    letter-spacing: 0.32px;
+    display: flex;
+    flex-basis: 100%;
+    align-items: center;
+}
+
+.topic::after {
+    content: "";
+    flex-grow: 1;
+    height: 2px;
+    background: rgba(116, 164, 127, 0.5);
+    border-radius: 10px;
+    margin: 0px 0px 0px 16px;
+}
+
+.normalChallenge{
+    margin-bottom: 50px;
+
+    .listBox {
+        display: grid;
+        justify-items: stretch;
+        grid-template-columns: 48% 48%;
+        column-gap: 4%;
+    }
+    
+    .contents {
+        @include challenge(calc(100% * 3/4));
+    }
+
+    .category {
+        @include category(11px, 16px);
+    }
+  
+    .titleBox {
+        display: flex;
+        flex-flow: column wrap;
+        align-items: flex-start;
+    }
+
+    .title {
+        @include title(15px, 22px);
+    }
+
+    .participants {
+        color: $primary-green;
+        font-weight: normal;
+        font-size: 9px;
+        line-height: 13px;
+        display: flex;
+        align-items: center;
+    }
+}
