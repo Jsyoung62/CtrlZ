@@ -24,8 +24,6 @@
       <swiper-slide>
         <Day day="금요일" title="고기없는 月요일" />
       </swiper-slide>
-      <div slot="button-prev" class="swiper-button-prev"></div>
-      <div slot="button-next" class="swiper-button-next"></div>
     </swiper>
   </div>
 </template>
@@ -64,10 +62,6 @@ export default {
         },
         pagination: {
           el: ".swiper-pagination",
-        },
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
         },
       },
     };
