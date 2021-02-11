@@ -7,6 +7,7 @@ import Challenge from "../views/Challenge/Challenge.vue";
 import ChallengeList from "../views/Challenge/ChallengeList.vue";
 import ChallengeDetail from "../views/Challenge/ChallengeDetail.vue";
 import InProgressChallenge from "../views/Challenge/InProgressChallenge.vue";
+import DailyMission from "../views/Challenge/DailyMission.vue";
 import Post from "../views/Post/Post.vue";
 import Login from "../views/User/Login.vue";
 import Register from "../views/User/Register.vue";
@@ -54,6 +55,11 @@ const routes = [
         path: "inprogress",
         name: "InProgressChallenge",
         component: InProgressChallenge,
+      },
+      {
+        path: "daily",
+        name: "DailyMission",
+        component: DailyMission,
       },
     ],
   },
