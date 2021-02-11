@@ -24,7 +24,7 @@
 import axios from "axios";
 import "@/components/css/zbti/zbtiTest.scss";
 
-axios.defaults.baseURL = "https://i4a202.p.ssafy.io:8888";
+axios.defaults.baseURL = "http://i4a202.p.ssafy.io:8888";
 
 export default {
   name: "ZbtiTest",

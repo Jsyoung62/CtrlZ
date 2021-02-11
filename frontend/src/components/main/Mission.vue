@@ -4,7 +4,7 @@
       {{ topic }}
     </p>
 
-    <img src="@/assets/mission.png" class="thumbnail" />
+    <img :src="challengeImage" class="thumbnail" />
 
     <div class="titleWrapper">
       <p class="title">

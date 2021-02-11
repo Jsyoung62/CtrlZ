@@ -5,7 +5,7 @@
     </p>
     <div class="challengeWrapper">
       <div v-for="(challenge, index) in challenges" :key="index" class="challenge">
-        <img src="@/assets/ch_example.jpg" class="thumbnail" alt="thumbnail" />
+        <img :src="challenge.challengeImage" class="thumbnail" alt="thumbnail" />
         <p class="category">
           <span>#{{ challenge.level }}</span>
           <span>#{{ challenge.challengeType }}</span>
@@ -31,23 +31,11 @@ export default {
       return String(num).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
   },
-  data: () => {
-    return {
-      challenges: [
-        {
-          level: "입문",
-          challengeType: "생활",
-          challengeName: "시작이 반이다",
-          participants: 13723,
-        },
-        {
-          level: "고급",
-          challengeType: "생활",
-          challengeName: "플라스틱 다이어트",
-          participants: 2988,
-        },
-      ],
-    };
+  props: {
+    challenges: {
+      type: Array,
+      required: true,
+    },
   },
 };
 </script>

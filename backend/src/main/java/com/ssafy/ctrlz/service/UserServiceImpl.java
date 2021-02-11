@@ -5,9 +5,13 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import com.ssafy.ctrlz.model.User;
@@ -18,6 +22,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private JwtService jwtService;
 	
 	@Override
 	public void createAccount(User user) {
@@ -36,6 +43,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Optional<User> loginAccount(String userEmail, String userPassword) {
 		return userRepository.findUserByUserEmailAndUserPassword(userEmail,userPassword);
+	}
+	
+	@Override
+	public User getUserByUserGid(String userGid) {
+		return userRepository.getUserByUserGid(userGid);
 	}
 	
 	@Override
@@ -98,4 +110,24 @@ public class UserServiceImpl implements UserService {
 		return userRepository.deleteUserByUserId(userId);
 	}
 
+	@Override
+	public Object userToken(User user) {
+		Optional<User> userOpt = loginAccount(user.getUserEmail(), user.getUserPassword());
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		HttpStatus status = null;
+		if(userOpt.isPresent()) {
+			User userInfo = getUserByUserEmail(user.getUserEmail());
+			userInfo.setUserPassword(user.getUserPassword());
+			String token = jwtService.create(userInfo);
+			resultMap.put("accesstoken",token);
+			resultMap.put("message", "Success");
+			status = HttpStatus.ACCEPTED;
+			return new ResponseEntity<>(resultMap, status);
+	}
+		resultMap.put("message", "FAIL");
+		status = HttpStatus.INTERNAL_SERVER_ERROR;
+		return new ResponseEntity<>(resultMap, status);
+
+}
+	
 }

@@ -39,7 +39,7 @@ import Title from "@/components/user/Title.vue";
 import "@/components/css/user/index.scss";
 import "@/components/css/user/login.scss";
 
-axios.defaults.baseURL = "https://i4a202.p.ssafy.io:8888";
+axios.defaults.baseURL = "http://i4a202.p.ssafy.io:8888";
 
 export default {
   name: "Login",
@@ -71,9 +71,9 @@ export default {
     login() {
       if (this.checkForm) {
         axios({
-          url: "/user",
-          method: "GET",
-          params: {
+          url: "/user/login",
+          method: "POST",
+          data: {
             userEmail: this.email,
             userPassword: this.password,
           },
@@ -88,7 +88,6 @@ export default {
           });
         return;
       }
-      console.log("로그인 실패");
     },
     googleLogin() {
       const provider = new firebase.auth.GoogleAuthProvider();
@@ -96,15 +95,23 @@ export default {
         .auth()
         .signInWithPopup(provider)
         .then((res) => {
-          const userInfo = {
-            userId: res.user.uid,
-            userEmail: res.user.email,
-            userName: res.user.displayName,
-            userImage: res.user.photoURL,
-            userIntroduce: "",
-          };
-          this.$store.commit("GOOGLELOGIN", userInfo);
-          this.$router.push("/");
+          axios({
+            url: "/user/google/register",
+            method: "POST",
+            data: {
+              userGid: res.user.uid,
+              userEmail: res.user.email,
+              userName: res.user.displayName,
+              userImage: res.user.photoURL,
+              userPassword: res.user.uid,
+              userType: "Y",
+            },
+          }).then((res) => {
+            const token = res.data.accesstoken;
+            console.log(token);
+            this.$store.commit("LOGIN", token);
+            this.$router.push("/");
+          });
         })
         .catch((error) => {
           console.error(error);
