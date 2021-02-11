@@ -6,13 +6,16 @@
       <Header title="Ctrl Z" />
       <Navigation />
 
-      <Mission
-        topic="데일리 미션"
-        :title="dailyChallengeName"
-        :participants="dailyChallengeParticipants"
-        description="매일 데일리 미션을 수행하며 생활 속에서 꾸준히 제로웨이스트를 실천해보세요!"
-        :challenge-image="dailyChallengeImage"
-      />
+      <router-link to="/challenge/daily">
+        <Mission
+          topic="데일리 미션"
+          :title="dailyChallengeName"
+          :participants="dailyChallengeParticipants"
+          description="매일 데일리 미션을 수행하며 생활 속에서 꾸준히 제로웨이스트를 실천해보세요!"
+          :challenge-image="dailyChallengeImage"
+        />
+      </router-link>
+
       <Mission
         topic="환경부와 런데이가 함께하는"
         :title="businessChallengeName"

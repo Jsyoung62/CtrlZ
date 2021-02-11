@@ -82,7 +82,7 @@ module.exports = {
     "no-whitespace-before-property": 2,
     "padded-blocks": ["error", "never"],
     "space-in-parens": ["error", "never"],
-    "array-bracket-spacing": ["error", "always", { "arraysInArrays": false }],
+    "array-bracket-spacing": ["error", "always", { "arraysInArrays": false, "singleValue": false }],
     "object-curly-spacing": ["error", "always", { "objectsInObjects": false, "arraysInObjects": false }],
     "comma-style": ["error", "last"],
     "comma-dangle": ["error", "only-multiline"],

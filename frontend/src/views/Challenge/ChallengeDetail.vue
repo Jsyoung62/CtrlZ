@@ -49,7 +49,6 @@ import Header from "@/components/common/Header.vue";
 import Navigation from "@/components/common/Navigation.vue";
 import ChallengeTitle from "@/components/challenge/ChallengeTitle.vue";
 import ChallengeFeed from "@/components/challenge/ChallengeFeed.vue";
-import "@/components/css/challenge/index.scss";
 import "@/components/css/challenge/challengeDetail.scss";
 
 export default {
