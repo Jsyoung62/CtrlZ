@@ -30,7 +30,7 @@
 import "@/components/css/uploadModal.scss";
 
 export default {
-  name: "MissionModal",
+  name: "UploadModal",
   props: {
     isImage: {
       type: Boolean,
@@ -55,7 +55,6 @@ export default {
       reader.readAsDataURL(files[0]);
       reader.onload = (evt) => {
         this.postImage = evt.target.result;
-        console.log(this.postImage);
 
         if (this.postImage !== null) {
           this.movePostUpload();

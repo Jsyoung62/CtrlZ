@@ -10,12 +10,13 @@
       <span>mission.missionTitle</span>
     </div>
     <div class="postUploadText">
-      <textarea rows="30"></textarea>
+      <textarea v-model="postContent" rows="30"></textarea>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 import "@/components/css/post/index.scss";
 import "@/components/css/post/postUpload.scss";
 
@@ -23,15 +24,34 @@ export default {
   name: "PostUpload",
   data() {
     return {
-      postImage: "",
+      user: "",
       mission: "",
+      postImage: "",
+      postContent: "",
     };
   },
   created() {
     this.postImage = this.$route.params.postImage;
   },
   methods: {
-    handleUploadClick() {},
+    handleUploadClick() {
+      axios({
+        url: "/post",
+        method: "POST",
+        params: {
+          challengeId: this.mission.challengeId,
+          userId: this.user.userId,
+          postContent: this.postContent,
+          postImage: this.postImage,
+        },
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
   },
 };
 </script>
