@@ -4,12 +4,16 @@
     <Navigation />
 
     <div class="thumbnailWrapper">
-      <img src="@/assets/mission.png" class="thumbnail" />
+      <img :src="challenge.challengeImage" class="thumbnail" />
       <progress v-show="isInprogress || isAchived" :value="progress" max="100"></progress>
     </div>
 
     <div class="challengeDetailContainer">
-      <ChallengeTitle title="도전, 에코 패셔니스타" level="입문" challenge-type="일상" />
+      <ChallengeTitle
+        :title="challenge.challengeName"
+        :level="challenge.levelId"
+        :challenge-type="challenge.challengeType"
+      />
       <div class="countWrapper">
         <div>
           {{ achived | numberWithComma }}
@@ -17,40 +21,44 @@
           <span>완료</span>
         </div>
         <div>
-          {{ participants | numberWithComma }}
+          {{ challenge.participants | numberWithComma }}
           명
           <span>도전중</span>
         </div>
       </div>
 
       <p class="description">
-        {{ description }}
+        {{ challenge.challengeContent }}
       </p>
 
       <p v-if="isInprogress" class="status">
-        60%진행중
+        {{ progress }}
+        % 진행중
       </p>
       <p v-else-if="isAchived" class="status">
-        {{ 3220 | numberWithComma }}
+        {{ achived | numberWithComma }}
         번째로 완료했어요!
       </p>
       <button v-else class="startButton" @click="handleStartButton">
-        {{ (achived + 1) | numberWithComma }}
+        {{ (achived + challenge.participants + 1) | numberWithComma }}
         번째 참여자 되기
       </button>
     </div>
 
-    <ChallengeFeed :images="images" />
+    <ChallengeFeed :posts="challengePosts" />
   </div>
 </template>
 
 <script>
+import axios from "axios";
 import Header from "@/components/common/Header.vue";
 import Navigation from "@/components/common/Navigation.vue";
 import ChallengeTitle from "@/components/challenge/ChallengeTitle.vue";
 import ChallengeFeed from "@/components/challenge/ChallengeFeed.vue";
 import "@/components/css/challenge/index.scss";
 import "@/components/css/challenge/challengeDetail.scss";
+
+axios.defaults.baseURL = "http://i4a202.p.ssafy.io:8888";
 
 export default {
   name: "ChallengeDetail",
@@ -67,30 +75,110 @@ export default {
   },
   data: () => {
     return {
-      achived: 13512,
-      participants: 3592,
-      description:
-        "패션 분야의 환경 보호를 실천하고, 모두가 인정하는 에코 패셔니스타가 되어보세요!",
-      images: [
-        "http://i4a202.p.ssafy.io/img/dailymission.png",
-        "http://i4a202.p.ssafy.io/img/dailymission.png",
-        "http://i4a202.p.ssafy.io/img/dailymission.png",
-        "http://i4a202.p.ssafy.io/img/dailymission.png",
-      ],
+      userId: "",
+      challengeId: "",
+      challenge: "",
+      challengeStatus: "",
+      achived: "",
+      challengePosts: "",
       isInprogress: false,
       isAchived: false,
-      challengeMissionTotal: 3,
-      challengeClosed: 2,
     };
   },
   computed: {
     progress() {
-      return Math.floor((this.challengeClosed / this.challengeMissionTotal) * 100);
+      return Math.floor(
+        (this.challengeStatus.challengeMissionCurrent / this.challenge.challengeMissionTotal) * 100
+      );
     },
+  },
+  created() {
+    this.userId = this.$store.state.userInfo.userId;
+    this.challengeId = this.$route.params.challengeId;
+
+    axios({
+      url: "/challenge/",
+      method: "GET",
+      params: {
+        challengeId: this.challengeId,
+      },
+    })
+      .then((response) => {
+        this.challenge = response.data;
+      })
+      .catch((error) => {
+        console.error(error);
+      }); // 해당 챌린지 데이터 조회
+
+    axios({
+      url: "/post/find/challenge/",
+      method: "GET",
+      params: {
+        challengeId: this.challengeId,
+      },
+    })
+      .then((response) => {
+        this.challengePosts = response.data;
+      })
+      .catch((error) => {
+        console.error(error);
+      }); // 해당 챌린지의 모든 게시글 조회
+
+    axios({
+      url: "/challenge/status/count/achived",
+      method: "GET",
+      params: {
+        challengeId: this.challengeId,
+      },
+    })
+      .then((response) => {
+        this.achived = response.data;
+      })
+      .catch((error) => {
+        console.error(error);
+      }); // 해당 챌린지 완료자 수 조회
+
+    if (this.userId > 0) {
+      axios({
+        url: `/challenge/status/${this.challengeId}/${this.userId}`,
+        method: "GET",
+      })
+        .then((response) => {
+          this.challengeStatus = response.data;
+
+          if (this.challengeStatus !== null) {
+            if (this.challengeStatus.challengeFinishDate === null) {
+              this.isInprogress = true;
+            }
+            if (this.challengeStatus.challengeFinishDate !== null) {
+              this.isAchived = true;
+            }
+          }
+        })
+        .catch((error) => {
+          console.log("현재 사용자가 해당 챌린지에 참여하지 않고 있는 경우");
+          console.error(error);
+        }); // 현재 사용자의 해당 챌린지 참여 현황 조회
+    }
   },
   methods: {
     handleStartButton() {
-      console.log("챌린지 참여");
+      if (this.userId > 0) {
+        axios({
+          url: "/challenge/status/",
+          method: "POST",
+          data: {
+            challengeId: this.challengeId,
+            userId: this.userId,
+          },
+        })
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            console.error(error);
+          }); // 현재 사용자의 해당 챌린지 참여 현황 추가
+      }
     },
   },
 };

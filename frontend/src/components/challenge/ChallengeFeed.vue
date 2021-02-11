@@ -1,7 +1,7 @@
 <template>
   <div class="challengeFeed">
-    <div v-for="(image, index) in images" :key="index" class="feed">
-      <img :src="image" />
+    <div v-for="post in posts" :key="post.postId" class="feed">
+      <img :src="post.postImage" />
     </div>
   </div>
 </template>
@@ -10,7 +10,7 @@
 export default {
   name: "ChallengeFeed",
   props: {
-    images: {
+    posts: {
       type: Array,
       required: true,
     },
