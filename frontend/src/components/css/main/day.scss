@@ -1,0 +1,34 @@
+@import "../colors";
+
+.day {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 25px 20px;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 22px;
+    color: $basic-white;
+    background-color: $primary-green3;
+
+    .post {
+        margin-top: 16px;;
+        width: 160px;
+        height: 160px;
+        border-radius: 100%;
+    }
+
+    .title {
+        width: 100%;
+        height: 56px;
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        font-weight: normal !important;
+        font-size: 16px !important;
+        line-height: 56px !important;
+        color: $basic-white !important;
+        background-color: $primary-green;
+        border-radius: 0px 0px 15px 15px;
+    }
+}

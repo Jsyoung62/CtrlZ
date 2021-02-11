@@ -1,40 +1,28 @@
 @import "../colors.scss";
 
 .mission {
-    margin-top: 25px;
+    width: 100%;
+    height: calc(100% * 9/16);
 
     .thumbnail {
         width: 100%;
-        margin-bottom: 10px;
-        border-radius: 15px;  
-        cursor: pointer;      
+        height: 100%;
+        cursor: default;      
     }
 
-    .titleWrapper {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: baseline;
-        justify-content: space-between;
-        margin-bottom: 8px;
-
-        .title {
-            font-weight: bold;
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        .participants {
-            font-weight: bold;
-            font-size: 12px;
-            color: $primary-green3;
-            cursor: default;
-        }
-    }
-
-    .description {
-        font-size: 16px;
+    button {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        z-index: 1;
+        width: 129px;
+        height: 46px;
+        font-weight: bold;
+        font-size: 14px;
         line-height: 20px;
-        cursor: default;
+        letter-spacing: 0.2px;
+        color: $basic-white;
+        background-color: $primary-green;
+        border-radius: 18px;
     }
-    
 }

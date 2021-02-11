@@ -1,0 +1,45 @@
+@import "../colors.scss";
+
+.dailyMission {
+    width: 100%;
+    margin-top: 60px;
+    padding: 0 25px;
+    text-align: center;
+
+    .title {
+        margin-bottom: 11px;
+        font-weight: bold;
+        font-size: 26px;
+        line-height: 15px;
+        color: $primary-green;
+    }
+    
+    .description {
+        font-size: 16px;
+        line-height: 20px;
+        white-space: pre-line;
+    }
+
+    .swiper {
+        margin-top: 33px;
+        
+        .swiper-slide {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 200px;
+          height: 295px;
+          text-align: center;
+        }
+
+        .swiper-button-prev, .swiper-button-next {
+            opacity: 0%;
+            width: 50px;
+            height: 100%;
+            margin-top: 0;
+            position: absolute;
+            top: 0;
+        }
+      }
+}
+

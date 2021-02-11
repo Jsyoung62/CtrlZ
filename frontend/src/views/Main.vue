@@ -3,27 +3,15 @@
     <Splash v-if="this.$store.state.splash" />
 
     <div v-else class="main">
-      <Header title="Ctrl Z" />
+      <Header title="Ctrl Z" right-icon="notifications_none" />
       <Navigation />
 
-      <router-link to="/challenge/daily">
-        <Mission
-          topic="데일리 미션"
-          :title="dailyChallengeName"
-          :participants="dailyChallengeParticipants"
-          description="매일 데일리 미션을 수행하며 생활 속에서 꾸준히 제로웨이스트를 실천해보세요!"
-          :challenge-image="dailyChallengeImage"
-        />
-      </router-link>
-
-      <Mission
-        topic="환경부와 런데이가 함께하는"
-        :title="businessChallengeName"
-        :participants="businessChallengeParticipants"
-        description=""
-        :challenge-image="businessChallengeImage"
+      <Challenges
+        :sponsered-challenge="sponseredChallenge"
+        :recommend-challenges="recommendChallenges"
       />
-      <Challenges :challenges="challenges" />
+
+      <DailyMission :data="dailyChallenge" />
     </div>
   </div>
 </template>
@@ -32,8 +20,8 @@
 import Splash from "@/components/main/Splash.vue";
 import Header from "@/components/common/Header.vue";
 import Navigation from "@/components/common/Navigation.vue";
-import Mission from "@/components/main/Mission.vue";
 import Challenges from "@/components/main/Challenges.vue";
+import DailyMission from "@/components/main/DailyMission.vue";
 import "@/components/css/main/index.scss";
 import axios from "axios";
 
@@ -45,51 +33,80 @@ export default {
     Splash,
     Header,
     Navigation,
-    Mission,
     Challenges,
+    DailyMission,
   },
   data: () => {
     return {
-      businessChallengeName: "",
-      businessChallengeImage: "",
-      businessChallengeParticipants: "",
-      dailyChallengeImage: "",
-      dailyChallengeName: "",
-      dailyChallengeParticipants: "",
-      challenges: [],
+      dailyChallenge: {
+        imageURL: "",
+        challengeName: "",
+        challengeDescription: "",
+      },
+      sponseredChallenge: {
+        imageURL: "",
+        challengeName: "",
+      },
+      recommendChallenges: [],
     };
   },
   created() {
-    axios({
-      url: "/challenge/?challengeId=challenge_04",
-      method: "GET",
-    }).then((res) => {
-      this.dailyChallengeName = res.data.challengeName;
-      this.dailyChallengeImage = res.data.challengeImage;
-      this.dailyChallengeParticipants = res.data.participants;
-    });
-    axios({
-      url: "/challenge/?challengeId=challenge_03",
-      method: "GET",
-    }).then((res) => {
-      this.businessChallengeName = res.data.challengeName;
-      this.businessChallengeImage = res.data.challengeImage;
-      this.businessChallengeParticipants = res.data.participants;
-    });
-    axios({
-      url: "/challenge/all",
-      method: "GET",
-    }).then((res) => {
-      this.challenges = res.data;
-    });
-  },
-  mounted() {
+    // 첫 접속시 스플래시 화면 3.5초 지속 후 zbti테스트 페이지로 이동
     if (this.$store.state.splash) {
       window.setTimeout(() => {
         this.$store.commit("ENDSPLASH");
         this.$router.push("/zbti");
       }, 3500);
     }
+
+    // 데이터 불러오기
+    this.callDailyChallenge();
+    this.callSponseredChallenge();
+    this.callRecommendChallenges();
+  },
+  methods: {
+    // 데일리 미션 정보 불러오기
+    callDailyChallenge() {
+      axios({
+        url: "/challenge/",
+        method: "GET",
+        params: {
+          challengeId: "1",
+        },
+      }).then((res) => {
+        this.setDailyChallenge(res.data);
+      });
+    },
+    setDailyChallenge(info) {
+      this.dailyChallenge.imageURL = info.challengeImage;
+      this.dailyChallenge.challengeName = info.challengeName;
+      this.dailyChallenge.challengeDescription = info.challengeContent;
+    },
+    // 기업연계 챌린지 정보 불러오기
+    callSponseredChallenge() {
+      axios({
+        url: "/challenge/",
+        method: "GET",
+        params: {
+          challengeId: "2",
+        },
+      }).then((res) => {
+        this.setSponseredChallenge(res.data);
+      });
+    },
+    setSponseredChallenge(info) {
+      this.sponseredChallenge.imageURL = info.challengeImage;
+      this.sponseredChallenge.challengeName = info.challengeName;
+    },
+    // 추천 챌린지 정보 불러오기
+    callRecommendChallenges() {
+      axios({
+        url: "/challenge/all",
+        method: "GET",
+      }).then((res) => {
+        this.recommendChallenges = res.data;
+      });
+    },
   },
 };
 </script>
