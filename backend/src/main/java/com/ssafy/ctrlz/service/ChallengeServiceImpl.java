@@ -20,9 +20,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 		if (challengeList.size() > 0) {
 			return challengeList;
 		}
-		else {
-			return null;
-		}
+		return null;
 	}
 
 	@Override
@@ -37,9 +35,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 		if (challengeList.size() > 0) {
 			return challengeList;
 		}
-		else {
-			return null;
-		}
+		return null;
 	}
 
 	@Override
@@ -49,9 +45,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 		if (challengeList.size() > 0) {
 			return challengeList;
 		}
-		else {
-			return null;
-		}
+		return null;
 	}
 
 	@Override
@@ -61,9 +55,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 		if (challengeList.size() > 0) {
 			return challengeList;
 		}
-		else {
-			return null;
-		}
+		return null;
 	}
 
 	@Override
@@ -73,9 +65,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 		if (challengeList.size() > 0) {
 			return challengeList;
 		}
-		else {
-			return null;
-		}
+		return null;
 	}
 
 }
