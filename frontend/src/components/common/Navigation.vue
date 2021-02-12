@@ -7,6 +7,13 @@
       <p>홈</p>
     </div>
 
+    <div class="buttonWrapper" @click="handleTodayClick">
+      <span class="material-icons">
+        today
+      </span>
+      <p>오늘의미션</p>
+    </div>
+
     <div class="buttonWrapper" @click="handleChallengeClick">
       <span class="material-icons">
         bubble_chart
@@ -18,7 +25,7 @@
       <span class="material-icons">
         account_circle
       </span>
-      <p>MY</p>
+      <p>마이페이지</p>
     </div>
   </nav>
 </template>
@@ -42,6 +49,11 @@ export default {
     handleHomeClick() {
       if (this.$router.currentRoute.path !== "/") {
         this.$router.push("/");
+      }
+    },
+    handleTodayClick() {
+      if (this.$router.currentRoute.path !== "/challenge/daily") {
+        this.$router.push("/challenge/daily");
       }
     },
     handleChallengeClick() {
