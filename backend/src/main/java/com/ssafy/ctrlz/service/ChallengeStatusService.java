@@ -16,6 +16,8 @@ public interface ChallengeStatusService {
 
 	ChallengeStatus findByChallengeAndUser(ChallengeStatusId challengeStatusId);
 
-	long countByChallenge(String challengeId);
+	long countInprogressByChallenge(String challengeId);
+
+	long countAchivedByChallenge(String challengeId);
 
 }

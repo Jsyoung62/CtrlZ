@@ -37,7 +37,7 @@ public class ChallengeController {
 
 		for (int i = 0; i < challengeList.size(); i++) {
 			challengeId = challengeList.get(i).getChallengeId();
-			challengeList.get(i).setParticipants(challengeStatusService.countByChallenge(challengeId));
+			challengeList.get(i).setParticipants(challengeStatusService.countInprogressByChallenge(challengeId));
 		}
 
 		return new ResponseEntity<List<Challenge>>(challengeList, HttpStatus.OK);
@@ -47,7 +47,7 @@ public class ChallengeController {
 	@GetMapping(value="/")
 	public Challenge findByChallenge(@RequestParam String challengeId) {
 		Challenge challenge = challengeService.findByChallenge(challengeId);
-		challenge.setParticipants(challengeStatusService.countByChallenge(challenge.getChallengeId()));
+		challenge.setParticipants(challengeStatusService.countInprogressByChallenge(challenge.getChallengeId()));
 
 		return challenge;
 	}
@@ -61,7 +61,7 @@ public class ChallengeController {
 		if (challengeList != null) {
 			for (int i = 0; i < challengeList.size(); i++) {
 				challengeId = challengeList.get(i).getChallengeId();
-				challengeList.get(i).setParticipants(challengeStatusService.countByChallenge(challengeId));
+				challengeList.get(i).setParticipants(challengeStatusService.countInprogressByChallenge(challengeId));
 			}
 		}
 
@@ -77,7 +77,7 @@ public class ChallengeController {
 		if (challengeList != null) {
 			for (int i = 0; i < challengeList.size(); i++) {
 				challengeId = challengeList.get(i).getChallengeId();
-				challengeList.get(i).setParticipants(challengeStatusService.countByChallenge(challengeId));
+				challengeList.get(i).setParticipants(challengeStatusService.countInprogressByChallenge(challengeId));
 			}
 		}
 
@@ -94,7 +94,7 @@ public class ChallengeController {
 		if (challengeList != null) {
 			for (int i = 0; i < challengeList.size(); i++) {
 				challengeId = challengeList.get(i).getChallengeId();
-				challengeList.get(i).setParticipants(challengeStatusService.countByChallenge(challengeId));
+				challengeList.get(i).setParticipants(challengeStatusService.countInprogressByChallenge(challengeId));
 			}
 		}
 
@@ -111,7 +111,7 @@ public class ChallengeController {
 		if (challengeList != null) {
 			for (int i = 0; i < challengeList.size(); i++) {
 				challengeId = challengeList.get(i).getChallengeId();
-				challengeList.get(i).setParticipants(challengeStatusService.countByChallenge(challengeId));
+				challengeList.get(i).setParticipants(challengeStatusService.countInprogressByChallenge(challengeId));
 			}
 		}
 

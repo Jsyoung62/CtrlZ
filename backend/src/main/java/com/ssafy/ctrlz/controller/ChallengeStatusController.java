@@ -32,7 +32,10 @@ public class ChallengeStatusController {
 
 	@ApiOperation(value = "챌린지 현황 데이터 추가")
 	@PostMapping(value="/")
-	public ResponseEntity<ChallengeStatus> save(@RequestBody ChallengeStatus challengeStatus) {
+	public ResponseEntity<ChallengeStatus> save(@RequestBody ChallengeStatusId challengeStatusId) {
+		ChallengeStatus challengeStatus = new ChallengeStatus();
+		challengeStatus.setId(challengeStatusId);
+
 		return new ResponseEntity<ChallengeStatus>(challengeStatusService.save(challengeStatus), HttpStatus.OK);
 	}
 
@@ -88,9 +91,15 @@ public class ChallengeStatusController {
 	}
 
 	@ApiOperation(value = "특정 챌린지 현황 참여자수")
-	@GetMapping(value="/count")
+	@GetMapping(value="/count/inprogress")
 	public long countByChallengeId(@RequestParam String challengeId) {
-		return challengeStatusService.countByChallenge(challengeId);
+		return challengeStatusService.countInprogressByChallenge(challengeId);
+	}
+
+	@ApiOperation(value = "특정 챌린지 완료자수")
+	@GetMapping(value="/count/achived")
+	public long countAchivedByChallengeId(@RequestParam String challengeId) {
+		return challengeStatusService.countAchivedByChallenge(challengeId);
 	}
 
 }
