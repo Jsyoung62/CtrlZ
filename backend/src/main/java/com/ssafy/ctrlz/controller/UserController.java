@@ -57,7 +57,7 @@ public class UserController {
 		return userService.userToken(userGoogle);
 		}
 		else {	
-		userService.createAccount(user);	
+		userService.createGoogleAccount(user);	
 	    return userService.userToken(user);
 		}
 	}

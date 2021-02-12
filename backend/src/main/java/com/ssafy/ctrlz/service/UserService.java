@@ -9,6 +9,8 @@ public interface UserService {
 	public Object userToken(User user);
 	//회원가입 기능 
 	public void createAccount(User user);
+	//구글 회원가입 기능
+	public void createGoogleAccount(User user);
 	//로그인 기능
 	public Optional<User> loginAccount(String userEmail, String userPassword);
 	//내 프로필 기능

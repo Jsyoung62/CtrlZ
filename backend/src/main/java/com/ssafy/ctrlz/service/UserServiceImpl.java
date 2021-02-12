@@ -41,6 +41,21 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+	public void createGoogleAccount(User user) {
+		try {
+			MessageDigest md = MessageDigest.getInstance("SHA-256");
+			md.update(user.getUserPassword().getBytes());
+			user.setUserPassword(String.format("%040x", new BigInteger(1,md.digest())));
+		}catch(NoSuchAlgorithmException e){
+			e.printStackTrace();
+		}
+		user.setUserEmail(user.getUserEmail());
+		user.setUserName(user.getUserEmail().substring(0, user.getUserEmail().indexOf("@")));
+		userRepository.save(user);
+		
+	}
+	
+	@Override
 	public Optional<User> loginAccount(String userEmail, String userPassword) {
 		return userRepository.findUserByUserEmailAndUserPassword(userEmail,userPassword);
 	}
