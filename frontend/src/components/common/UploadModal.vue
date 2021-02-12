@@ -6,8 +6,8 @@
       </div>
       <div class="modalContent">
         <slot name="modalContent"></slot>
-        <div v-show="isImage">
-          <slot name="modalImage"></slot>
+        <div v-show="missionImage != null">
+          <img class="modalImage" :src="missionImage" />
         </div>
       </div>
       <div class="modalButton">
@@ -32,10 +32,9 @@ import "@/components/css/uploadModal.scss";
 export default {
   name: "UploadModal",
   props: {
-    isImage: {
-      type: Boolean,
-      default: true,
-      required: false,
+    missionImage: {
+      type: String,
+      required: true,
     },
   },
   data() {

@@ -15,8 +15,9 @@
 }
 
 .modalWrapper {
+    display: table;
     width: 80%;
-    height: 65%;
+    height: auto;
     margin: 0px auto;
     background-color: $secondary-white;
     border-radius: 15px;
