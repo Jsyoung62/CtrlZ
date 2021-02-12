@@ -1,8 +1,14 @@
 <template>
   <div class="header">
+    <span class="material-icons">
+      {{ leftIcon }}
+    </span>
     <h1 class="title">
       {{ title }}
     </h1>
+    <span class="material-icons">
+      {{ rightIcon }}
+    </span>
   </div>
 </template>
 
@@ -13,6 +19,16 @@ export default {
   name: "Header",
   props: {
     title: {
+      type: String,
+      default: "",
+      required: false,
+    },
+    leftIcon: {
+      type: String,
+      default: "",
+      required: false,
+    },
+    rightIcon: {
       type: String,
       default: "",
       required: false,

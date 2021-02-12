@@ -1,41 +1,87 @@
 <template>
-  <div class="recommendChallenges">
-    <p class="topic">
-      추천 챌린지
-    </p>
-    <div class="challengeWrapper">
-      <div v-for="(challenge, index) in challenges" :key="index" class="challenge">
-        <img :src="challenge.challengeImage" class="thumbnail" alt="thumbnail" />
-        <p class="category">
-          <span>#{{ challenge.level }}</span>
-          <span>#{{ challenge.challengeType }}</span>
-        </p>
-        <p class="challengeName">
-          {{ challenge.challengeName }}
-        </p>
-        <p class="participants">
-          {{ challenge.participants | numberWithComma }}
-          명 도전 중
-        </p>
-      </div>
-    </div>
-  </div>
+  <swiper class="swiper" :options="swiperOption">
+    <swiper-slide>
+      <Mission :challenge-image="sponseredChallenge.imageURL" />
+    </swiper-slide>
+    <swiper-slide v-for="(challenge, index) in recommendChallenges" :key="index">
+      <Mission :challenge-image="challenge.challengeImage" />
+    </swiper-slide>
+    <div slot="pagination" class="swiper-pagination"></div>
+    <div slot="button-prev" class="swiper-button-prev"></div>
+    <div slot="button-next" class="swiper-button-next"></div>
+  </swiper>
 </template>
 <script>
-import "@/components/css/main/challenges.scss";
-
+import Mission from "@/components/main/Mission.vue";
+import { Swiper, SwiperSlide } from "vue-awesome-swiper";
+import "swiper/css/swiper.css";
 export default {
   name: "Challenges",
-  filters: {
-    numberWithComma(num) {
-      return String(num).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    },
+  components: {
+    Swiper,
+    SwiperSlide,
+    Mission,
   },
   props: {
-    challenges: {
+    sponseredChallenge: {
+      type: Object,
+      required: true,
+    },
+    recommendChallenges: {
       type: Array,
       required: true,
     },
   },
+  data() {
+    return {
+      swiperOption: {
+        pagination: {
+          el: ".swiper-pagination",
+          dynamicBullets: true,
+          clickable: true,
+        },
+        speed: 300,
+        autoHeight: true,
+        centeredSlides: true,
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      },
+    };
+  },
 };
 </script>
+<style lang="scss">
+@import "@/components/css/colors.scss";
+
+.swiper-button-prev {
+  color: $basic-white;
+  left: 15px;
+
+  &::after {
+    font-size: 20px;
+    font-weight: bold;
+  }
+}
+
+.swiper-button-next {
+  color: $basic-white;
+  right: 15px;
+
+  &::after {
+    font-size: 20px;
+    font-weight: bold;
+  }
+}
+
+.swiper-pagination-bullet {
+  background: $basic-white;
+  opacity: 50%;
+}
+
+.swiper-pagination-bullet-active-main {
+  background: $basic-white;
+  opacity: 100%;
+}
+</style>
