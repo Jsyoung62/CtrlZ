@@ -13,6 +13,6 @@ public class UserScore {
 	@Id
 	private String userId;
 	private String zbtiId;
-	private int echoScore;
+	private long zScore;
 
 }

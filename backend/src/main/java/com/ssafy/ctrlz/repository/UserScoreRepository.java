@@ -7,4 +7,6 @@ import com.ssafy.ctrlz.model.UserScore;
 @Repository
 public interface UserScoreRepository extends JpaRepository<UserScore, String> {
 
+	public long countByzScoreGreaterThan(long zScore);
+
 }

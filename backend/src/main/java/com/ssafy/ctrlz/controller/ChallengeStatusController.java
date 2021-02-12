@@ -80,6 +80,8 @@ public class ChallengeStatusController {
 			challengeStatus.setChallengeMissionCurrent(challengeStatus.getChallengeMissionCurrent() + 1);
 
 			if (challengeStatus.getChallenge().getChallengeMissionTotal() == challengeStatus.getChallengeMissionCurrent()) {
+				challengeStatus.setChallengeFinishOrder(challengeStatusService.countAchivedByChallenge(challengeId) + 1);
+
 				String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 				challengeStatus.setChallengeFinishDate(now);
 			}

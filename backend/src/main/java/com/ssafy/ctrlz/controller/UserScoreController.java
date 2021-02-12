@@ -16,23 +16,23 @@ import com.ssafy.ctrlz.service.UserScoreService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@Api(tags = "UserScore", description = "사용자 테스트 결과 API")
+@Api(tags = "UserScore", description = "사용자 Z 점수 API")
 @CrossOrigin
 @RestController
-@RequestMapping("/user/score")
+@RequestMapping("/user")
 public class UserScoreController {
 
 	@Autowired
 	private UserScoreService userScoreService;
 
-	@ApiOperation(value = "사용자 테스트 결과 추가")
-	@PostMapping(value="/")
+	@ApiOperation(value = "사용자 Z 점수 추가")
+	@PostMapping(value="/zscore")
 	public ResponseEntity<UserScore> save(@RequestBody UserScore userScore) {
 		return new ResponseEntity<UserScore>(userScoreService.save(userScore), HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "사용자 테스트 결과 조회")
-	@GetMapping(value="/")
+	@ApiOperation(value = "사용자 Z 점수 조회")
+	@GetMapping(value="/zscore")
 	public UserScore findByUser(@RequestParam String userId) {
 		return userScoreService.findByUser(userId);
 	}
@@ -49,13 +49,22 @@ public class UserScoreController {
 		return new ResponseEntity<UserScore>(userScoreService.save(userScore), HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "사용자 에코 지수 수정")
-	@PutMapping(value="/echo")
-	public ResponseEntity<UserScore> updateEcho(@RequestParam String userId) {
+	@ApiOperation(value = "사용자 Z 점수 수정")
+	@PutMapping(value="/zscore")
+	public ResponseEntity<UserScore> updateZScore(@RequestParam String userId) {
 		UserScore userScore = userScoreService.findByUser(userId);
-		userScore.setEchoScore(userScore.getEchoScore() + 3);
+		userScore.setZScore(userScore.getZScore() + 3);
 
 		return new ResponseEntity<UserScore>(userScoreService.save(userScore), HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "사용자 Z 점수 등수 및 상위 %")
+	@GetMapping(value="/rank")
+	public long[] countZScoreRank(@RequestParam String userId) {
+		UserScore userScore = userScoreService.findByUser(userId);
+		long zScoreRank = userScoreService.countRankByZScore(userScore.getZScore()) + 1;
+
+		return new long[] {zScoreRank, (zScoreRank * 100 / userScoreService.countAll())};
 	}
 
 }
