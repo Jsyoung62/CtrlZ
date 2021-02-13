@@ -1,12 +1,12 @@
 package com.ssafy.ctrlz.service;
 
 import java.util.List;
-import org.springframework.web.multipart.MultipartFile;
 import com.ssafy.ctrlz.model.Post;
+import com.ssafy.ctrlz.model.PostUpload;
 
 public interface PostService {
 	//게시글 작성 하기
-	public void createPost(Long postId,Long userId, String challengeId,String postContent, MultipartFile postImage);
+	public void createPost(PostUpload postUpload);
 	//게시글 전체 조회 하기
 	public List<Post> selectPost();
 	//게시글 세부사항
@@ -15,4 +15,8 @@ public interface PostService {
 	public List<Post> getPostByChallengeId(String challengeId);
 	//유저 ID로 게시글 조회
 	public List<Post> findPostByUserId(Long userId);
+	//유저 ID, 미션ID로 게시글 조회
+	public List<Post> findPostByUserIdAndMissionId(Long userId, String missionId);
+	//유저 ID, 챌린지ID로 게시글 조회
+	public List<Post> findPostByUserIdAndChallengeId(Long userId, String challengeId);
 }

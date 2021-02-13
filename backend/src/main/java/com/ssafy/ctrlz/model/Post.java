@@ -25,4 +25,5 @@ public class Post {
 	private String postContent;
 	private String postImage;
 	private int postLike;
+	private String missionId;
 }
