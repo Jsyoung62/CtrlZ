@@ -11,7 +11,7 @@
         :recommend-challenges="recommendChallenges"
       />
 
-      <DailyMission :data="dailyChallenge" />
+      <DailyMission />
     </div>
   </div>
 </template>
@@ -23,9 +23,6 @@ import Navigation from "@/components/common/Navigation.vue";
 import Challenges from "@/components/main/Challenges.vue";
 import DailyMission from "@/components/main/DailyMission.vue";
 import "@/components/css/main/index.scss";
-import axios from "axios";
-
-axios.defaults.baseURL = "http://i4a202.p.ssafy.io:8888";
 
 export default {
   name: "Main",
@@ -38,11 +35,6 @@ export default {
   },
   data: () => {
     return {
-      dailyChallenge: {
-        imageURL: "",
-        challengeName: "",
-        challengeDescription: "",
-      },
       sponseredChallenge: {
         imageURL: "",
         challengeName: "",
@@ -60,31 +52,13 @@ export default {
     }
 
     // 데이터 불러오기
-    this.callDailyChallenge();
     this.callSponseredChallenge();
     this.callRecommendChallenges();
   },
   methods: {
-    // 데일리 미션 정보 불러오기
-    callDailyChallenge() {
-      axios({
-        url: "/challenge/",
-        method: "GET",
-        params: {
-          challengeId: "1",
-        },
-      }).then((res) => {
-        this.setDailyChallenge(res.data);
-      });
-    },
-    setDailyChallenge(info) {
-      this.dailyChallenge.imageURL = info.challengeImage;
-      this.dailyChallenge.challengeName = info.challengeName;
-      this.dailyChallenge.challengeDescription = info.challengeContent;
-    },
     // 기업연계 챌린지 정보 불러오기
     callSponseredChallenge() {
-      axios({
+      this.$axios({
         url: "/challenge/",
         method: "GET",
         params: {
@@ -100,7 +74,7 @@ export default {
     },
     // 추천 챌린지 정보 불러오기
     callRecommendChallenges() {
-      axios({
+      this.$axios({
         url: "/challenge/all",
         method: "GET",
       }).then((res) => {

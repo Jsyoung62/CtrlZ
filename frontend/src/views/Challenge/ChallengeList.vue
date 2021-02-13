@@ -29,14 +29,11 @@
   </div>
 </template>
 <script>
-import axios from "axios";
 import Header from "@/components/common/Header.vue";
 import Navigation from "@/components/common/Navigation.vue";
 import Categories from "@/components/challenge/Categories.vue";
 import "@/components/css/challenge/index.scss";
 import "@/components/css/challenge/challenge.scss";
-
-axios.defaults.baseURL = "http://i4a202.p.ssafy.io:8888";
 
 export default {
   name: "ChallengeList",
@@ -51,7 +48,7 @@ export default {
     };
   },
   created() {
-    axios({
+    this.$axios({
       url: "/challenge/all",
       method: "GET",
       params: {

@@ -2,10 +2,10 @@
   <div class="dailyMission">
     <div class="titleWrapper">
       <h1 class="title">
-        {{ data.challengeName }}
+        {{ challengeName }}
       </h1>
       <p class="description">
-        {{ data.challengeDescription }}
+        {{ challengeDescription }}
       </p>
     </div>
     <swiper class="swiper" :options="swiperOption">
@@ -40,14 +40,11 @@ export default {
     SwiperSlide,
     Day,
   },
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
-  },
   data() {
     return {
+      imageURL: "",
+      challengeName: "",
+      challengeDescription: "",
       swiperOption: {
         effect: "coverflow",
         grabCursor: true,
@@ -65,6 +62,29 @@ export default {
         },
       },
     };
+  },
+  created() {
+    // 데일리 미션 데이터 불러오기
+    this.callDailyChallenge();
+  },
+  methods: {
+    // 데일리 미션 정보 불러오기
+    callDailyChallenge() {
+      this.$axios({
+        url: "/challenge/",
+        method: "GET",
+        params: {
+          challengeId: "1",
+        },
+      }).then((res) => {
+        this.setDailyChallenge(res.data);
+      });
+    },
+    setDailyChallenge(info) {
+      this.imageURL = info.challengeImage;
+      this.challengeName = info.challengeName;
+      this.challengeDescription = info.challengeContent;
+    },
   },
 };
 </script>
