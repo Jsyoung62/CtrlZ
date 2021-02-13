@@ -8,4 +8,8 @@ public interface UserScoreService {
 
 	UserScore findByUser(String userId);
 
+	long countAll();
+
+	long countRankByZScore(long zScore);
+
 }

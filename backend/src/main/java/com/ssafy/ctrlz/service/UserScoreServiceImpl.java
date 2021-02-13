@@ -22,4 +22,14 @@ public class UserScoreServiceImpl implements UserScoreService {
 		return userScoreRepository.findById(userId).orElseThrow(() -> new NoDataFoundException("userScore"));
 	}
 
+	@Override
+	public long countAll() {
+		return userScoreRepository.count();
+	}
+
+	@Override
+	public long countRankByZScore(long zScore) {
+		return userScoreRepository.countByzScoreGreaterThan(zScore);
+	}
+
 }
