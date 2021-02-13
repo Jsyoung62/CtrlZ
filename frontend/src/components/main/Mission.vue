@@ -2,7 +2,6 @@
   <div class="mission">
     <!-- <img :src="challengeImage" class="thumbnail" /> -->
     <img src="@/assets/ch_example.jpg" class="thumbnail" />
-    <button>챌린지 상세보기</button>
   </div>
 </template>
 <script>

@@ -10,19 +10,19 @@
     </div>
     <swiper class="swiper" :options="swiperOption">
       <swiper-slide>
-        <Day day="월요일" title="고기없는 月요일" />
+        <Day title="고기없는 月요일" />
       </swiper-slide>
       <swiper-slide>
-        <Day day="화요일" title="고기없는 月요일" />
+        <Day title="고기없는 月요일" />
       </swiper-slide>
       <swiper-slide>
-        <Day day="수요일" title="고기없는 月요일" />
+        <Day title="고기없는 月요일" />
       </swiper-slide>
       <swiper-slide>
-        <Day day="목요일" title="고기없는 月요일" />
+        <Day title="고기없는 月요일" />
       </swiper-slide>
       <swiper-slide>
-        <Day day="금요일" title="고기없는 月요일" />
+        <Day title="고기없는 月요일" />
       </swiper-slide>
     </swiper>
   </div>
