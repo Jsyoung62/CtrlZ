@@ -9,20 +9,8 @@
       </p>
     </div>
     <swiper class="swiper" :options="swiperOption">
-      <swiper-slide>
-        <Day title="고기없는 月요일" />
-      </swiper-slide>
-      <swiper-slide>
-        <Day title="고기없는 月요일" />
-      </swiper-slide>
-      <swiper-slide>
-        <Day title="고기없는 月요일" />
-      </swiper-slide>
-      <swiper-slide>
-        <Day title="고기없는 月요일" />
-      </swiper-slide>
-      <swiper-slide>
-        <Day title="고기없는 月요일" />
+      <swiper-slide v-for="mission in missions" :key="mission.missionId">
+        <Day :title="mission.missionTitle" :thumbnail="mission.missionImage" />
       </swiper-slide>
     </swiper>
   </div>
@@ -42,9 +30,9 @@ export default {
   },
   data() {
     return {
-      imageURL: "",
       challengeName: "",
       challengeDescription: "",
+      missions: [],
       swiperOption: {
         effect: "coverflow",
         grabCursor: true,
@@ -64,8 +52,8 @@ export default {
     };
   },
   created() {
-    // 데일리 미션 데이터 불러오기
     this.callDailyChallenge();
+    this.callDailyMissions();
   },
   methods: {
     // 데일리 미션 정보 불러오기
@@ -77,13 +65,23 @@ export default {
           challengeId: "1",
         },
       }).then((res) => {
-        this.setDailyChallenge(res.data);
+        const info = res.data;
+        this.challengeName = info.challengeName;
+        this.challengeDescription = info.challengeContent;
       });
     },
-    setDailyChallenge(info) {
-      this.imageURL = info.challengeImage;
-      this.challengeName = info.challengeName;
-      this.challengeDescription = info.challengeContent;
+
+    // 데일리 미션 title, 이미지(미션내용) 불러오기
+    callDailyMissions() {
+      this.$axios({
+        url: "/mission/",
+        method: "GET",
+        params: {
+          challengeId: "1",
+        },
+      }).then((res) => {
+        this.missions = res.data;
+      });
     },
   },
 };

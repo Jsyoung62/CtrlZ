@@ -1,6 +1,6 @@
 <template>
   <div class="day">
-    <img src="@/assets/ch_example.jpg" class="post" />
+    <img :src="thumbnail" class="thumbnail" />
     <div class="title">
       {{ title }}
     </div>
@@ -12,6 +12,10 @@ export default {
   name: "Day",
   props: {
     title: {
+      type: String,
+      required: true,
+    },
+    thumbnail: {
       type: String,
       required: true,
     },
