@@ -9,7 +9,6 @@
 </template>
 <script>
 import "@/components/css/main/day.scss";
-
 export default {
   name: "Day",
   props: {
