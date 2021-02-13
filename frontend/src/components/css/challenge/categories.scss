@@ -31,18 +31,34 @@
 
         &.type1 {
             border-bottom: 2px solid $type-yellow;
+
+            &.active {
+                background-color: $type-yellow50;
+            }
         }
 
         &.type2 {
             border-bottom: 2px solid $type-purple;
+
+            &.active {
+                background-color: $type-purple50;
+            }
         }
 
         &.type3 {
             border-bottom: 2px solid $type-pink;
+
+            &.active {
+                background-color: $type-pink50;
+            }
         }
 
         &.type4 {
             border-bottom: 2px solid $type-blue;
+
+            &.active {
+                background-color: $type-blue50;
+            }
         }
     }
 }

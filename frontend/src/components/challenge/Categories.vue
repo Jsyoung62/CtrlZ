@@ -1,6 +1,9 @@
 <template>
   <div class="categories">
-    <div class="category type1" @click="handleCategoryClick('dailyChallenges')">
+    <div
+      :class="['category', 'type1', { active: type1Active }]"
+      @click="handleCategoryClick('dailyChallenges', 'type1Active')"
+    >
       <div class="text">
         <p class="type">
           일상
@@ -10,7 +13,10 @@
         </p>
       </div>
     </div>
-    <div class="category type2" @click="handleCategoryClick('foodChallenges')">
+    <div
+      :class="['category', 'type2', { active: type2Active }]"
+      @click="handleCategoryClick('foodChallenges', 'type2Active')"
+    >
       <div class="text">
         <p class="type">
           음식
@@ -20,7 +26,10 @@
         </p>
       </div>
     </div>
-    <div class="category type3" @click="handleCategoryClick('fashionChallenges')">
+    <div
+      :class="['category', 'type3', { active: type3Active }]"
+      @click="handleCategoryClick('fashionChallenges', 'type3Active')"
+    >
       <div class="text">
         <p class="type">
           패션
@@ -30,7 +39,10 @@
         </p>
       </div>
     </div>
-    <div class="category type4" @click="handleCategoryClick('activityChallenges')">
+    <div
+      :class="['category', 'type4', { active: type4Active }]"
+      @click="handleCategoryClick('activityChallenges', 'type4Active')"
+    >
       <div class="text">
         <p class="type">
           활동
@@ -65,9 +77,25 @@ export default {
       required: true,
     },
   },
+  data: () => {
+    return {
+      type1Active: false,
+      type2Active: false,
+      type3Active: false,
+      type4Active: false,
+    };
+  },
   methods: {
-    handleCategoryClick(type) {
+    handleCategoryClick(type, activeClass) {
+      this.resetActive();
+      this[activeClass] = true;
       this.$emit("division", type);
+    },
+    resetActive() {
+      this.type1Active = false;
+      this.type2Active = false;
+      this.type3Active = false;
+      this.type4Active = false;
     },
   },
 };
