@@ -5,6 +5,7 @@
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 2px;
     margin-bottom: 20px;
+    cursor: pointer;
 
     .category {
         display: flex;

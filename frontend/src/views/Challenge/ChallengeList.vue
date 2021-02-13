@@ -3,7 +3,13 @@
     <Header title="전체 챌린지" />
     <Navigation />
 
-    <Categories />
+    <Categories
+      :daily-length="dailyChallenges.length"
+      :food-length="foodChallenges.length"
+      :fashion-length="fashionChallenges.length"
+      :activity-length="activityChallenges.length"
+      @division="handleDivision"
+    />
     <div class="challengeContainer">
       <div
         v-for="challenge in challenges"
@@ -51,9 +57,14 @@ export default {
   data: () => {
     return {
       challenges: [],
+      dailyChallenges: [],
+      foodChallenges: [],
+      fashionChallenges: [],
+      activityChallenges: [],
     };
   },
   created() {
+    // 전체 챌린지 데이터 조회
     axios({
       url: "/challenge/all",
       method: "GET",
@@ -75,12 +86,33 @@ export default {
           }
           return { ...challenge, style };
         });
+
+        this.divisionChallenges();
       })
       .catch((error) => {
         console.error(error);
-      }); // 전체 챌린지 데이터 조회
+      });
   },
   methods: {
+    // 유형별로 챌린지 나누기
+    divisionChallenges() {
+      this.dailyChallenges = this.challenges.filter(
+        (challenge) => challenge.challengeType === "일상"
+      );
+
+      this.foodChallenges = this.challenges.filter(
+        (challenge) => challenge.challengeType === "음식"
+      );
+
+      this.fashionChallenges = this.challenges.filter(
+        (challenge) => challenge.challengeType === "패션"
+      );
+
+      this.activityChallenges = this.challenges.filter(
+        (challenge) => challenge.challengeType === "활동"
+      );
+    },
+    // 해당 챌린지 상세보기로 이동
     handleChallengeClick(challengeId) {
       this.$router.push({
         name: "ChallengeDetail",
@@ -88,6 +120,10 @@ export default {
           challengeId,
         },
       });
+    },
+    // 카테고리별로 분류
+    handleDivision(type) {
+      this.challenges = this[type];
     },
   },
 };
