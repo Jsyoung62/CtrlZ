@@ -11,19 +11,22 @@
         class="challenge"
         @click="handleChallengeClick(challenge.challengeId)"
       >
-        <img :src="challenge.challengeImage" class="thumbnail" />
+        <div class="side" :class="challenge.style"></div>
 
-        <p class="category">
-          <span>#{{ challenge.levelId }}</span>
-          <span>#{{ challenge.challengeType }}</span>
-        </p>
-        <p class="challengeName">
-          {{ challenge.challengeName }}
-        </p>
-        <p class="participants">
-          {{ challenge.participants }}
-          명 도전 중
-        </p>
+        <img :src="challenge.challengeImage" class="thumbnail" />
+        <div class="infoWrapper">
+          <p class="category">
+            <span>#{{ challenge.levelId }}</span>
+            <span>#{{ challenge.challengeType }}</span>
+          </p>
+          <p class="challengeName">
+            {{ challenge.challengeName }}
+          </p>
+          <p class="participants">
+            {{ challenge.participants }}
+            명 도전 중
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -34,7 +37,7 @@ import Header from "@/components/common/Header.vue";
 import Navigation from "@/components/common/Navigation.vue";
 import Categories from "@/components/challenge/Categories.vue";
 import "@/components/css/challenge/index.scss";
-import "@/components/css/challenge/challenge.scss";
+import "@/components/css/challenge/challengeList.scss";
 
 axios.defaults.baseURL = "http://i4a202.p.ssafy.io:8888";
 
@@ -59,7 +62,19 @@ export default {
       },
     })
       .then((response) => {
-        this.challenges = response.data;
+        this.challenges = response.data.map((challenge) => {
+          let style = "";
+          if (challenge.challengeType === "일상") {
+            style = "yellow";
+          } else if (challenge.challengeType === "음식") {
+            style = "purple";
+          } else if (challenge.challengeType === "패션") {
+            style = "pink";
+          } else if (challenge.challengeType === "활동") {
+            style = "blue";
+          }
+          return { ...challenge, style };
+        });
       })
       .catch((error) => {
         console.error(error);
