@@ -16,6 +16,7 @@
         </label>
         <input
           id="uploadImage"
+          ref="postImage"
           type="file"
           name="uploadImage"
           class="uploadImage"
@@ -36,6 +37,10 @@ export default {
       type: String,
       required: true,
     },
+    missionTitle: {
+      type: String,
+      required: true,
+    },
   },
   data() {
     return {
@@ -43,23 +48,11 @@ export default {
     };
   },
   methods: {
-    uploadImage(evt) {
-      const files = evt.target.files;
-
-      if (!files.length) {
-        return;
+    uploadImage() {
+      this.postImage = this.$refs.postImage.files[0];
+      if (this.postImage !== null) {
+        this.movePostUpload();
       }
-
-      const reader = new FileReader();
-      reader.readAsDataURL(files[0]);
-      reader.onload = (evt) => {
-        this.postImage = evt.target.result;
-
-        if (this.postImage !== null) {
-          this.movePostUpload();
-        }
-      };
-
       document.querySelector("#uploadImage").value = "";
     },
     movePostUpload() {
@@ -67,6 +60,7 @@ export default {
         name: "PostUpload",
         params: {
           postImage: this.postImage,
+          missionTitle: this.missionTitle,
         },
       });
     },

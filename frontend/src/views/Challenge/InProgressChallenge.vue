@@ -4,18 +4,22 @@
     <Navigation />
 
     <div class="thumbnailWrapper">
-      <img src="@/assets/mission.png" class="thumbnail" />
+      <img :src="challenge.challengeImage" class="thumbnail" />
       <progress :value="progress" max="100"></progress>
     </div>
     <div class="contentsContainer">
-      <ChallengeTitle :title="challengeName" :level="level" :challenge-type="challengeType" />
+      <ChallengeTitle
+        :title="challenge.challengeName"
+        :level="challenge.levelId"
+        :challenge-type="challenge.challengeType"
+      />
 
       <div class="status">
         <div class="wrapper">
           <p class="title">
             미션 횟수
           </p>
-          <p>{{ challengeMissionTotal }}회</p>
+          <p>{{ challenge.challengeMissionTotal }}회</p>
         </div>
 
         <div class="wrapper">
@@ -25,10 +29,16 @@
           <p>{{ progress }}%</p>
         </div>
 
-        <button>챌린지 상세보기</button>
+        <button @click="handleDetailClick">
+          챌린지 상세보기
+        </button>
       </div>
 
-      <Missions :mission-total="challengeMissionTotal" />
+      <Missions
+        :mission-total="challenge.challengeMissionTotal"
+        :challenge-id="challengeId"
+        :missions="missions"
+      />
     </div>
   </div>
 </template>
@@ -38,6 +48,9 @@ import Navigation from "@/components/common/Navigation.vue";
 import ChallengeTitle from "@/components/challenge/ChallengeTitle.vue";
 import Missions from "@/components/challenge/Missions";
 import "@/components/css/challenge/inProgressChallenge.scss";
+import axios from "axios";
+
+axios.defaults.baseURL = "http://i4a202.p.ssafy.io:8888";
 
 export default {
   name: "InProgressChallenge",
@@ -49,16 +62,57 @@ export default {
   },
   data: () => {
     return {
-      challengeName: "시작이 반이다",
-      challengeType: "일상",
-      level: "입문",
-      challengeMissionTotal: 3,
-      challengeClosed: 2,
+      challenge: "",
+      missions: "",
+      challengeId: "3",
+      completedMissions: [],
     };
   },
   computed: {
     progress() {
-      return Math.floor((this.challengeClosed / this.challengeMissionTotal) * 100);
+      return Math.floor(
+        (this.completedMissions.length / this.challenge.challengeMissionTotal) * 100
+      );
+    },
+  },
+  created() {
+    axios({
+      url: "/challenge/",
+      method: "GET",
+      params: {
+        challengeId: this.challengeId,
+      },
+    }).then((response) => {
+      this.challenge = response.data;
+    });
+    axios({
+      url: "/mission/",
+      method: "GET",
+      params: {
+        challengeId: this.challengeId,
+      },
+    }).then((response) => {
+      this.missions = response.data;
+    });
+    axios({
+      url: "/post/find/challenge/user",
+      method: "GET",
+      params: {
+        challengeId: this.challengeId,
+        userId: this.$store.state.userInfo.userId,
+      },
+    }).then((response) => {
+      this.completedMissions = response.data;
+    });
+  },
+  methods: {
+    handleDetailClick() {
+      this.$router.push({
+        name: "ChallengeDetail",
+        params: {
+          challengeId: this.challengeId,
+        },
+      });
     },
   },
 };

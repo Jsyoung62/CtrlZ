@@ -34,6 +34,7 @@ export default {
     return {
       post: "",
       user: "",
+      postId: "",
     };
   },
   created() {
