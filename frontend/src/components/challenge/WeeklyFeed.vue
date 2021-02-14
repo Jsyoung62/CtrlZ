@@ -1,7 +1,11 @@
 <template>
   <div class="weeklyFeed">
     <div v-for="(mission, index) in missions" :key="index" class="feed">
-      <img v-if="mission.upload" :src="mission.missionImage" />
+      <img
+        v-if="mission.upload"
+        :src="mission.postImage"
+        @click="handlePostClick(mission.postId)"
+      />
       <div v-else class="emptyFeed" :class="mission.disabled">
         <div class="day">
           {{ mission.missionDay }}
@@ -15,21 +19,40 @@ import "@/components/css/challenge/weeklyFeed.scss";
 
 export default {
   name: "WeeklyFeed",
-  props: {
-    status: {
-      type: Array,
-      required: true,
-    },
+  data: () => {
+    return {
+      missions: [],
+    };
   },
-  computed: {
-    // 일주일치 미션을 missions 배열에 저장
-    missions() {
+  created() {
+    this.getWeeklyFeed();
+  },
+  methods: {
+    // 일주일치 미션 서버에서 가져오기
+    getWeeklyFeed() {
+      this.$axios({
+        url: "/post/find/challenge/user",
+        method: "GET",
+        params: {
+          challengeId: "1",
+          userId: this.$store.state.userInfo.userId,
+        },
+      })
+        .then((response) => {
+          this.setWeeklyFeed(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    // 서버에서 가져온 데이터를 missions 배열에 저장
+    setWeeklyFeed(data) {
       const week = new Array(7);
       for (let index = 0; index < 7; index++) {
-        this.status.forEach((value) => {
-          if (value.missionDay === index) {
+        data.forEach((dayData) => {
+          if (dayData.missionId % 7 === index + 1) {
             week[index] = {
-              ...value,
+              ...dayData,
               disabled: "disabled",
               upload: true,
               missionDay: this.getDay(index),
@@ -44,14 +67,14 @@ export default {
           };
         }
       }
-      return week;
+      this.missions = week;
     },
-  },
-  methods: {
+    // 미래 미션들은 비활성화
     isDisabled(num) {
       const day = new Date().getDay();
       return day <= num ? "disabled" : "";
     },
+    // 요일에 맞는 글자 표기를 위한 작업
     getDay(num) {
       if (num === 0) return "月";
       else if (num === 1) return "火";
@@ -60,6 +83,15 @@ export default {
       else if (num === 4) return "金";
       else if (num === 5) return "土";
       else if (num === 6) return "日";
+    },
+    // 해당 게시글 상세보기로 이동
+    handlePostClick(postId) {
+      this.$router.push({
+        name: "Post",
+        params: {
+          postId,
+        },
+      });
     },
   },
 };

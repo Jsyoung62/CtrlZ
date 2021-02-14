@@ -49,6 +49,11 @@ const routes = [
         component: ChallengeList,
       },
       {
+        path: "daily",
+        name: "DailyMission",
+        component: DailyMission,
+      },
+      {
         path: ":challengeId",
         name: "ChallengeDetail",
         component: ChallengeDetail,
@@ -58,15 +63,10 @@ const routes = [
         name: "InProgressChallenge",
         component: InProgressChallenge,
       },
-      {
-        path: "daily",
-        name: "DailyMission",
-        component: DailyMission,
-      },
     ],
   },
   {
-    path: "/post",
+    path: "/post/:postId",
     name: "Post",
     component: Post,
   },

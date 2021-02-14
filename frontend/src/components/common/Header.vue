@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <span class="material-icons">
+    <span v-show="leftIcon !== ''" class="material-icons" @click="handleBackClick">
       {{ leftIcon }}
     </span>
     <h1 class="title">
@@ -32,6 +32,11 @@ export default {
       type: String,
       default: "",
       required: false,
+    },
+  },
+  methods: {
+    handleBackClick() {
+      this.$router.go(-1);
     },
   },
 };
