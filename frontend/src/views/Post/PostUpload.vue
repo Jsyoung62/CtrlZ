@@ -16,7 +16,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import "@/components/css/post/index.scss";
 import "@/components/css/post/postUpload.scss";
 
@@ -35,7 +34,7 @@ export default {
   },
   methods: {
     handleUploadClick() {
-      axios({
+      this.$axios({
         url: "/post",
         method: "POST",
         params: {

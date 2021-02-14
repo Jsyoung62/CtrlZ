@@ -1,10 +1,10 @@
 <template>
   <swiper class="swiper" :options="swiperOption">
     <swiper-slide>
-      <Mission :challenge-image="sponseredChallenge.imageURL" />
+      <Mission :challenge="sponseredChallenge" />
     </swiper-slide>
     <swiper-slide v-for="(challenge, index) in recommendChallenges" :key="index">
-      <Mission :challenge-image="challenge.challengeImage" />
+      <Mission :challenge="challenge" />
     </swiper-slide>
     <div slot="pagination" class="swiper-pagination"></div>
     <div slot="button-prev" class="swiper-button-prev"></div>
@@ -50,8 +50,20 @@ export default {
       },
     };
   },
+  computed: {
+    challenges() {
+      return this.recommendChallenges.map((challenge) => {
+        return {
+          challengeId: challenge.challengeId,
+          challengeName: challenge.challengeName,
+          imageURL: challenge.challengeImage,
+        };
+      });
+    },
+  },
 };
 </script>
+
 <style lang="scss">
 @import "@/components/css/colors.scss";
 

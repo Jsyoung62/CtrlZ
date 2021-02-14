@@ -33,13 +33,10 @@
   </div>
 </template>
 <script>
-import axios from "axios";
 import firebase from "firebase";
 import Title from "@/components/user/Title.vue";
 import "@/components/css/user/index.scss";
 import "@/components/css/user/login.scss";
-
-axios.defaults.baseURL = "http://i4a202.p.ssafy.io:8888";
 
 export default {
   name: "Login",
@@ -70,7 +67,7 @@ export default {
     },
     login() {
       if (this.checkForm) {
-        axios({
+        this.$axios({
           url: "/user/login",
           method: "POST",
           data: {
@@ -95,7 +92,7 @@ export default {
         .auth()
         .signInWithPopup(provider)
         .then((res) => {
-          axios({
+          this.$axios({
             url: "/user/google/register",
             method: "POST",
             data: {

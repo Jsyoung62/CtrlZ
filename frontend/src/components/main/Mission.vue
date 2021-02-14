@@ -1,8 +1,9 @@
 <template>
-  <div class="mission">
-    <!-- <img :src="challengeImage" class="thumbnail" /> -->
-    <img src="@/assets/ch_example.jpg" class="thumbnail" />
-    <button>챌린지 상세보기</button>
+  <div class="mission" @click="handleClick">
+    <img :src="challenge.challengeImage" class="thumbnail" />
+    <div class="title">
+      {{ challenge.challengeName }}
+    </div>
   </div>
 </template>
 <script>
@@ -11,9 +12,14 @@ import "@/components/css/main/mission.scss";
 export default {
   name: "Mission",
   props: {
-    challengeImage: {
-      type: String,
+    challenge: {
+      type: Object,
       required: true,
+    },
+  },
+  methods: {
+    handleClick() {
+      this.$router.push("/challenge/detail");
     },
   },
 };

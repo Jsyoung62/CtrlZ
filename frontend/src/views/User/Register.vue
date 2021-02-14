@@ -50,12 +50,8 @@
   </div>
 </template>
 <script>
-import axios from "axios";
 import Title from "@/components/user/Title.vue";
 import "@/components/css/user/index.scss";
-
-// axios.defaults.baseURL = "https://localhost:8888";
-axios.defaults.headers.post["Content-Type"] = "application/json";
 
 export default {
   name: "Register",
@@ -134,7 +130,7 @@ export default {
     },
     register() {
       if (this.checkForm) {
-        axios({
+        this.$axios({
           url: "http://i4a202.p.ssafy.io:8888/user/register",
           method: "POST",
           data: {

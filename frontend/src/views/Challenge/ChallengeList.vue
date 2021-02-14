@@ -38,14 +38,11 @@
   </div>
 </template>
 <script>
-import axios from "axios";
 import Header from "@/components/common/Header.vue";
 import Navigation from "@/components/common/Navigation.vue";
 import Categories from "@/components/challenge/Categories.vue";
 import "@/components/css/challenge/index.scss";
 import "@/components/css/challenge/challengeList.scss";
-
-axios.defaults.baseURL = "http://i4a202.p.ssafy.io:8888";
 
 export default {
   name: "ChallengeList",
@@ -72,7 +69,7 @@ export default {
   methods: {
     // 챌린지 불러오기
     getChallenges(type, challengeName) {
-      axios({
+      this.$axios({
         url: "/challenge/type",
         method: "GET",
         params: {

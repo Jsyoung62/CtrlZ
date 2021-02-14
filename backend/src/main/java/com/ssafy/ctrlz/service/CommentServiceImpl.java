@@ -24,9 +24,7 @@ public class CommentServiceImpl implements CommentService {
 		if(commentList.size() > 0) {
 			return commentList;
 		}
-		else {
-			return null;
-		}
+		return null;
 	}
 
 	@Override
@@ -36,9 +34,7 @@ public class CommentServiceImpl implements CommentService {
 		if(commentList.size() > 0) {
 			return commentList;
 		}
-		else {
-			return null;
-		}
+		return null;
 	}
 
 }
