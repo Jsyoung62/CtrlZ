@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import com.ssafy.ctrlz.model.Post;
 import com.ssafy.ctrlz.model.PostUpload;
 import com.ssafy.ctrlz.repository.PostRepository;
@@ -50,7 +49,6 @@ public class PostServiceImpl implements PostService{
 		}else {
 			return null;
 		}
-	
 	}
 
 	@Override
@@ -68,7 +66,6 @@ public class PostServiceImpl implements PostService{
 		}else {
 			return null;
 		}
-		
 	}
 
 	@Override
@@ -91,7 +88,6 @@ public class PostServiceImpl implements PostService{
 		}else {
 			return null;
 		}
-		
 	}
 
 	@Override
