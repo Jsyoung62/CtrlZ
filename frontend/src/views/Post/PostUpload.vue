@@ -1,7 +1,7 @@
 <template>
   <div class="postUpload">
     <div class="postHeader">
-      <span class="title" @click="handleUploadClick">
+      <span class="title" @click="handlePostUploadClick">
         인증
       </span>
     </div>
@@ -33,7 +33,7 @@ export default {
     this.postImage = this.$route.params.postImage;
   },
   methods: {
-    handleUploadClick() {
+    handlePostUploadClick() {
       this.$axios({
         url: "/post",
         method: "POST",
