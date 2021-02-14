@@ -21,10 +21,7 @@
 </template>
 
 <script>
-import axios from "axios";
 import "@/components/css/zbti/zbtiTest.scss";
-
-axios.defaults.baseURL = "http://i4a202.p.ssafy.io:8888";
 
 export default {
   name: "ZbtiTest",
@@ -42,7 +39,7 @@ export default {
     },
   },
   created() {
-    axios({
+    this.$axios({
       url: "/zbti/",
       method: "GET",
     })

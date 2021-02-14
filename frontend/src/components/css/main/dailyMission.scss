@@ -1,36 +1,38 @@
 @import "../colors.scss";
 
-.dailyMission {
-    width: 100%;
-    margin: 50px 0 80px 0;
-    padding: 0 25px;
-    text-align: center;
+.main > .dailyMission {
+  width: 100%;
+  margin: 50px 0 80px 0;
+  padding: 0 25px;
+  text-align: center;
 
-    .title {
-        margin-bottom: 11px;
-        font-weight: bold;
-        font-size: 26px;
-        line-height: 15px;
-        color: $primary-green;
-    }
+  .title {
+    margin-bottom: 30px;
+    font-weight: bold;
+    font-size: 26px;
+    line-height: 15px;
+    color: $primary-green;
+  }
     
-    .description {
-        font-size: 16px;
-        line-height: 20px;
-        white-space: pre-line;
-    }
+  .description {
+    margin-bottom: 40px;
+    font-size: 16px;
+    line-height: 20px;
+    white-space: pre-line;
+    text-align: center;
+  }
 
-    .swiper {
-        margin-top: 33px;
+  .swiper {
+    margin-top: 33px;
         
-        .swiper-slide {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 200px;
-          height: 295px;
-          text-align: center;
-        }
-      }
+    .swiper-slide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 200px;
+      height: 256px;
+      text-align: center;
+    }
+  }
 }
 

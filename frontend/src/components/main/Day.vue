@@ -1,7 +1,6 @@
 <template>
   <div class="day">
-    {{ day }}
-    <img src="@/assets/ch_example.jpg" class="post" />
+    <img :src="thumbnail" class="thumbnail" />
     <div class="title">
       {{ title }}
     </div>
@@ -9,15 +8,14 @@
 </template>
 <script>
 import "@/components/css/main/day.scss";
-
 export default {
   name: "Day",
   props: {
-    day: {
+    title: {
       type: String,
       required: true,
     },
-    title: {
+    thumbnail: {
       type: String,
       required: true,
     },
