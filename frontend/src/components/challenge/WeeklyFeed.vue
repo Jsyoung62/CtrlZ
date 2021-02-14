@@ -1,7 +1,7 @@
 <template>
   <div class="weeklyFeed">
     <div v-for="(mission, index) in missions" :key="index" class="feed">
-      <img v-if="mission.upload" :src="mission.missionImage" />
+      <img v-if="mission.upload" :src="mission.postImage" />
       <div v-else class="emptyFeed" :class="mission.disabled">
         <div class="day">
           {{ mission.missionDay }}
@@ -15,21 +15,40 @@ import "@/components/css/challenge/weeklyFeed.scss";
 
 export default {
   name: "WeeklyFeed",
-  props: {
-    status: {
-      type: Array,
-      required: true,
-    },
+  data: () => {
+    return {
+      missions: [],
+    };
   },
-  computed: {
-    // 일주일치 미션을 missions 배열에 저장
-    missions() {
+  created() {
+    this.getWeeklyFeed();
+  },
+  methods: {
+    // 일주일치 미션 서버에서 가져오기
+    getWeeklyFeed() {
+      this.$axios({
+        url: "/post/find/challenge/user",
+        method: "GET",
+        params: {
+          challengeId: "1",
+          userId: "10",
+        },
+      })
+        .then((response) => {
+          this.setWeeklyFeed(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    // 서버에서 가져온 데이터를 missions 배열에 저장
+    setWeeklyFeed(data) {
       const week = new Array(7);
       for (let index = 0; index < 7; index++) {
-        this.status.forEach((value) => {
-          if (value.missionDay === index) {
+        data.forEach((dayData) => {
+          if (dayData.missionId % 7 === index + 1) {
             week[index] = {
-              ...value,
+              ...dayData,
               disabled: "disabled",
               upload: true,
               missionDay: this.getDay(index),
@@ -44,10 +63,8 @@ export default {
           };
         }
       }
-      return week;
+      this.missions = week;
     },
-  },
-  methods: {
     isDisabled(num) {
       const day = new Date().getDay();
       return day <= num ? "disabled" : "";

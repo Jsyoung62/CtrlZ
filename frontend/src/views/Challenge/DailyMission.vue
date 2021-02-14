@@ -1,17 +1,17 @@
 <template>
   <div class="dailyMission">
-    <Header title="데일리 미션" />
+    <Header title="하루 하나 도전" left-icon="chevron_left" />
     <Navigation />
 
-    <img src="@/assets/mission.png" class="thumbnail" />
+    <img :src="challenge.missionImage" class="thumbnail" />
 
     <div class="InfoContainer">
       <div class="titleWrapper">
         <p class="title">
-          title
+          {{ challenge.missionTitle }}
         </p>
         <p class="participants">
-          {{ 71222 | numberWithComma }}
+          {{ participants | numberWithComma }}
           명
           <span>참여중</span>
         </p>
@@ -20,10 +20,10 @@
     </div>
 
     <p class="description">
-      {{ description }}
+      {{ challenge.dailyContent }}
     </p>
 
-    <WeeklyFeed :status="status" />
+    <WeeklyFeed />
   </div>
 </template>
 <script>
@@ -46,19 +46,65 @@ export default {
   },
   data: () => {
     return {
-      description:
-        "오염된 물을 다시 정화시키는 데에는 수많은 돈과 에너지가 필요합니다. 생활하수를 줄이는 것만으로도 환경보호에 큰 도움이 되니 오늘은 다같이 물을 아껴볼까요?",
-      status: [
-        {
-          missionImage: "http://i4a202.p.ssafy.io/img/dailymission.png",
-          missionDay: 0,
-        },
-        {
-          missionImage: "http://i4a202.p.ssafy.io/img/dailymission.png",
-          missionDay: 2,
-        },
-      ],
+      challenge: {},
+      participants: 0,
     };
+  },
+  created() {
+    const day = new Date().getDay();
+    this.getDailyMission(day);
+    this.getParticipants();
+  },
+  methods: {
+    // 오늘 날짜에 맞는 데일리 미션 정보 불러오기
+    getDailyMission(day) {
+      this.$axios({
+        url: "/mission/",
+        method: "GET",
+        params: {
+          challengeId: "1",
+        },
+      })
+        .then((response) => {
+          const result = response.data.filter((mission) => {
+            return mission.missionId % 7 === day;
+          });
+          this.challenge = result[0];
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    // 데일리 미션에 참여중인 사람 수 불러오기 (완료한 사람 수 + 참여중인 사람 수)
+    getParticipants() {
+      this.$axios({
+        url: "/challenge/status/count/achived",
+        method: "GET",
+        params: {
+          challengeId: "1",
+        },
+      })
+        .then((response) => {
+          this.participants += response.data;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+
+      this.$axios({
+        url: "/challenge/status/count/inprogress",
+        method: "GET",
+        params: {
+          challengeId: "1",
+        },
+      })
+        .then((response) => {
+          this.participants += response.data;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
   },
 };
 </script>
