@@ -10,6 +10,7 @@ import InProgressChallenge from "../views/Challenge/InProgressChallenge.vue";
 import DailyMission from "../views/Challenge/DailyMission.vue";
 import Post from "../views/Post/Post.vue";
 import PostUpload from "../views/Post/PostUpload.vue";
+import Comment from "../views/Post/Comment.vue";
 import Login from "../views/User/Login.vue";
 import Register from "../views/User/Register.vue";
 import FindPassword from "../views/User/FindPassword.vue";
@@ -74,6 +75,11 @@ const routes = [
     name: "PostUpload",
     component: PostUpload,
     props: true,
+  },
+  {
+    path: "/comment/:postId",
+    name: "Comment",
+    component: Comment,
   },
   {
     path: "/login",

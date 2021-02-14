@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import PostReview from "@/components/post/postReview.vue";
+import PostReview from "@/components/post/PostReview.vue";
 import "@/components/css/post/post.scss";
 
 export default {
