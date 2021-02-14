@@ -40,6 +40,8 @@ export default {
     };
   },
   created() {
+    this.userId = this.$store.state.userInfo.userId;
+
     // 첫 접속시 스플래시 화면 3.5초 지속 후 zbti테스트 페이지로 이동
     if (this.$store.state.splash) {
       window.setTimeout(() => {
@@ -68,8 +70,11 @@ export default {
     // 추천 챌린지 정보 불러오기
     callRecommendChallenges() {
       this.$axios({
-        url: "/challenge/all",
+        url: "/challenge/recommend",
         method: "GET",
+        params: {
+          userId: this.userId,
+        },
       }).then((res) => {
         this.recommendChallenges = res.data;
       });
