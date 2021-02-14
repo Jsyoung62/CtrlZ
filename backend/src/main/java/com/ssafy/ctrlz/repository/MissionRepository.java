@@ -7,7 +7,7 @@ import com.ssafy.ctrlz.model.Mission;
 
 @Repository
 public interface MissionRepository extends JpaRepository<Mission, String> {
-	
-	public List<Mission> findByChallengeId(String challengeId);
+
+	public List<Mission> findByIdChallengeId(String challengeId);
 
 }

@@ -1,9 +1,7 @@
 package com.ssafy.ctrlz.model;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Data;
 
@@ -11,11 +9,9 @@ import lombok.Data;
 @Entity
 @Table(name = "mission")
 public class Mission {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String missionId;
-	private String challengeId;
+
+	@EmbeddedId
+	private MissionId id;
 	private String missionTitle;
 	private String dailyContent;
 	private String missionContent;
