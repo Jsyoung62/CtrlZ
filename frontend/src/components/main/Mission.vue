@@ -1,8 +1,8 @@
 <template>
   <div class="mission" @click="handleClick">
-    <img :src="data.imageURL" class="thumbnail" />
+    <img :src="challenge.challengeImage" class="thumbnail" />
     <div class="title">
-      {{ data.challengeName }}
+      {{ challenge.challengeName }}
     </div>
   </div>
 </template>
@@ -12,7 +12,7 @@ import "@/components/css/main/mission.scss";
 export default {
   name: "Mission",
   props: {
-    data: {
+    challenge: {
       type: Object,
       required: true,
     },

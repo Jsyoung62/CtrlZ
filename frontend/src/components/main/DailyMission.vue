@@ -59,19 +59,20 @@ export default {
     // 데일리 미션 정보 불러오기
     callDailyChallenge() {
       this.$axios({
-        url: "/challenge/",
+        url: "/challenge/type",
         method: "GET",
         params: {
-          challengeId: "1",
+          challengeType: "데일리",
         },
       }).then((res) => {
-        const info = res.data;
+        const info = res.data[0];
         this.challengeName = info.challengeName;
         this.challengeDescription = info.challengeContent;
       });
     },
 
     // 데일리 미션 title, 이미지(미션내용) 불러오기
+    // 데일리 미션 challengeID = 1
     callDailyMissions() {
       this.$axios({
         url: "/mission/",

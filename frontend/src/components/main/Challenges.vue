@@ -1,10 +1,10 @@
 <template>
   <swiper class="swiper" :options="swiperOption">
     <swiper-slide>
-      <Mission :data="sponseredChallenge" />
+      <Mission :challenge="sponseredChallenge" />
     </swiper-slide>
-    <swiper-slide v-for="(challenge, index) in challenges" :key="index">
-      <Mission :data="challenge" />
+    <swiper-slide v-for="(challenge, index) in recommendChallenges" :key="index">
+      <Mission :challenge="challenge" />
     </swiper-slide>
     <div slot="pagination" class="swiper-pagination"></div>
     <div slot="button-prev" class="swiper-button-prev"></div>

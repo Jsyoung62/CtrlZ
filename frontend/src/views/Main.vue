@@ -35,10 +35,7 @@ export default {
   },
   data: () => {
     return {
-      sponseredChallenge: {
-        imageURL: "",
-        challengeName: "",
-      },
+      sponseredChallenge: {},
       recommendChallenges: [],
     };
   },
@@ -59,18 +56,14 @@ export default {
     // 기업연계 챌린지 정보 불러오기
     callSponseredChallenge() {
       this.$axios({
-        url: "/challenge/",
+        url: "/challenge/type",
         method: "GET",
         params: {
-          challengeId: "2",
+          challengeType: "기업",
         },
       }).then((res) => {
-        this.setSponseredChallenge(res.data);
+        this.sponseredChallenge = res.data[0];
       });
-    },
-    setSponseredChallenge(info) {
-      this.sponseredChallenge.imageURL = info.challengeImage;
-      this.sponseredChallenge.challengeName = info.challengeName;
     },
     // 추천 챌린지 정보 불러오기
     callRecommendChallenges() {
