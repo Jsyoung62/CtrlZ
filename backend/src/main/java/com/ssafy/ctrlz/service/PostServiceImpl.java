@@ -20,8 +20,8 @@ public class PostServiceImpl implements PostService{
 	public void createPost(PostUpload postUpload) {
 		Post post = new Post();
 		String UPLOAD_PATH = "/var/www/html/dist/img/userMission";
-		UUID uuid = UUID.randomUUID();
-		String saveName = uuid+"_"+postUpload.getPostImage().getOriginalFilename();
+//		UUID uuid = UUID.randomUUID();
+		String saveName = postUpload.getPostImage().getOriginalFilename();
 
 		File saveFile = new File(UPLOAD_PATH, saveName);
         

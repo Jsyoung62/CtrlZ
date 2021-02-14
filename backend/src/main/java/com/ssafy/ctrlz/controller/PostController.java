@@ -36,7 +36,7 @@ public class PostController {
 	@PostMapping("")
 	@ApiOperation(value = "게시글 작성", notes = "한장의 사진과 내용을 작성합니다.")
 	public Object writePost(PostUpload postUpload) {
-		System.out.println(postUpload);
+		
 		postService.createPost(postUpload);
 		return new ResponseEntity<>("Success", HttpStatus.OK);
 	}
