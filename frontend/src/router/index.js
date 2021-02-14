@@ -66,7 +66,7 @@ const routes = [
     ],
   },
   {
-    path: "/post",
+    path: "/post/:postId",
     name: "Post",
     component: Post,
   },

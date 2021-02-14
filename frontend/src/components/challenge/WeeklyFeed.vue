@@ -1,7 +1,11 @@
 <template>
   <div class="weeklyFeed">
     <div v-for="(mission, index) in missions" :key="index" class="feed">
-      <img v-if="mission.upload" :src="mission.postImage" />
+      <img
+        v-if="mission.upload"
+        :src="mission.postImage"
+        @click="handlePostClick(mission.postId)"
+      />
       <div v-else class="emptyFeed" :class="mission.disabled">
         <div class="day">
           {{ mission.missionDay }}
@@ -31,7 +35,7 @@ export default {
         method: "GET",
         params: {
           challengeId: "1",
-          userId: "10",
+          userId: this.$store.state.userInfo.userId,
         },
       })
         .then((response) => {
@@ -65,10 +69,12 @@ export default {
       }
       this.missions = week;
     },
+    // 미래 미션들은 비활성화
     isDisabled(num) {
       const day = new Date().getDay();
       return day <= num ? "disabled" : "";
     },
+    // 요일에 맞는 글자 표기를 위한 작업
     getDay(num) {
       if (num === 0) return "月";
       else if (num === 1) return "火";
@@ -77,6 +83,15 @@ export default {
       else if (num === 4) return "金";
       else if (num === 5) return "土";
       else if (num === 6) return "日";
+    },
+    // 해당 게시글 상세보기로 이동
+    handlePostClick(postId) {
+      this.$router.push({
+        name: "Post",
+        params: {
+          postId,
+        },
+      });
     },
   },
 };
