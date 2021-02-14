@@ -10,4 +10,6 @@ public interface PostRepository extends JpaRepository<Post,Object> {
 	Post getPostByPostId(Long postId);
 	List<Post> getPostByChallengeId(String challengeId);
 	List<Post> findPostByUserId(Long userId);
+	List<Post> findPostByUserIdAndMissionId(Long userId, String missionId);
+	List<Post> findPostByUserIdAndChallengeId(Long userId, String challengeId);
 }

@@ -14,7 +14,7 @@ import com.ssafy.ctrlz.service.MissionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@Api(tags = "Mission", description = "¹Ì¼Ç API")
+@Api(tags = "Mission", description = "ë¯¸ì…˜ API")
 @CrossOrigin
 @RestController
 @RequestMapping("/mission")
@@ -23,13 +23,13 @@ public class MissionController {
 	@Autowired
 	private MissionService missionService;
 	
-	@ApiOperation(value = "ÀüÃ¼ ¹Ì¼Ç µ¥ÀÌÅÍ")
+	@ApiOperation(value = "ì „ì²´ ë¯¸ì…˜ ê²€ìƒ‰")
 	@GetMapping(value="/all")
 	public ResponseEntity<List<Mission>> findAll() {
 		return new ResponseEntity<List<Mission>>(missionService.findAll(), HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "Ã§¸°Áöº° ¹Ì¼Ç µ¥ÀÌÅÍ")
+	@ApiOperation(value = "ì±Œë¦°ì§€ IDë¡œ ë¯¸ì…˜ ê²€ìƒ‰")
 	@GetMapping(value="/")
 	public ResponseEntity<List<Mission>> findByLevel(@RequestParam String challengeId) {
 		return new ResponseEntity<List<Mission>>(missionService.findByChallenge(challengeId), HttpStatus.OK);

@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import com.ssafy.ctrlz.model.Post;
+import com.ssafy.ctrlz.model.PostUpload;
 import com.ssafy.ctrlz.repository.PostRepository;
 
 @Service
@@ -17,24 +17,24 @@ public class PostServiceImpl implements PostService{
 	private PostRepository postRepository;
 	
 	@Override
-	public void createPost(Long postId,Long userId, String challengeId,String postContent, MultipartFile postImage) {
+	public void createPost(PostUpload postUpload) {
 		Post post = new Post();
-		String UPLOAD_PATH = "C:\\Users\\multicampus\\fileupload\\src\\assets\\post";
-		UUID uuid = UUID.randomUUID();
-		String saveName = uuid+"_"+postImage.getOriginalFilename();
+		String UPLOAD_PATH = "/var/www/html/dist/img/userMission";
+//		UUID uuid = UUID.randomUUID();
+		String saveName = postUpload.getPostImage().getOriginalFilename();
 
 		File saveFile = new File(UPLOAD_PATH, saveName);
         
 		try {
-			postImage.transferTo(saveFile);
-            saveName = "http://i4a202.p.ssafy.io/postimg/" + saveName;
+			postUpload.getPostImage().transferTo(saveFile);
+            saveName = "http://i4a202.p.ssafy.io/img/userMission/" + saveName;
 		} catch (IOException e) {
             e.printStackTrace();
         }
-		post.setPostId(postId);
-		post.setUserId(userId);
-		post.setChallengeId(challengeId);
-		post.setPostContent(postContent);
+		
+		post.setUserId(postUpload.getUserId());
+		post.setChallengeId(postUpload.getChallengeId());
+		post.setPostContent(postUpload.getPostContent());
 		post.setPostImage(saveName);
 		postRepository.save(post);
 		
@@ -49,7 +49,6 @@ public class PostServiceImpl implements PostService{
 		}else {
 			return null;
 		}
-	
 	}
 
 	@Override
@@ -67,7 +66,6 @@ public class PostServiceImpl implements PostService{
 		}else {
 			return null;
 		}
-		
 	}
 
 	@Override
@@ -76,6 +74,28 @@ public class PostServiceImpl implements PostService{
 		
 		if(postByUserId.size() > 0) {
 			return postByUserId;
+		}else {
+			return null;
+		}
+	}
+
+	@Override
+	public List<Post> findPostByUserIdAndMissionId(Long userId, String missionId) {
+		List<Post> postByUserIdAndMissionId = postRepository.findPostByUserIdAndMissionId(userId, missionId);
+		
+		if(postByUserIdAndMissionId.size() > 0) {
+			return postByUserIdAndMissionId;
+		}else {
+			return null;
+		}
+	}
+
+	@Override
+	public List<Post> findPostByUserIdAndChallengeId(Long userId, String challengeId) {
+		List<Post> postByUserIdAndChallengeId = postRepository.findPostByUserIdAndChallengeId(userId, challengeId);
+		
+		if(postByUserIdAndChallengeId.size() > 0) {
+			return postByUserIdAndChallengeId;
 		}else {
 			return null;
 		}

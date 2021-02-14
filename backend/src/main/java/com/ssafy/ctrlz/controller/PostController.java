@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 import com.ssafy.ctrlz.exception.NoDataFoundException;
 import com.ssafy.ctrlz.model.Post;
 import com.ssafy.ctrlz.model.PostLike;
 import com.ssafy.ctrlz.model.PostLikeId;
+import com.ssafy.ctrlz.model.PostUpload;
 import com.ssafy.ctrlz.service.PostLikeService;
 import com.ssafy.ctrlz.service.PostService;
 import io.swagger.annotations.Api;
@@ -35,9 +35,9 @@ public class PostController {
 	
 	@PostMapping("")
 	@ApiOperation(value = "게시글 작성", notes = "한장의 사진과 내용을 작성합니다.")
-	public Object writePost(Long postId, Long userId, String challengeId, String postContent, MultipartFile postImage) {
-
-		postService.createPost(postId, userId, challengeId, postContent, postImage);
+	public Object writePost(PostUpload postUpload) {
+		
+		postService.createPost(postUpload);
 		return new ResponseEntity<>("Success", HttpStatus.OK);
 	}
 	
@@ -67,6 +67,20 @@ public class PostController {
 	public List<Post> selectPostbyUserId(Long userId){
 		
 		return postService.findPostByUserId(userId);
+	}
+	
+	@GetMapping("/find/mission")
+	@ApiOperation(value = "유저ID,미션ID로 게시글 검색", notes = "유저ID,미션ID에 맞는 게시글을 조회합니다.")
+	public List<Post> selectPostbyUserIdAndMissionId(Long userId, String missionId){
+		
+		return postService.findPostByUserIdAndMissionId(userId, missionId);
+	}
+	
+	@GetMapping("/find/challenge/user")
+	@ApiOperation(value = "유저ID,챌린지ID로 게시글 검색", notes = "유저ID,챌린지ID에 맞는 게시글을 조회합니다.")
+	public List<Post> selectPostbyUserIdAndChallengeId(Long userId, String challengeId){
+		
+		return postService.findPostByUserIdAndChallengeId(userId, challengeId);
 	}
 	
 	@PostMapping("/like")
