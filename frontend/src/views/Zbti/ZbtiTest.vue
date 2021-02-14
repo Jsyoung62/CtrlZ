@@ -4,13 +4,13 @@
     <div class="question">
       {{ zbtiTest[testId].testQuestion }}
     </div>
-    <div class="answer" @click="handleAnswerClick(0)">
+    <div class="answer" @click="handleAnswerClick(2)">
       {{ zbtiTest[testId].testAnswer1 }}
     </div>
     <div class="answer" @click="handleAnswerClick(1)">
       {{ zbtiTest[testId].testAnswer2 }}
     </div>
-    <div class="answer" @click="handleAnswerClick(2)">
+    <div class="answer" @click="handleAnswerClick(0)">
       {{ zbtiTest[testId].testAnswer3 }}
     </div>
     <div class="answer" @click="handleAnswerClick(3)">
