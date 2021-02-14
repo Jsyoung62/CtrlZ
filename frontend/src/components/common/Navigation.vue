@@ -48,25 +48,29 @@ export default {
   methods: {
     handleHomeClick() {
       if (this.$router.currentRoute.path !== "/") {
+        // 같은 URL 중복 접근 못하게 처리
         this.$router.push("/");
       }
     },
     handleTodayClick() {
       if (this.$router.currentRoute.path !== "/challenge/daily") {
+        // 같은 URL 중복 접근 못하게 처리
         this.$router.push("/challenge/daily");
       }
     },
     handleChallengeClick() {
       if (this.$router.currentRoute.path !== "/challenge") {
+        // 같은 URL 중복 접근 못하게 처리
         this.$router.push("/challenge");
       }
     },
     handleMypageClick() {
+      // 이미 로그인 한 경우  & 같은 URL 중복 접근 못하게 처리
       if (this.isUser) {
-        this.$router.push("/user/profile");
-        // eslint-disable-next-line prettier/prettier
-      } 
-      else {
+        if (this.$router.currentRoute.path !== "/user/profile") {
+          this.$router.push("/user/profile");
+        }
+      } else {
         this.$router.push("/login");
       }
     },
