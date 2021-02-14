@@ -1,10 +1,12 @@
 <template>
   <div class="postUpload">
-    <div class="postHeader">
-      <span class="title" @click="handlePostUploadClick">
-        인증
-      </span>
-    </div>
+    <Header left-icon="chevron_left" />
+    <Navigation />
+
+    <button class="uploadButton" @click="handlePostUploadClick">
+      공유
+    </button>
+
     <div class="postUploadImage">
       <img class="selectedImage" :src="postThumbnail" />
       <span>{{ missionTitle }}</span>
@@ -16,42 +18,46 @@
 </template>
 
 <script>
-import "@/components/css/post/index.scss";
+import Header from "@/components/common/Header.vue";
+import Navigation from "@/components/common/Navigation.vue";
 import "@/components/css/post/postUpload.scss";
 
 export default {
   name: "PostUpload",
+  components: {
+    Header,
+    Navigation,
+  },
   data() {
     return {
       userId: "",
-      mission: "",
-      postImage: "",
       postThumbnail: "",
       postContent: "",
       missionTitle: "",
-      challengeId: "3",
     };
   },
   created() {
-    this.postImage = this.$route.params.postImage;
-    this.userId = this.$store.$route.userInfo.userId;
-    const reader = new FileReader();
-    reader.readAsDataURL(this.postImage);
-    reader.onload = (evt) => {
-      this.postThumbnail = evt.target.result;
-    };
-
+    this.userId = this.$store.state.userInfo.userId;
     this.missionTitle = this.$route.params.missionTitle;
+
+    this.makeThumbnail(this.$route.params.postImage);
   },
   methods: {
+    // 썸네일 이미지 변환
+    makeThumbnail(postImage) {
+      const reader = new FileReader();
+      reader.readAsDataURL(postImage);
+      reader.onload = (evt) => {
+        this.postThumbnail = evt.target.result;
+      };
+    },
     handlePostUploadClick() {
       // image 업로드를 위한 formData
-      const vm = this;
       const formData = new FormData();
-      formData.append("postImage", vm.postImage);
-      formData.append("postContent", vm.postContent);
-      formData.append("userId", vm.userId);
-      formData.append("challengeId", vm.challengeId);
+      formData.append("postImage", this.$route.params.postImage);
+      formData.append("postContent", this.postContent);
+      formData.append("userId", this.userId);
+      formData.append("challengeId", this.$route.params.challengeId);
 
       this.$axios
         .post("/post", formData, {
@@ -59,10 +65,14 @@ export default {
             "Content-Type": "multipart/form-data",
           },
         })
-        .then((response) => {
-          console.log(response.data);
+        .then(() => {
           alert("업로드 완료");
-          this.$router.push("/challenge/inprogress");
+          this.$router.push({
+            name: "InProgressChallenge",
+            params: {
+              challengeId: this.$route.params.challengeId,
+            },
+          });
         })
         .catch((error) => {
           console.error(error);

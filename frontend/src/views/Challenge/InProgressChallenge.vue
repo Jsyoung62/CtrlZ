@@ -1,6 +1,6 @@
 <template>
   <div class="inProgressChallenge">
-    <Header title="진행중인 챌린지" />
+    <Header title="진행중인 챌린지" left-icon="chevron_left" />
     <Navigation />
 
     <div class="thumbnailWrapper">
@@ -36,8 +36,8 @@
 
       <Missions
         :mission-total="challenge.challengeMissionTotal"
-        :challenge-id="challengeId"
         :missions="missions"
+        :posts="completedMissions"
       />
     </div>
   </div>
@@ -48,9 +48,6 @@ import Navigation from "@/components/common/Navigation.vue";
 import ChallengeTitle from "@/components/challenge/ChallengeTitle.vue";
 import Missions from "@/components/challenge/Missions";
 import "@/components/css/challenge/inProgressChallenge.scss";
-import axios from "axios";
-
-axios.defaults.baseURL = "http://i4a202.p.ssafy.io:8888";
 
 export default {
   name: "InProgressChallenge",
@@ -62,9 +59,8 @@ export default {
   },
   data: () => {
     return {
-      challenge: "",
-      missions: "",
-      challengeId: "3",
+      challenge: {},
+      missions: [],
       completedMissions: [],
     };
   },
@@ -76,41 +72,68 @@ export default {
     },
   },
   created() {
-    axios({
-      url: "/challenge/",
-      method: "GET",
-      params: {
-        challengeId: this.challengeId,
-      },
-    }).then((response) => {
-      this.challenge = response.data;
-    });
-    axios({
-      url: "/mission/",
-      method: "GET",
-      params: {
-        challengeId: this.challengeId,
-      },
-    }).then((response) => {
-      this.missions = response.data;
-    });
-    axios({
-      url: "/post/find/challenge/user",
-      method: "GET",
-      params: {
-        challengeId: this.challengeId,
-        userId: this.$store.state.userInfo.userId,
-      },
-    }).then((response) => {
-      this.completedMissions = response.data;
-    });
+    const challengeId = this.$route.params.challengeId;
+    this.getChallengeInfo(challengeId);
+    this.getMissions(challengeId);
+    this.getFeed(challengeId);
   },
   methods: {
+    // 챌린지 정보 불러오기
+    getChallengeInfo(challengeId) {
+      this.$axios({
+        url: "/challenge/",
+        method: "GET",
+        params: {
+          challengeId,
+        },
+      })
+        .then((response) => {
+          this.challenge = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    // 미션 정보 불러오기
+    getMissions(challengeId) {
+      this.$axios({
+        url: "/mission/",
+        method: "GET",
+        params: {
+          challengeId,
+        },
+      })
+        .then((response) => {
+          this.missions = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    // 챌린지에 모든 사용자가 올린 게시글 정보 불러오기
+    getFeed(challengeId) {
+      this.$axios({
+        url: "/post/find/challenge/user",
+        method: "GET",
+        params: {
+          challengeId,
+          userId: this.$store.state.userInfo.userId,
+        },
+      })
+        .then((response) => {
+          if (response.data !== "") {
+            this.completedMissions = response.data;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     handleDetailClick() {
       this.$router.push({
         name: "ChallengeDetail",
         params: {
-          challengeId: this.challengeId,
+          challengeId: this.$route.params.challengeId,
         },
       });
     },

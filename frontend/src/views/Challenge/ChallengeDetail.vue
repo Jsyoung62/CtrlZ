@@ -1,6 +1,6 @@
 <template>
   <div class="challengeDetail">
-    <Header title="챌린지 상세보기" />
+    <Header title="챌린지 상세보기" left-icon="chevron_left" />
     <Navigation />
 
     <div class="thumbnailWrapper">

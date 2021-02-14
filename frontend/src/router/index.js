@@ -59,7 +59,7 @@ const routes = [
         component: ChallengeDetail,
       },
       {
-        path: "inprogress",
+        path: "inprogress/:challengeId",
         name: "InProgressChallenge",
         component: InProgressChallenge,
       },

@@ -4,7 +4,7 @@
       v-for="(post, index) in posts"
       :key="post.postId"
       class="feed"
-      @click="handleMissionDetail(index)"
+      @click="handleFeedClick(index)"
     >
       <img :src="post.postImage" />
     </div>
@@ -26,7 +26,7 @@ export default {
     };
   },
   methods: {
-    handleMissionDetail(index) {
+    handleFeedClick(index) {
       this.postId = this.posts[index].postId;
       this.$router.push({
         name: "Post",

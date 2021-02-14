@@ -33,6 +33,10 @@ import "@/components/css/uploadModal.scss";
 export default {
   name: "UploadModal",
   props: {
+    challengeId: {
+      type: String,
+      required: true,
+    },
     missionImage: {
       type: String,
       required: true,
@@ -59,6 +63,7 @@ export default {
       this.$router.push({
         name: "PostUpload",
         params: {
+          challengeId: this.challengeId,
           postImage: this.postImage,
           missionTitle: this.missionTitle,
         },
