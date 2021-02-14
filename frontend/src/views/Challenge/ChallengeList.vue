@@ -56,7 +56,7 @@ export default {
   },
   data: () => {
     return {
-      challenges: [],
+      challenges: [], // 현재 화면에 보여지는 챌린지 데이터
       dailyChallenges: [],
       foodChallenges: [],
       fashionChallenges: [],
@@ -64,53 +64,46 @@ export default {
     };
   },
   created() {
-    // 전체 챌린지 데이터 조회
-    axios({
-      url: "/challenge/all",
-      method: "GET",
-      params: {
-        challengeId: this.challengeId,
-      },
-    })
-      .then((response) => {
-        this.challenges = response.data.map((challenge) => {
-          let style = "";
-          if (challenge.challengeType === "일상") {
-            style = "yellow";
-          } else if (challenge.challengeType === "음식") {
-            style = "purple";
-          } else if (challenge.challengeType === "패션") {
-            style = "pink";
-          } else if (challenge.challengeType === "활동") {
-            style = "blue";
-          }
-          return { ...challenge, style };
-        });
-
-        this.divisionChallenges();
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    this.dailyChallenges = this.getChallenges("일상", "dailyChallenges");
+    this.foodChallenges = this.getChallenges("음식", "foodChallenges");
+    this.fashionChallenges = this.getChallenges("패션", "fashionChallenges");
+    this.activityChallenges = this.getChallenges("활동", "activityChallenges");
   },
   methods: {
-    // 유형별로 챌린지 나누기
-    divisionChallenges() {
-      this.dailyChallenges = this.challenges.filter(
-        (challenge) => challenge.challengeType === "일상"
-      );
-
-      this.foodChallenges = this.challenges.filter(
-        (challenge) => challenge.challengeType === "음식"
-      );
-
-      this.fashionChallenges = this.challenges.filter(
-        (challenge) => challenge.challengeType === "패션"
-      );
-
-      this.activityChallenges = this.challenges.filter(
-        (challenge) => challenge.challengeType === "활동"
-      );
+    // 챌린지 불러오기
+    getChallenges(type, challengeName) {
+      axios({
+        url: "/challenge/type",
+        method: "GET",
+        params: {
+          challengeType: type,
+        },
+      })
+        .then((response) => {
+          const style = this.setStyle(type);
+          this[challengeName] = response.data.map((challenge) => {
+            return { ...challenge, style };
+          });
+          this.challenges = this.challenges.concat(this[challengeName]);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    // 챌린지 유형별로 스타일 구분
+    setStyle(type) {
+      if (type === "일상") {
+        return "yellow";
+      }
+      if (type === "음식") {
+        return "purple";
+      }
+      if (type === "패션") {
+        return "pink";
+      }
+      if (type === "활동") {
+        return "blue";
+      }
     },
     // 해당 챌린지 상세보기로 이동
     handleChallengeClick(challengeId) {
