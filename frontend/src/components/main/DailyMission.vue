@@ -2,27 +2,15 @@
   <div class="dailyMission">
     <div class="titleWrapper">
       <h1 class="title">
-        {{ data.challengeName }}
+        {{ challengeName }}
       </h1>
       <p class="description">
-        {{ data.challengeDescription }}
+        {{ challengeDescription }}
       </p>
     </div>
     <swiper class="swiper" :options="swiperOption">
-      <swiper-slide>
-        <Day day="월요일" title="고기없는 月요일" />
-      </swiper-slide>
-      <swiper-slide>
-        <Day day="화요일" title="고기없는 月요일" />
-      </swiper-slide>
-      <swiper-slide>
-        <Day day="수요일" title="고기없는 月요일" />
-      </swiper-slide>
-      <swiper-slide>
-        <Day day="목요일" title="고기없는 月요일" />
-      </swiper-slide>
-      <swiper-slide>
-        <Day day="금요일" title="고기없는 月요일" />
+      <swiper-slide v-for="mission in missions" :key="mission.missionId">
+        <Day :title="mission.missionTitle" :thumbnail="mission.missionImage" />
       </swiper-slide>
     </swiper>
   </div>
@@ -40,14 +28,11 @@ export default {
     SwiperSlide,
     Day,
   },
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
-  },
   data() {
     return {
+      challengeName: "",
+      challengeDescription: "",
+      missions: [],
       swiperOption: {
         effect: "coverflow",
         grabCursor: true,
@@ -65,6 +50,40 @@ export default {
         },
       },
     };
+  },
+  created() {
+    this.callDailyChallenge();
+    this.callDailyMissions();
+  },
+  methods: {
+    // 데일리 미션 정보 불러오기
+    callDailyChallenge() {
+      this.$axios({
+        url: "/challenge/type",
+        method: "GET",
+        params: {
+          challengeType: "데일리",
+        },
+      }).then((res) => {
+        const info = res.data[0];
+        this.challengeName = info.challengeName;
+        this.challengeDescription = info.challengeContent;
+      });
+    },
+
+    // 데일리 미션 title, 이미지(미션내용) 불러오기
+    // 데일리 미션 challengeID = 1
+    callDailyMissions() {
+      this.$axios({
+        url: "/mission/",
+        method: "GET",
+        params: {
+          challengeId: "1",
+        },
+      }).then((res) => {
+        this.missions = res.data;
+      });
+    },
   },
 };
 </script>

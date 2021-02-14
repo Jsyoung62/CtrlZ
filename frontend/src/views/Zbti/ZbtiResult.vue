@@ -24,9 +24,6 @@
 </template>
 
 <script>
-import axios from "axios";
-axios.defaults.baseURL = "http://i4a202.p.ssafy.io:8888";
-
 export default {
   name: "ZbtiResult",
   data: () => {
@@ -42,7 +39,7 @@ export default {
   created() {
     this.zbtiId = this.$route.params.zbtiId;
 
-    axios({
+    this.$axios({
       url: "/zbti/result",
       method: "GET",
       params: {

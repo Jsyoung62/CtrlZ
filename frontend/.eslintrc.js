@@ -62,7 +62,6 @@ module.exports = {
     "no-loop-func": 2,
     "no-new-func": 2,
     "space-before-blocks": ["error", { "functions": "always", "keywords": "always", "classes": "always" }],
-    "brace-style": ["error", "stroustrup", { "allowSingleLine": true }],
     "space-before-function-paren": ["error", "never"],
     "prefer-spread": 2,
     "prefer-arrow-callback": 2,

@@ -1,28 +1,24 @@
 @import "../colors";
 
-.day {
+.swiper-slide > .day {
     position: relative;
     width: 100%;
     height: 100%;
-    padding: 25px 20px;
     border-radius: 15px;
-    font-weight: bold;
-    font-size: 22px;
-    color: $basic-white;
-    background-color: $primary-green3;
 
-    .post {
-        margin-top: 16px;;
-        width: 160px;
-        height: 160px;
-        border-radius: 100%;
+    .thumbnail {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: calc(100% - 56px);
+        border-radius: 15px 15px 0 0;
     }
 
     .title {
         width: 100%;
         height: 56px;
         position: absolute;
-        bottom: -10px;
+        bottom: -29px;
         left: 0;
         font-weight: normal !important;
         font-size: 16px !important;

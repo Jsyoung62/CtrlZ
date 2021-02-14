@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import firebase from "firebase";
+import axios from "axios";
 
 Vue.config.productionTip = false;
 
@@ -16,6 +17,10 @@ const config = {
   measurementId: "G-7QS8GW5EQ9",
 };
 firebase.initializeApp(config);
+
+Vue.prototype.$axios = axios;
+axios.defaults.baseURL = "http://i4a202.p.ssafy.io:8888";
+axios.defaults.headers.post["Content-Type"] = "application/json";
 
 new Vue({
   router,
