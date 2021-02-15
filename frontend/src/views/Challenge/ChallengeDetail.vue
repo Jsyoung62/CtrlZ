@@ -1,6 +1,6 @@
 <template>
   <div class="challengeDetail">
-    <Header title="챌린지 상세보기" />
+    <Header title="챌린지 상세보기" left-icon="chevron_left" />
     <Navigation />
 
     <div class="thumbnailWrapper">
@@ -92,49 +92,66 @@ export default {
     this.userId = this.$store.state.userInfo.userId;
     this.challengeId = this.$route.params.challengeId;
 
-    this.$axios({
-      url: "/challenge/",
-      method: "GET",
-      params: {
-        challengeId: this.challengeId,
-      },
-    })
-      .then((response) => {
-        this.challenge = response.data;
-      })
-      .catch((error) => {
-        console.error(error);
-      }); // 해당 챌린지 데이터 조회
+    this.getChallengeInfo(this.challengeId);
+    this.getChallengeFeed(this.challengeId);
+    this.getAchivedCount(this.challengeId);
 
-    this.$axios({
-      url: "/post/find/challenge/",
-      method: "GET",
-      params: {
-        challengeId: this.challengeId,
-      },
-    })
-      .then((response) => {
-        this.challengePosts = response.data;
-      })
-      .catch((error) => {
-        console.error(error);
-      }); // 해당 챌린지의 모든 게시글 조회
-
-    this.$axios({
-      url: "/challenge/status/count/achived",
-      method: "GET",
-      params: {
-        challengeId: this.challengeId,
-      },
-    })
-      .then((response) => {
-        this.achived = response.data;
-      })
-      .catch((error) => {
-        console.error(error);
-      }); // 해당 챌린지 완료자 수 조회
-
+    // 로그인 한 경우
     if (this.userId > 0) {
+      this.getUserChallengeStatus();
+    }
+  },
+  methods: {
+    // 해당 챌린지 데이터 조회
+    getChallengeInfo(challengeId) {
+      this.$axios({
+        url: "/challenge/",
+        method: "GET",
+        params: {
+          challengeId,
+        },
+      })
+        .then((response) => {
+          this.challenge = response.data;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    // 해당 챌린지의 모든 게시글 조회
+    getChallengeFeed(challengeId) {
+      this.$axios({
+        url: "/post/find/challenge/",
+        method: "GET",
+        params: {
+          challengeId,
+        },
+      })
+        .then((response) => {
+          this.challengePosts = response.data;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    // 해당 챌린지 완료자 수 조회
+    getAchivedCount(challengeId) {
+      this.$axios({
+        url: "/challenge/status/count/achived",
+        method: "GET",
+        params: {
+          challengeId,
+        },
+      })
+        .then((response) => {
+          this.achived = response.data;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    // 현재 사용자의 해당 챌린지 참여 현황 조회
+    getUserChallengeStatus() {
       this.$axios({
         url: `/challenge/status/${this.challengeId}/${this.userId}`,
         method: "GET",
@@ -154,10 +171,8 @@ export default {
         .catch((error) => {
           console.log("현재 사용자가 해당 챌린지에 참여하지 않고 있는 경우");
           console.error(error);
-        }); // 현재 사용자의 해당 챌린지 참여 현황 조회
-    }
-  },
-  methods: {
+        });
+    },
     handleStartButton() {
       if (this.userId > 0) {
         this.$axios({
@@ -168,8 +183,9 @@ export default {
             userId: this.userId,
           },
         })
-          .then((response) => {
-            console.log(response);
+          .then(() => {
+            // 챌린지 시작하면 페이지 새로고침
+            this.$router.go(this.$router.currentRoute);
           })
           .catch((error) => {
             console.error(error);
