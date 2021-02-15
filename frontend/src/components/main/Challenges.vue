@@ -41,7 +41,7 @@ export default {
           clickable: true,
         },
         speed: 300,
-        autoHeight: true,
+        autoHeight: false,
         centeredSlides: true,
         navigation: {
           nextEl: ".swiper-button-next",

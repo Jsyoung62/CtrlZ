@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <span v-show="leftIcon !== ''" class="material-icons" @click="handleBackClick">
+    <span class="material-icons" @click="handleBackClick">
       {{ leftIcon }}
     </span>
     <h1 class="title">
