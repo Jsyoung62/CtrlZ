@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 import firebase from "firebase";
 import axios from "axios";
+import "./registerServiceWorker";
 
 Vue.config.productionTip = false;
 
