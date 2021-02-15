@@ -7,8 +7,8 @@
       <img class="postImage" :src="post.postImage" />
       <PostReview :like-cnt="post.postLike" :comment-cnt="4456" />
       <div class="user">
-        <img :src="user.userImage" class="userImage" />
-        <span>{{ user.userName }}</span>
+        <img :src="post.user.userImage" class="userImage" />
+        <span>{{ post.user.userName }}</span>
       </div>
       <div class="postContent">
         {{ post.postContent }}
@@ -33,7 +33,6 @@ export default {
   data: () => {
     return {
       post: "",
-      user: "",
       postId: "",
     };
   },
@@ -48,28 +47,11 @@ export default {
     })
       .then((response) => {
         this.post = response.data;
-        this.getUserInfo(this.post.userId);
       })
       .catch((error) => {
         console.error(error);
       });
   },
-  methods: {
-    getUserInfo(userId) {
-      this.$axios({
-        url: "/user/profile",
-        method: "GET",
-        params: {
-          userId,
-        },
-      })
-        .then((response) => {
-          this.user = response.data;
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
-  },
+  methods: {},
 };
 </script>

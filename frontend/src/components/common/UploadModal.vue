@@ -2,12 +2,12 @@
   <div class="modalMask" @click.self="$emit('close')">
     <div class="modalWrapper">
       <div class="modalTitle">
-        <slot name="modalTitle"></slot>
+        {{ mission.missionTitle }}
       </div>
       <div class="modalContent">
-        <slot name="modalContent"></slot>
-        <div v-show="missionImage != null">
-          <img class="modalImage" :src="missionImage" />
+        {{ mission.missionContent }}
+        <div v-show="mission.missionImage != null">
+          <img class="modalImage" :src="mission.missionImage" />
         </div>
       </div>
       <div class="modalButton">
@@ -18,6 +18,7 @@
           id="uploadImage"
           ref="postImage"
           type="file"
+          accept="image/*"
           name="uploadImage"
           class="uploadImage"
           @change="uploadImage"
@@ -33,16 +34,8 @@ import "@/components/css/uploadModal.scss";
 export default {
   name: "UploadModal",
   props: {
-    challengeId: {
-      type: String,
-      required: true,
-    },
-    missionImage: {
-      type: String,
-      required: true,
-    },
-    missionTitle: {
-      type: String,
+    mission: {
+      type: Object,
       required: true,
     },
   },
@@ -63,9 +56,10 @@ export default {
       this.$router.push({
         name: "PostUpload",
         params: {
-          challengeId: this.challengeId,
+          challengeId: this.mission.id.challengeId,
+          missionId: this.mission.id.missionId,
           postImage: this.postImage,
-          missionTitle: this.missionTitle,
+          missionTitle: this.mission.missionTitle,
         },
       });
     },

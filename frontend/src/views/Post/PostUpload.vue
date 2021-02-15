@@ -30,6 +30,8 @@ export default {
   },
   data() {
     return {
+      challengeId: "",
+      missionId: "",
       userId: "",
       postThumbnail: "",
       postContent: "",
@@ -37,6 +39,8 @@ export default {
     };
   },
   created() {
+    this.challengeId = this.$route.params.challengeId;
+    this.missionId = this.$route.params.missionId;
     this.userId = this.$store.state.userInfo.userId;
     this.missionTitle = this.$route.params.missionTitle;
 
@@ -52,13 +56,15 @@ export default {
       };
     },
     handlePostUploadClick() {
-      // image 업로드를 위한 formData
+      // 이미지 전달을 위한 FormData
       const formData = new FormData();
-      formData.append("postImage", this.$route.params.postImage);
-      formData.append("postContent", this.postContent);
+      formData.append("challengeId", this.challengeId);
+      formData.append("missionId", this.missionId);
       formData.append("userId", this.userId);
-      formData.append("challengeId", this.$route.params.challengeId);
+      formData.append("postContent", this.postContent);
+      formData.append("postImage", this.$route.params.postImage);
 
+      // 게시글 업로드
       this.$axios
         .post("/post", formData, {
           headers: {
@@ -66,13 +72,44 @@ export default {
           },
         })
         .then(() => {
-          alert("업로드 완료");
+          this.updateUserZScore();
+          this.updateChallengeStatus();
+
           this.$router.push({
             name: "InProgressChallenge",
             params: {
               challengeId: this.$route.params.challengeId,
             },
           });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    // 게시글 업로드에 따른 사용자 Z 점수 수정
+    updateUserZScore() {
+      this.$axios({
+        url: "/user/zscore/",
+        method: "PUT",
+        params: {
+          userId: this.userId,
+        },
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    // 게시글 업로드에 따른 사용자의 챌린지 진행 사항 수정
+    updateChallengeStatus() {
+      this.$axios({
+        url: `/challenge/status/${this.challengeId}/${this.userId}`,
+        method: "PUT",
+      })
+        .then((response) => {
+          console.log(response);
         })
         .catch((error) => {
           console.error(error);

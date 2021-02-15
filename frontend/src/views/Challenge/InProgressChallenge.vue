@@ -33,12 +33,7 @@
           챌린지 상세보기
         </button>
       </div>
-
-      <Missions
-        :mission-total="challenge.challengeMissionTotal"
-        :missions="missions"
-        :posts="completedMissions"
-      />
+      <Missions />
     </div>
   </div>
 </template>
@@ -59,32 +54,34 @@ export default {
   },
   data: () => {
     return {
+      userId: "",
+      challengeId: "",
       challenge: {},
-      missions: [],
-      completedMissions: [],
+      challengeStatus: {},
     };
   },
   computed: {
     progress() {
       return Math.floor(
-        (this.completedMissions.length / this.challenge.challengeMissionTotal) * 100
+        (this.challengeStatus.challengeMissionCurrent / this.challenge.challengeMissionTotal) * 100
       );
     },
   },
   created() {
-    const challengeId = this.$route.params.challengeId;
-    this.getChallengeInfo(challengeId);
-    this.getMissions(challengeId);
-    this.getFeed(challengeId);
+    this.userId = this.$store.state.userInfo.userId;
+    this.challengeId = this.$route.params.challengeId;
+
+    this.getChallengeInfo();
+    this.getUserChallengeStatus();
   },
   methods: {
     // 챌린지 정보 불러오기
-    getChallengeInfo(challengeId) {
+    getChallengeInfo() {
       this.$axios({
         url: "/challenge/",
         method: "GET",
         params: {
-          challengeId,
+          challengeId: this.challengeId,
         },
       })
         .then((response) => {
@@ -94,39 +91,17 @@ export default {
           console.log(error);
         });
     },
-    // 미션 정보 불러오기
-    getMissions(challengeId) {
+    // 현재 사용자의 해당 챌린지 참여 현황 조회
+    getUserChallengeStatus() {
       this.$axios({
-        url: "/mission/",
+        url: `/challenge/status/${this.challengeId}/${this.userId}`,
         method: "GET",
-        params: {
-          challengeId,
-        },
       })
         .then((response) => {
-          this.missions = response.data;
+          this.challengeStatus = response.data;
         })
         .catch((error) => {
-          console.log(error);
-        });
-    },
-    // 챌린지에 모든 사용자가 올린 게시글 정보 불러오기
-    getFeed(challengeId) {
-      this.$axios({
-        url: "/post/find/challenge/user",
-        method: "GET",
-        params: {
-          challengeId,
-          userId: this.$store.state.userInfo.userId,
-        },
-      })
-        .then((response) => {
-          if (response.data !== "") {
-            this.completedMissions = response.data;
-          }
-        })
-        .catch((error) => {
-          console.log(error);
+          console.error(error);
         });
     },
     handleDetailClick() {
