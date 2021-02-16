@@ -1,13 +1,16 @@
 <template>
   <div class="profileBoard">
     <div class="profileWrapper">
-      <img :src="require('@/assets/' + userImage)" class="profileImage" />
+      <img :src="userImage" class="profileImage" />
       <div class="profileInfo">
         <p class="name">
           {{ userName }}
         </p>
-        <p class="introduce">
+        <p v-if="userIntroduce" class="introduce">
           {{ userIntroduce }}
+        </p>
+        <p v-else class="introduce placeholder">
+          자기 소개가 없습니다
         </p>
       </div>
     </div>

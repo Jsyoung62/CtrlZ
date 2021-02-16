@@ -4,12 +4,12 @@
       <p>Z score</p>
     </div>
     <div class="board">
-      <span class="score">
+      <span class="zScore">
         {{ score }}
       </span>
       점
       <p class="rank">
-        상위 43%(731등)
+        상위<span class="percent">{{ percent }}</span> % (<span class="rank">{{ rank }}</span> 등)
       </p>
       <div class="zbtiWrapper">
         <div v-if="zbtiTest" class="zbtiWrapper">
@@ -31,6 +31,14 @@ export default {
   name: "ZScore",
   props: {
     score: {
+      type: Number,
+      required: true,
+    },
+    percent: {
+      type: Number,
+      required: true,
+    },
+    rank: {
       type: Number,
       required: true,
     },

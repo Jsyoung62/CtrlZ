@@ -78,6 +78,8 @@ export default {
           .then((res) => {
             const token = res.data.accesstoken;
             this.$store.commit("LOGIN", token);
+            this.setZScroe(this.$store.state.userInfo.userId);
+            this.setRank(this.$store.state.userInfo.userId);
             this.$router.push("/");
           })
           .catch((error) => {
@@ -105,10 +107,43 @@ export default {
             },
           }).then((res) => {
             const token = res.data.accesstoken;
-            console.log(token);
             this.$store.commit("LOGIN", token);
+            this.setZScroe(this.$store.state.userInfo.userId);
+            this.setRank(this.$store.state.userInfo.userId);
             this.$router.push("/");
           });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    setZScroe(userId) {
+      // 유저 점수, zbti 조회
+      this.$axios({
+        url: "/user/zscore",
+        method: "GET",
+        params: {
+          userId,
+        },
+      })
+        .then((response) => {
+          this.$store.commit("SETZSCORE", response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    setRank(userId) {
+      // 유저의 [등수, 상위 퍼센트]
+      this.$axios({
+        url: "/user/rank",
+        method: "GET",
+        params: {
+          userId,
+        },
+      })
+        .then((response) => {
+          this.$store.commit("SETRANK", response.data);
         })
         .catch((error) => {
           console.error(error);

@@ -14,6 +14,9 @@ export default new Vuex.Store({
       userName: "",
       userImage: "",
       userIntroduce: "",
+      zscore: 0,
+      rank: [],
+      zbtiId: "",
     },
   },
   mutations: {
@@ -32,6 +35,13 @@ export default new Vuex.Store({
     },
     GOOGLELOGIN: (state, userInfo) => {
       state.userInfo = userInfo;
+    },
+    SETZSCORE: (state, zscore) => {
+      state.userInfo.zscore = zscore.zscore;
+      state.userInfo.zbtiId = zscore.zbtiId;
+    },
+    SETRANK: (state, rank) => {
+      state.userInfo.rank = rank;
     },
   },
   plugins: [createPersistedState()],
