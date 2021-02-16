@@ -4,7 +4,7 @@
       <p>당신은</p>
       {{ zbtiResult.zbtiName }}
     </div>
-    <img src="@/assets/zbti_example.jpg" class="resultImage" />
+    <img :src="zbtiResult.zbtiImage" class="resultImage" />
     <div class="title">
       <span>추천 챌린지 영역 #</span>
       {{ zbtiResult.zbtiType }}
@@ -32,6 +32,7 @@ export default {
       zbtiResult: {
         zbtiType: "",
         zbtiName: "",
+        zbtiImage: "",
         zbtiDescription: [],
       },
     };
@@ -39,6 +40,7 @@ export default {
   created() {
     this.zbtiId = this.$route.params.zbtiId;
 
+    // ZBTI 결과 불러오기
     this.$axios({
       url: "/zbti/result",
       method: "GET",
@@ -49,6 +51,7 @@ export default {
       .then((response) => {
         this.zbtiResult = response.data;
 
+        // 하이라이트 분리
         this.zbtiResult.zbtiDescription = this.zbtiResult.zbtiDescription.split("\b");
       })
       .catch((error) => {
