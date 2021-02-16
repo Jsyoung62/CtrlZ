@@ -7,21 +7,21 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "user")
-@Data
 public class User {
 
-	@Id 
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
-	
-	private String userGid;
-	private char userType;
+	private Long userId;
+
 	private String userName;
 	private String userEmail;
 	private String userPassword;
-	private String userIntroduce;
 	private String userImage;
+	private String userIntroduce;
+	private String userGid;
+	private char userType;
 
 }
