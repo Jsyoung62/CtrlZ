@@ -27,8 +27,7 @@ export default {
   props: {
     userImage: {
       type: String,
-      default: "no_profile.png",
-      required: false,
+      required: true,
     },
     userName: {
       type: String,

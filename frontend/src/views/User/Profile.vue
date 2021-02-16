@@ -8,7 +8,12 @@
       :user-image="user.userImage"
       :user-introduce="user.userIntroduce"
     />
-    <ZScore :score="user.zscore" :percent="user.rank[1]" :rank="user.rank[0]" :zbti="user.zbti" />
+    <ZScore
+      :score="userScore.zscore"
+      :percent="userRank[1]"
+      :rank="userRank[0]"
+      :zbti="userScore.zbtiId"
+    />
     <ChallengeBoard :challenges="challenges" />
     <ZFeed :data="feed" />
   </div>
@@ -36,6 +41,12 @@ export default {
   data: () => {
     return {
       user: {},
+      userScore: {
+        zscore: 0,
+        zbtiId: "",
+      },
+      // eslint-disable-next-line prettier/prettier
+      userRank: [ 0, 0 ],
       challenges: [],
       feed: [],
     };
@@ -43,33 +54,46 @@ export default {
   created() {
     this.user = this.$store.state.userInfo;
 
-    // zbitId에 맞게 zbti 이름 받아오기
-    if (this.user.zbtiId === "A") {
-      this.user = {
-        ...this.user,
-        zbti: "패션",
-      };
-    } else if (this.user.zbtiId === "B") {
-      this.user = {
-        ...this.user,
-        zbti: "음식",
-      };
-    } else if (this.user.zbtiId === "C") {
-      this.user = {
-        ...this.user,
-        zbti: "일상",
-      };
-    } else if (this.user.zbtiId === "D") {
-      this.user = {
-        ...this.user,
-        zbti: "활동",
-      };
-    }
-
+    this.getZScore();
+    this.getRank();
     this.getChallenges();
     this.getFeed();
   },
   methods: {
+    // 유저 점수, zbti 조회
+    getZScore() {
+      this.$axios({
+        url: "/user/zscore",
+        method: "GET",
+        params: {
+          userId: this.user.userId,
+        },
+      })
+        .then((response) => {
+          this.userScore = response.data;
+
+          this.changeZbtiResult();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    // 유저의 [등수, 상위 퍼센트]
+    getRank() {
+      this.$axios({
+        url: "/user/rank",
+        method: "GET",
+        params: {
+          userId: this.user.userId,
+        },
+      })
+        .then((response) => {
+          this.userRank = response.data;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
     // 진행중인 챌린지 조회
     getChallenges() {
       this.$axios({
@@ -80,17 +104,19 @@ export default {
         },
       })
         .then((response) => {
-          this.challenges = response.data.map((challengeInfo) => {
-            return {
-              challengeId: challengeInfo.challenge.challengeId,
-              challengeName: challengeInfo.challenge.challengeName,
-              challengeMissionTotal: challengeInfo.challenge.challengeMissionTotal,
-              challengeMissionCurrent: challengeInfo.challengeMissionCurrent,
-              missionNonAchieve:
-                challengeInfo.challenge.challengeMissionTotal -
-                challengeInfo.challengeMissionCurrent,
-            };
-          });
+          this.challenges = response.data
+            .filter((challengeInfo) => challengeInfo.challengeFinishDate === null)
+            .map((challengeInfo) => {
+              return {
+                challengeId: challengeInfo.challenge.challengeId,
+                challengeName: challengeInfo.challenge.challengeName,
+                challengeMissionTotal: challengeInfo.challenge.challengeMissionTotal,
+                challengeMissionCurrent: challengeInfo.challengeMissionCurrent,
+                missionNonAchieve:
+                  challengeInfo.challenge.challengeMissionTotal -
+                  challengeInfo.challengeMissionCurrent,
+              };
+            });
         })
         .catch((error) => {
           console.error(error);
@@ -106,11 +132,25 @@ export default {
         },
       })
         .then((response) => {
-          this.feed = response.data;
+          if (response.data !== "") {
+            this.feed = response.data;
+          }
         })
         .catch((error) => {
           console.error(error);
         });
+    },
+    // zbitId를 zbti 유형 이름으로 변경
+    changeZbtiResult() {
+      if (this.userScore.zbtiId === "A") {
+        this.userScore.zbtiId = "패션";
+      } else if (this.userScore.zbtiId === "B") {
+        this.userScore.zbtiId = "음식";
+      } else if (this.userScore.zbtiId === "C") {
+        this.userScore.zbtiId = "일상";
+      } else if (this.userScore.zbtiId === "D") {
+        this.userScore.zbtiId = "활동";
+      }
     },
   },
 };

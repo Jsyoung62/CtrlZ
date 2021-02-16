@@ -12,15 +12,15 @@
         상위<span class="percent">{{ percent }}</span> % (<span class="rank">{{ rank }}</span> 등)
       </p>
       <div class="zbtiWrapper">
-        <div v-if="zbtiTest" class="zbtiWrapper">
+        <router-link v-if="zbti === null" to="/zbti">
+          나의 관심영역 알아보기
+        </router-link>
+        <div v-else class="zbtiWrapper">
           <p>관심영역</p>
           <div :class="['zbti', style]">
             {{ zbti }}
           </div>
         </div>
-        <router-link v-else to="/zbti">
-          나의 관심영역 알아보기
-        </router-link>
       </div>
     </div>
   </div>
@@ -48,29 +48,23 @@ export default {
       required: false,
     },
   },
-  data: () => {
-    return {
-      style: "",
-      zbtiTest: true,
-    };
-  },
-  mounted() {
-    if (this.zbti === "일상") {
-      return (this.style = "yellow");
-    }
-    if (this.zbti === "음식") {
-      return (this.style = "purple");
-    }
-    if (this.zbti === "패션") {
-      return (this.style = "pink");
-    }
-    if (this.zbti === "활동") {
-      return (this.style = "blue");
-    }
-
-    if (this.zbti === "") {
-      return (this.zbtiTest = false);
-    }
+  computed: {
+    style() {
+      // zbti에 따라 스타일 설정
+      if (this.zbti === "일상") {
+        return "yellow";
+      }
+      if (this.zbti === "음식") {
+        return "purple";
+      }
+      if (this.zbti === "패션") {
+        return "pink";
+      }
+      if (this.zbti === "활동") {
+        return "blue";
+      }
+      return "";
+    },
   },
 };
 </script>
