@@ -16,7 +16,14 @@
           <span>참여중</span>
         </p>
       </div>
-      <button>실천 리스트</button>
+      <UploadModal
+        v-show="isModalViewed"
+        :mission="missions[index]"
+        @close="isModalViewed = false"
+      />
+      <button @click="handleMissionClick()">
+        실천 리스트
+      </button>
     </div>
 
     <p class="description">
@@ -30,6 +37,7 @@
 import Header from "@/components/common/Header.vue";
 import Navigation from "@/components/common/Navigation.vue";
 import WeeklyFeed from "@/components/challenge/WeeklyFeed.vue";
+import UploadModal from "@/components/common/UploadModal.vue";
 import "@/components/css/challenge/dailyMission.scss";
 
 export default {
@@ -38,6 +46,7 @@ export default {
     Header,
     Navigation,
     WeeklyFeed,
+    UploadModal,
   },
   filters: {
     numberWithComma(num) {
@@ -48,6 +57,9 @@ export default {
     return {
       challenge: {},
       participants: 0,
+      isModalViewed: false,
+      missions: [],
+      index: "",
     };
   },
   created() {
@@ -66,7 +78,12 @@ export default {
         },
       })
         .then((response) => {
+          this.missions = response.data;
           const result = response.data.filter((mission) => {
+            this.index = day - 1;
+            if (this.index < 0) {
+              this.index === 6;
+            }
             return mission.id.missionId % 7 === day;
           });
           this.challenge = result[0];
@@ -104,6 +121,10 @@ export default {
         .catch((error) => {
           console.error(error);
         });
+    },
+
+    handleMissionClick() {
+      this.isModalViewed = true;
     },
   },
 };
