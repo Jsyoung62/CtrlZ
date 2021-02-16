@@ -31,7 +31,11 @@ export default {
   },
   data: () => {
     return {
-      zbtiTest: [],
+      zbtiTest: [
+        {
+          testImgae: "",
+        },
+      ],
       testId: 0,
       selectCount: [],
       zbtiResult: "",
