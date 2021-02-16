@@ -5,7 +5,7 @@
 
     <div class="thumbnailWrapper">
       <img :src="challenge.challengeImage" class="thumbnail" />
-      <progress v-show="isInprogress || isAchived" :value="progress" max="100"></progress>
+      <ProgressBar v-show="isInprogress || isAchived" :progress="progress" />
     </div>
 
     <div class="challengeDetailContainer">
@@ -52,6 +52,7 @@
 <script>
 import Header from "@/components/common/Header.vue";
 import Navigation from "@/components/common/Navigation.vue";
+import ProgressBar from "@/components/common/ProgressBar.vue";
 import ChallengeTitle from "@/components/challenge/ChallengeTitle.vue";
 import ChallengeFeed from "@/components/challenge/ChallengeFeed.vue";
 import "@/components/css/challenge/challengeDetail.scss";
@@ -61,6 +62,7 @@ export default {
   components: {
     Header,
     Navigation,
+    ProgressBar,
     ChallengeTitle,
     ChallengeFeed,
   },

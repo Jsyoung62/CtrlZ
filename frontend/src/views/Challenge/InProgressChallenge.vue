@@ -5,7 +5,7 @@
 
     <div class="thumbnailWrapper">
       <img :src="challenge.challengeImage" class="thumbnail" />
-      <progress :value="progress" max="100"></progress>
+      <ProgressBar :progress="progress" />
     </div>
     <div class="contentsContainer">
       <ChallengeTitle
@@ -40,6 +40,7 @@
 <script>
 import Header from "@/components/common/Header.vue";
 import Navigation from "@/components/common/Navigation.vue";
+import ProgressBar from "@/components/common/ProgressBar.vue";
 import ChallengeTitle from "@/components/challenge/ChallengeTitle.vue";
 import Missions from "@/components/challenge/Missions";
 import "@/components/css/challenge/inProgressChallenge.scss";
@@ -49,6 +50,7 @@ export default {
   components: {
     Header,
     Navigation,
+    ProgressBar,
     ChallengeTitle,
     Missions,
   },

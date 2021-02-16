@@ -16,18 +16,26 @@
     <div class="answer" @click="handleAnswerClick(3)">
       {{ zbtiTest[testId].testAnswer4 }}
     </div>
-    <progress :value="value" max="100"></progress>
+    <ProgressBar :progress="value" />
   </div>
 </template>
 
 <script>
+import ProgressBar from "@/components/common/ProgressBar.vue";
 import "@/components/css/zbti/zbtiTest.scss";
 
 export default {
   name: "ZbtiTest",
+  components: {
+    ProgressBar,
+  },
   data: () => {
     return {
-      zbtiTest: [],
+      zbtiTest: [
+        {
+          testImgae: "",
+        },
+      ],
       testId: 0,
       selectCount: [],
       zbtiResult: "",
