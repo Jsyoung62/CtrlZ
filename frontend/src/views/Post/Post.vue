@@ -5,7 +5,7 @@
 
     <div class="post">
       <img class="postImage" :src="post.postImage" />
-      <PostReview :like-cnt="post.postLike" :comment-cnt="4456" :post-id="post.postId" />
+      <PostReview :like-cnt="post.postLike" :comment-cnt="comments.length" :post-id="post.postId" />
       <div class="user">
         <img :src="post.user.userImage" class="userImage" />
         <span>{{ post.user.userName }}</span>
@@ -34,6 +34,7 @@ export default {
     return {
       post: "",
       postId: "",
+      comments: [],
     };
   },
   created() {
@@ -47,6 +48,19 @@ export default {
     })
       .then((response) => {
         this.post = response.data;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    this.$axios({
+      url: "/comment/find",
+      method: "GET",
+      params: {
+        postId: this.$route.params.postId,
+      },
+    })
+      .then((response) => {
+        this.comments = response.data;
       })
       .catch((error) => {
         console.error(error);

@@ -23,11 +23,7 @@
     </div>
   </div>
 </template>
-<style scoped>
-.material-icons.greenlike {
-  color: #4a6f53;
-}
-</style>
+
 <script>
 import "@/components/css/post/postReview.scss";
 
@@ -61,7 +57,7 @@ export default {
 
   created() {
     this.$axios({
-      url: "/post/like/select",
+      url: "http://localhost:8888/post/like/select",
       method: "GET",
       params: {
         postId: this.postId,
@@ -76,7 +72,7 @@ export default {
     handleLikeClick() {
       if (this.$store.state.userInfo.userId > 0) {
         this.$axios({
-          url: "/post/like",
+          url: "http://localhost:8888/post/like",
           method: "POST",
           params: {
             postId: this.postId,
@@ -96,6 +92,12 @@ export default {
       }
     },
     handleCommentClick() {
+      this.$router.push({
+        name: "Comment",
+        params: {
+          postId: this.postId,
+        },
+      });
       console.log("POST COMMENT");
     },
     handleMoreClick() {
