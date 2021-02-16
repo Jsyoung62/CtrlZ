@@ -32,7 +32,9 @@ export default new Vuex.Store({
       }
     },
     LOGOUT: (state) => {
-      state.userInfo = {};
+      state.userInfo = {
+        userId: "",
+      };
     },
     GOOGLELOGIN: (state, userInfo) => {
       state.userInfo = userInfo;
