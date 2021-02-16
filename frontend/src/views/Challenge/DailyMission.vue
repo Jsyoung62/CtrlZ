@@ -16,11 +16,7 @@
           <span>참여중</span>
         </p>
       </div>
-      <UploadModal
-        v-show="isModalViewed"
-        :mission="missions[index]"
-        @close="isModalViewed = false"
-      />
+      <UploadModal v-show="isModalViewed" :mission="modalData" @close="isModalViewed = false" />
       <button @click="handleMissionClick()">
         실천 리스트
       </button>
@@ -58,8 +54,7 @@ export default {
       challenge: {},
       participants: 0,
       isModalViewed: false,
-      missions: [],
-      index: "",
+      modalData: {},
     };
   },
   created() {
@@ -68,7 +63,7 @@ export default {
     this.getParticipants();
   },
   methods: {
-    // 오늘 날짜에 맞는 데일리 미션 정보 불러오기
+    // 데일리 미션 정보 불러오기
     getDailyMission(day) {
       this.$axios({
         url: "/mission/",
@@ -78,15 +73,15 @@ export default {
         },
       })
         .then((response) => {
-          this.missions = response.data;
+          // 오늘 요일에 맞는 미션 정보 찾기
           const result = response.data.filter((mission) => {
-            this.index = day - 1;
-            if (this.index < 0) {
-              this.index === 6;
-            }
             return mission.id.missionId % 7 === day;
           });
           this.challenge = result[0];
+          this.modalData = {
+            ...result[0],
+            missionImage: null,
+          };
         })
         .catch((error) => {
           console.error(error);

@@ -1,9 +1,11 @@
 <template>
   <div class="day">
-    <img :src="thumbnail" class="thumbnail" />
-    <div class="title">
-      {{ title }}
-    </div>
+    <router-link to="/challenge/daily">
+      <img :src="thumbnail" class="thumbnail" />
+      <div class="title">
+        {{ title }}
+      </div>
+    </router-link>
   </div>
 </template>
 <script>

@@ -81,7 +81,14 @@ export default {
           challengeId: "1",
         },
       }).then((res) => {
-        this.missions = res.data;
+        this.missions = res.data.map((mission) => {
+          // 정방형 이미지 처리
+          const imageURL = mission.missionImage.split(".jpg")[0];
+          return {
+            ...mission,
+            missionImage: `${imageURL}_square.jpg`,
+          };
+        });
       });
     },
   },

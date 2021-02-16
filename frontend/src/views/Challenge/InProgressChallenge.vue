@@ -71,6 +71,11 @@ export default {
     this.userId = this.$store.state.userInfo.userId;
     this.challengeId = this.$route.params.challengeId;
 
+    // 데일리미션은 데일리미션 상세보기 페이지로 이동
+    if (this.challengeId === "1") {
+      this.$router.push({ name: "DailyMission" });
+    }
+
     this.getChallengeInfo();
     this.getUserChallengeStatus();
   },
