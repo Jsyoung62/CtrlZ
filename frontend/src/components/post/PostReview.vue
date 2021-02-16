@@ -61,7 +61,7 @@ export default {
 
   created() {
     this.$axios({
-      url: "http://localhost:8888/post/like/select",
+      url: "/post/like/select",
       method: "GET",
       params: {
         postId: this.postId,
