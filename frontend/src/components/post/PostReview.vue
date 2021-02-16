@@ -1,7 +1,7 @@
 <template>
   <div class="postReview">
     <div class="iconWrapper" @click="handleLikeClick">
-      <span class="material-icons" :class="{ greenlike: isActive }">
+      <span class="material-icons" :class="{ green: isActive }">
         eco
       </span>
       <p>
@@ -57,7 +57,7 @@ export default {
 
   created() {
     this.$axios({
-      url: "http://localhost:8888/post/like/select",
+      url: "/post/like/select",
       method: "GET",
       params: {
         postId: this.postId,
@@ -72,7 +72,7 @@ export default {
     handleLikeClick() {
       if (this.$store.state.userInfo.userId > 0) {
         this.$axios({
-          url: "http://localhost:8888/post/like",
+          url: "/post/like",
           method: "POST",
           params: {
             postId: this.postId,
@@ -86,7 +86,6 @@ export default {
           .catch((error) => {
             console.error(error);
           });
-        console.log("POST LIKE");
       } else {
         this.$router.push("/login");
       }
@@ -98,7 +97,6 @@ export default {
           postId: this.postId,
         },
       });
-      console.log("POST COMMENT");
     },
     handleMoreClick() {
       console.log("POST REVIEW MORE");

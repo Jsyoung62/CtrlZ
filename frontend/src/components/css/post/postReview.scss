@@ -19,12 +19,9 @@
 
     .material-icons {
         margin-bottom: 3px;
-    }
 
-    .green {
-        color: $primary-green3;
+        &.green {
+            color: $primary-green3;
+        }
     }
-    .material-icons.greenlike {
-        color: #4a6f53;
-      }
 }
