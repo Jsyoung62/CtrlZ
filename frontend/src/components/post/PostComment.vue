@@ -1,6 +1,6 @@
 <template>
   <div class="postComment">
-    <img src="@/assets/badge.png" class="userImage" />
+    <img :src="userImage" class="userImage" />
     <p>
       <span class="userName">{{ userName }}</span>
       <span class="comment">
@@ -9,6 +9,7 @@
     </p>
   </div>
 </template>
+
 <script>
 import "@/components/css/post/postComment.scss";
 
