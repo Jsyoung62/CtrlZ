@@ -95,9 +95,7 @@ export default {
           userId: this.userId,
         },
       })
-        .then((response) => {
-          console.log(response);
-        })
+        .then(() => {})
         .catch((error) => {
           console.error(error);
         });
@@ -108,9 +106,7 @@ export default {
         url: `/challenge/status/${this.challengeId}/${this.userId}`,
         method: "PUT",
       })
-        .then((response) => {
-          console.log(response);
-        })
+        .then(() => {})
         .catch((error) => {
           console.error(error);
         });

@@ -21,7 +21,36 @@ export default {
   name: "WeeklyFeed",
   data: () => {
     return {
-      missions: [],
+      missions: [
+        {
+          missionDay: "月",
+          upload: false,
+        },
+        {
+          missionDay: "火",
+          upload: false,
+        },
+        {
+          missionDay: "水",
+          upload: false,
+        },
+        {
+          missionDay: "木",
+          upload: false,
+        },
+        {
+          missionDay: "金",
+          upload: false,
+        },
+        {
+          missionDay: "土",
+          upload: false,
+        },
+        {
+          missionDay: "日",
+          upload: false,
+        },
+      ],
     };
   },
   created() {
@@ -39,7 +68,10 @@ export default {
         },
       })
         .then((response) => {
-          this.setWeeklyFeed(response.data);
+          if (response.data !== "") {
+            this.missions = response.data;
+            this.setWeeklyFeed(this.missions);
+          }
         })
         .catch((error) => {
           console.error(error);
@@ -50,6 +82,7 @@ export default {
       const week = new Array(7);
       for (let index = 0; index < 7; index++) {
         data.forEach((dayData) => {
+          // 업로드 된 부분은 사진으로 표시
           if (dayData.missionId % 7 === index + 1) {
             week[index] = {
               ...dayData,
@@ -60,6 +93,7 @@ export default {
           }
         });
 
+        // 업로드 안된 부분은 빈 공간으로 표시
         if (week[index] === undefined) {
           week[index] = {
             disabled: this.isDisabled(index),

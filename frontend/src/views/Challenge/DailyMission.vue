@@ -16,7 +16,10 @@
           <span>참여중</span>
         </p>
       </div>
-      <button>실천 리스트</button>
+      <UploadModal v-show="isModalViewed" :mission="modalData" @close="isModalViewed = false" />
+      <button @click="handleMissionClick()">
+        실천 리스트
+      </button>
     </div>
 
     <p class="description">
@@ -30,6 +33,7 @@
 import Header from "@/components/common/Header.vue";
 import Navigation from "@/components/common/Navigation.vue";
 import WeeklyFeed from "@/components/challenge/WeeklyFeed.vue";
+import UploadModal from "@/components/common/UploadModal.vue";
 import "@/components/css/challenge/dailyMission.scss";
 
 export default {
@@ -38,6 +42,7 @@ export default {
     Header,
     Navigation,
     WeeklyFeed,
+    UploadModal,
   },
   filters: {
     numberWithComma(num) {
@@ -48,6 +53,8 @@ export default {
     return {
       challenge: {},
       participants: 0,
+      isModalViewed: false,
+      modalData: {},
     };
   },
   created() {
@@ -56,7 +63,7 @@ export default {
     this.getParticipants();
   },
   methods: {
-    // 오늘 날짜에 맞는 데일리 미션 정보 불러오기
+    // 데일리 미션 정보 불러오기
     getDailyMission(day) {
       this.$axios({
         url: "/mission/",
@@ -66,10 +73,15 @@ export default {
         },
       })
         .then((response) => {
+          // 오늘 요일에 맞는 미션 정보 찾기
           const result = response.data.filter((mission) => {
             return mission.id.missionId % 7 === day;
           });
           this.challenge = result[0];
+          this.modalData = {
+            ...result[0],
+            missionImage: null,
+          };
         })
         .catch((error) => {
           console.error(error);
@@ -104,6 +116,10 @@ export default {
         .catch((error) => {
           console.error(error);
         });
+    },
+
+    handleMissionClick() {
+      this.isModalViewed = true;
     },
   },
 };
