@@ -8,8 +8,13 @@
     </div>
 
     <div v-show="showBoard" class="board">
-      <div v-for="(image, index) in images" :key="index" class="feed">
-        <img :src="image" />
+      <div
+        v-for="(post, index) in data"
+        :key="index"
+        class="feed"
+        @click="handlePostClick(post.postId)"
+      >
+        <img :src="post.postImage" />
       </div>
     </div>
   </div>
@@ -19,7 +24,7 @@ import "@/components/css/user/zfeed.scss";
 export default {
   name: "ZFeed",
   props: {
-    images: {
+    data: {
       type: Array,
       required: true,
     },
@@ -34,6 +39,14 @@ export default {
     onClickExpand() {
       this.expand = this.expand === "expand_less" ? "expand_more" : "expand_less";
       this.showBoard = !this.showBoard;
+    },
+    handlePostClick(postId) {
+      this.$router.push({
+        name: "Post",
+        params: {
+          postId,
+        },
+      });
     },
   },
 };
