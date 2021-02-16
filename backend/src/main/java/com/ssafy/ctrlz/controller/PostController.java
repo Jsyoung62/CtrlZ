@@ -118,5 +118,14 @@ public class PostController {
 			return new ResponseEntity<String>("Like", HttpStatus.OK);
 		}
 	}
+	
+	@ApiOperation(value = "좋아요 눌렀는지 여부 조회", notes = "postLike 테이블에 userID 와 PostID로 조회")
+	@GetMapping("/like/select")
+	public ResponseEntity<PostLike> postLikeSelect(PostLikeId postLikeId){
+		postLikeService.findUserIdAndPostId(postLikeId);
+		
+		return new ResponseEntity<PostLike>(postLikeService.findUserIdAndPostId(postLikeId), HttpStatus.OK);
+	}
+	
 
 }
