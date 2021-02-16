@@ -1,5 +1,5 @@
 <template>
-  <div class="mission" @click="handleClick">
+  <div class="mission" @click="handleChallengeClick">
     <img :src="challenge.challengeImage" class="thumbnail" />
     <div class="title">
       {{ challenge.challengeName }}
@@ -18,8 +18,13 @@ export default {
     },
   },
   methods: {
-    handleClick() {
-      this.$router.push("/challenge/detail");
+    handleChallengeClick() {
+      this.$router.push({
+        name: "ChallengeDetail",
+        params: {
+          challengeId: this.challenge.challengeId,
+        },
+      });
     },
   },
 };

@@ -1,31 +1,102 @@
 <template>
   <div class="missions">
-    <img src="@/assets/ch_example.jpg" class="mission" />
-    <img src="@/assets/ch_example.jpg" class="mission" />
-
-    <div class="mission locked">
-      <p>3</p>
+    <UploadModal v-show="isModalViewed" :mission="missions[index]" @close="isModalViewed = false" />
+    <div v-for="post in posts" :key="post.postId" @click="handlePostClick(post.postId)">
+      <img :src="post.postImage" alt="Thumbnail" class="mission" />
     </div>
-    <div class="mission locked">
-      <p>4</p>
-    </div>
-    <div class="mission locked">
-      <p>5</p>
-    </div>
-    <div class="mission locked">
-      <p>6</p>
+    <div
+      v-for="(mission, index) in missions"
+      :key="mission.id.missionId"
+      class="mission locked"
+      @click="handleMissionClick(index)"
+    >
+      <p>
+        {{ mission.id.missionId }}
+      </p>
     </div>
   </div>
 </template>
 <script>
+import UploadModal from "@/components/common/UploadModal.vue";
 import "@/components/css/challenge/missions.scss";
 
 export default {
   name: "Missions",
-  props: {
-    missionTotal: {
-      type: Number,
-      required: true,
+  components: {
+    UploadModal,
+  },
+  data: () => {
+    return {
+      challengeId: "",
+      index: "",
+      isModalViewed: false,
+      isMissionViewd: true,
+      missions: [],
+      posts: [],
+    };
+  },
+  created() {
+    this.challengeId = this.$route.params.challengeId;
+
+    this.getMissions();
+  },
+  methods: {
+    // 챌린지 내 모든 미션 정보 불러오기
+    getMissions() {
+      this.$axios({
+        url: "/mission/",
+        method: "GET",
+        params: {
+          challengeId: this.challengeId,
+        },
+      })
+        .then((response) => {
+          this.missions = response.data;
+
+          this.getPosts();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    // 챌린지에 모든 사용자가 올린 게시글 정보 불러오기
+    getPosts() {
+      this.$axios({
+        url: "/post/find/challenge/user",
+        method: "GET",
+        params: {
+          challengeId: this.challengeId,
+          userId: this.$store.state.userInfo.userId,
+        },
+      })
+        .then((response) => {
+          if (response.data !== "") {
+            this.posts = response.data;
+          }
+
+          this.removeCompletedMissions();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    // 사용자가 이미 완료한 미션 정보 제거
+    removeCompletedMissions() {
+      for (let index = 0; index < this.posts.length; index++) {
+        this.missions.splice(0, 1);
+      }
+    },
+    handleMissionClick(index) {
+      this.isModalViewed = true;
+      this.index = index;
+    },
+    handlePostClick(postId) {
+      this.$router.push({
+        name: "Post",
+        params: {
+          postId,
+        },
+      });
     },
   },
 };

@@ -2,21 +2,23 @@ package com.ssafy.ctrlz.service;
 
 import java.util.List;
 import com.ssafy.ctrlz.model.Post;
-import com.ssafy.ctrlz.model.PostUpload;
 
 public interface PostService {
-	//게시글 작성 하기
-	public void createPost(PostUpload postUpload);
-	//게시글 전체 조회 하기
-	public List<Post> selectPost();
-	//게시글 세부사항
-	public Post getPost(long postId);
-	//챌린지 ID로 게시글 조회
-	public List<Post> getPostByChallengeId(String challengeId);
-	//유저 ID로 게시글 조회
-	public List<Post> findPostByUserId(Long userId);
-	//유저 ID, 미션ID로 게시글 조회
-	public List<Post> findPostByUserIdAndMissionId(Long userId, String missionId);
-	//유저 ID, 챌린지ID로 게시글 조회
-	public List<Post> findPostByUserIdAndChallengeId(Long userId, String challengeId);
+
+	public Post createPost(Post post);
+
+	public List<Post> findAll();
+
+	public Post findByPost(long postId);
+
+	public List<Post> findByChallenge(String challengeId);
+
+	public List<Post> findByUser(Long userId);
+
+	public List<Post> findByUserAndMission(Long userId, String missionId);
+
+	public List<Post> findByUserAndChallenge(Long userId, String challengeId);
+
+	public long countAll();
+
 }

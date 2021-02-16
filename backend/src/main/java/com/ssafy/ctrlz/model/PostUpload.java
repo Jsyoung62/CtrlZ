@@ -5,8 +5,11 @@ import lombok.Data;
 
 @Data
 public class PostUpload {
-	private Long userId;
+
 	private String challengeId;
+	private String missionId;
+	private Long userId;
 	private String postContent;
 	private MultipartFile postImage;
+
 }

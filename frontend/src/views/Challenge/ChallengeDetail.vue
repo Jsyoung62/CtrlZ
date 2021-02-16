@@ -36,7 +36,7 @@
         % 진행중
       </p>
       <p v-else-if="isAchived" class="status">
-        {{ achived | numberWithComma }}
+        {{ challengeStatus.challengeFinishOrder | numberWithComma }}
         번째로 완료했어요!
       </p>
       <button v-else class="startButton" @click="handleStartButton">

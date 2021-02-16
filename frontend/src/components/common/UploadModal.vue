@@ -2,12 +2,12 @@
   <div class="modalMask" @click.self="$emit('close')">
     <div class="modalWrapper">
       <div class="modalTitle">
-        <slot name="modalTitle"></slot>
+        {{ mission.missionTitle }}
       </div>
       <div class="modalContent">
-        <slot name="modalContent"></slot>
-        <div v-show="missionImage != null">
-          <img class="modalImage" :src="missionImage" />
+        {{ mission.missionContent }}
+        <div v-show="mission.missionImage != null">
+          <img class="modalImage" :src="mission.missionImage" />
         </div>
       </div>
       <div class="modalButton">
@@ -16,7 +16,9 @@
         </label>
         <input
           id="uploadImage"
+          ref="postImage"
           type="file"
+          accept="image/*"
           name="uploadImage"
           class="uploadImage"
           @change="uploadImage"
@@ -32,8 +34,8 @@ import "@/components/css/uploadModal.scss";
 export default {
   name: "UploadModal",
   props: {
-    missionImage: {
-      type: String,
+    mission: {
+      type: Object,
       required: true,
     },
   },
@@ -43,30 +45,21 @@ export default {
     };
   },
   methods: {
-    uploadImage(evt) {
-      const files = evt.target.files;
-
-      if (!files.length) {
-        return;
+    uploadImage() {
+      this.postImage = this.$refs.postImage.files[0];
+      if (this.postImage !== null) {
+        this.movePostUpload();
       }
-
-      const reader = new FileReader();
-      reader.readAsDataURL(files[0]);
-      reader.onload = (evt) => {
-        this.postImage = evt.target.result;
-
-        if (this.postImage !== null) {
-          this.movePostUpload();
-        }
-      };
-
       document.querySelector("#uploadImage").value = "";
     },
     movePostUpload() {
       this.$router.push({
         name: "PostUpload",
         params: {
+          challengeId: this.mission.id.challengeId,
+          missionId: this.mission.id.missionId,
           postImage: this.postImage,
+          missionTitle: this.mission.missionTitle,
         },
       });
     },

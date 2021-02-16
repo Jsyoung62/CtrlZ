@@ -1,13 +1,15 @@
 <template>
   <div class="postUpload">
-    <div class="postHeader">
-      <span class="title" @click="handlePostUploadClick">
-        인증
-      </span>
-    </div>
+    <Header left-icon="chevron_left" />
+    <Navigation />
+
+    <button class="uploadButton" @click="handlePostUploadClick">
+      공유
+    </button>
+
     <div class="postUploadImage">
-      <img class="selectedImage" :src="postImage" />
-      <span>mission.missionTitle</span>
+      <img class="selectedImage" :src="postThumbnail" />
+      <span>{{ missionTitle }}</span>
     </div>
     <div class="postUploadText">
       <textarea v-model="postContent" rows="30"></textarea>
@@ -16,33 +18,95 @@
 </template>
 
 <script>
-import "@/components/css/post/index.scss";
+import Header from "@/components/common/Header.vue";
+import Navigation from "@/components/common/Navigation.vue";
 import "@/components/css/post/postUpload.scss";
 
 export default {
   name: "PostUpload",
+  components: {
+    Header,
+    Navigation,
+  },
   data() {
     return {
-      user: "",
-      mission: "",
-      postImage: "",
+      challengeId: "",
+      missionId: "",
+      userId: "",
+      postThumbnail: "",
       postContent: "",
+      missionTitle: "",
     };
   },
   created() {
-    this.postImage = this.$route.params.postImage;
+    this.challengeId = this.$route.params.challengeId;
+    this.missionId = this.$route.params.missionId;
+    this.userId = this.$store.state.userInfo.userId;
+    this.missionTitle = this.$route.params.missionTitle;
+
+    this.makeThumbnail(this.$route.params.postImage);
   },
   methods: {
+    // 썸네일 이미지 변환
+    makeThumbnail(postImage) {
+      const reader = new FileReader();
+      reader.readAsDataURL(postImage);
+      reader.onload = (evt) => {
+        this.postThumbnail = evt.target.result;
+      };
+    },
     handlePostUploadClick() {
+      // 이미지 전달을 위한 FormData
+      const formData = new FormData();
+      formData.append("challengeId", this.challengeId);
+      formData.append("missionId", this.missionId);
+      formData.append("userId", this.userId);
+      formData.append("postContent", this.postContent);
+      formData.append("postImage", this.$route.params.postImage);
+
+      // 게시글 업로드
+      this.$axios
+        .post("/post", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then(() => {
+          this.updateUserZScore();
+          this.updateChallengeStatus();
+
+          this.$router.push({
+            name: "InProgressChallenge",
+            params: {
+              challengeId: this.$route.params.challengeId,
+            },
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    // 게시글 업로드에 따른 사용자 Z 점수 수정
+    updateUserZScore() {
       this.$axios({
-        url: "/post",
-        method: "POST",
+        url: "/user/zscore/",
+        method: "PUT",
         params: {
-          challengeId: this.mission.challengeId,
-          userId: this.user.userId,
-          postContent: this.postContent,
-          postImage: this.postImage,
+          userId: this.userId,
         },
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    // 게시글 업로드에 따른 사용자의 챌린지 진행 사항 수정
+    updateChallengeStatus() {
+      this.$axios({
+        url: `/challenge/status/${this.challengeId}/${this.userId}`,
+        method: "PUT",
       })
         .then((response) => {
           console.log(response);

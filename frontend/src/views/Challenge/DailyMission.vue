@@ -67,7 +67,7 @@ export default {
       })
         .then((response) => {
           const result = response.data.filter((mission) => {
-            return mission.missionId % 7 === day;
+            return mission.id.missionId % 7 === day;
           });
           this.challenge = result[0];
         })

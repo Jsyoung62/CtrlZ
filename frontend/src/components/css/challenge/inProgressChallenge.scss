@@ -6,7 +6,6 @@
         flex-direction: column;
 
         .thumbnail {
-            margin-top: -10px;
             width: 100%;
             height: calc(100% * 9/16);
         }
@@ -38,6 +37,7 @@
     
     .contentsContainer {
         padding: 0 20px;
+        margin-bottom: 90px;
         display: flex;
         flex-direction: column;
 
