@@ -33,13 +33,25 @@ export default {
       default: "",
       required: false,
     },
+    rightClick: {
+      type: String,
+      default: "",
+      required: false,
+    },
   },
   methods: {
     handleBackClick() {
       this.$router.go(-1);
     },
     handleRightIconClick() {
-      console.log("RIGHT ICON");
+      if (this.rightClick === "logout") {
+        this.$store.commit("LOGOUT");
+        this.$router.push("/");
+      }
+
+      if (this.rightClick === "notification") {
+        console.log("notification");
+      }
     },
   },
 };
