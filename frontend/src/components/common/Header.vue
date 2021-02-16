@@ -6,7 +6,7 @@
     <h1 class="title">
       {{ title }}
     </h1>
-    <span class="material-icons">
+    <span class="material-icons" @click="handleRightIconClick">
       {{ rightIcon }}
     </span>
   </div>
@@ -37,6 +37,9 @@ export default {
   methods: {
     handleBackClick() {
       this.$router.go(-1);
+    },
+    handleRightIconClick() {
+      console.log("RIGHT ICON");
     },
   },
 };
