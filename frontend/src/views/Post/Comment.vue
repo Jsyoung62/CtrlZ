@@ -2,22 +2,22 @@
   <div class="comment">
     <Header left-icon="chevron_left" />
     <Navigation />
-
     <PostComment
       v-for="comment in comments"
       :key="comment.commentId"
-      :user-name="comment.userId"
+      :user-image="comment.user.userImage"
+      :user-name="comment.user.userName"
       :comment="comment.commentContent"
     />
-    <CommentWrite />
+    <CommentWrite :user-image="user.userImage" />
   </div>
 </template>
+
 <script>
 import Header from "@/components/common/Header.vue";
 import Navigation from "@/components/common/Navigation.vue";
 import PostComment from "@/components/post/PostComment.vue";
 import CommentWrite from "@/components/post/CommentWrite.vue";
-import axios from "axios";
 
 export default {
   name: "Comment",
@@ -29,6 +29,7 @@ export default {
   },
   data: () => {
     return {
+      user: "",
       comments: [],
     };
   },
@@ -37,8 +38,8 @@ export default {
   },
   methods: {
     getComments(postId) {
-      axios({
-        url: "http://i4a202.p.ssafy.io:8888/comment/find",
+      this.$axios({
+        url: "/comment/find",
         method: "GET",
         params: {
           postId,

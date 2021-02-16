@@ -20,6 +20,7 @@ public class Comment {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String commentId;
 	private String postId;
+	private Long userId;
 	private String commentContent;
 
 	@Column(insertable = false, updatable = false)
