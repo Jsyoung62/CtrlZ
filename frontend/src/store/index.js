@@ -18,6 +18,7 @@ export default new Vuex.Store({
       rank: [],
       zbtiId: "",
     },
+    zbtiId: "",
   },
   mutations: {
     ENDSPLASH: (state) => {
@@ -27,7 +28,7 @@ export default new Vuex.Store({
       const user = jwtDecode(token).user;
       state.userInfo = user;
       if (state.userInfo.userImage === null) {
-        state.userInfo.userImage = "no_profile.png";
+        state.userInfo.userImage = "http://i4a202.p.ssafy.io/img/no_profile.png";
       }
     },
     LOGOUT: (state) => {
@@ -42,6 +43,9 @@ export default new Vuex.Store({
     },
     SETRANK: (state, rank) => {
       state.userInfo.rank = rank;
+    },
+    SETZBTI: (state, zbtiId) => {
+      state.zbtiId = zbtiId;
     },
   },
   plugins: [createPersistedState()],
