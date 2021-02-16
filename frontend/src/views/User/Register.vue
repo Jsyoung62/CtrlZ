@@ -131,7 +131,7 @@ export default {
     register() {
       if (this.checkForm) {
         this.$axios({
-          url: "http://i4a202.p.ssafy.io:8888/user/register",
+          url: "/user/register",
           method: "POST",
           data: {
             userName: this.userName,

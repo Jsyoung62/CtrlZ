@@ -1,7 +1,7 @@
 <template>
   <div class="postReview">
     <div class="iconWrapper" @click="handleLikeClick">
-      <span class="material-icons">
+      <span class="material-icons" :class="{ greenlike: isActive }">
         eco
       </span>
       <p>
@@ -23,7 +23,11 @@
     </div>
   </div>
 </template>
-
+<style scoped>
+.material-icons.greenlike {
+  color: #4a6f53;
+}
+</style>
 <script>
 import "@/components/css/post/postReview.scss";
 
@@ -43,10 +47,53 @@ export default {
       type: Number,
       required: true,
     },
+    postId: {
+      type: Number,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      isActive: "",
+      postLikeId: "",
+    };
+  },
+
+  created() {
+    this.$axios({
+      url: "http://localhost:8888/post/like/select",
+      method: "GET",
+      params: {
+        postId: this.postId,
+        userId: this.$store.state.userInfo.userId,
+      },
+    }).then((response) => {
+      this.postLikeId = response.data;
+      this.isActive = true;
+    });
   },
   methods: {
     handleLikeClick() {
-      console.log("POST LIKE");
+      if (this.$store.state.userInfo.userId > 0) {
+        this.$axios({
+          url: "/post/like",
+          method: "POST",
+          params: {
+            postId: this.postId,
+            userId: this.$store.state.userInfo.userId,
+          },
+        })
+          .then(() => {
+            this.isActive = true;
+            location.reload();
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+        console.log("POST LIKE");
+      } else {
+        this.$router.push("/login");
+      }
     },
     handleCommentClick() {
       console.log("POST COMMENT");

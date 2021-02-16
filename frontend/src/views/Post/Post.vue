@@ -5,7 +5,7 @@
 
     <div class="post">
       <img class="postImage" :src="post.postImage" />
-      <PostReview :like-cnt="post.postLike" :comment-cnt="4456" />
+      <PostReview :like-cnt="post.postLike" :comment-cnt="4456" :post-id="post.postId" />
       <div class="user">
         <img :src="post.user.userImage" class="userImage" />
         <span>{{ post.user.userName }}</span>
