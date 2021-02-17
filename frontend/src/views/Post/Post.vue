@@ -48,6 +48,9 @@ export default {
     })
       .then((response) => {
         this.post = response.data;
+        if (this.post.user.userImage === null) {
+          this.post.user.userImage = "http://i4a202.p.ssafy.io/img/no_profile.png";
+        }
       })
       .catch((error) => {
         console.error(error);

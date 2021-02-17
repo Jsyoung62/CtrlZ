@@ -1,15 +1,17 @@
 <template>
-  <swiper class="swiper" :options="swiperOption">
-    <swiper-slide>
-      <Mission :challenge="sponseredChallenge" />
-    </swiper-slide>
-    <swiper-slide v-for="(challenge, index) in recommendChallenges" :key="index">
-      <Mission :challenge="challenge" />
-    </swiper-slide>
-    <div slot="pagination" class="swiper-pagination"></div>
-    <div slot="button-prev" class="swiper-button-prev"></div>
-    <div slot="button-next" class="swiper-button-next"></div>
-  </swiper>
+  <div class="challengeBanner">
+    <swiper class="swiper" :options="swiperOption">
+      <swiper-slide>
+        <Mission :challenge="sponseredChallenge" />
+      </swiper-slide>
+      <swiper-slide v-for="(challenge, index) in recommendChallenges" :key="index">
+        <Mission :challenge="challenge" />
+      </swiper-slide>
+      <div slot="pagination" class="swiper-pagination"></div>
+      <div slot="button-prev" class="swiper-button-prev"></div>
+      <div slot="button-next" class="swiper-button-next"></div>
+    </swiper>
+  </div>
 </template>
 <script>
 import Mission from "@/components/main/Mission.vue";

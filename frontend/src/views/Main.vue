@@ -3,7 +3,7 @@
     <Splash v-if="this.$store.state.splash" />
 
     <div v-else class="main">
-      <Header title="Ctrl Z" right-icon="notifications_none" right-click="notification" />
+      <Header title="Ctrl Z" />
       <Navigation />
 
       <Challenges

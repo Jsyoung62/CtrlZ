@@ -26,8 +26,7 @@ export default {
     },
     userImage: {
       type: String,
-      default: "@/assets/badge.png",
-      required: false,
+      required: true,
     },
   },
 };

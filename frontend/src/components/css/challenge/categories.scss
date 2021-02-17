@@ -4,7 +4,8 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 2px;
-    margin: 20px 0;
+    width: 100%;
+    margin: 74px 0 24px;
     cursor: pointer;
 
     .category {

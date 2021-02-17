@@ -1,5 +1,9 @@
 @import "../colors.scss";
 
+.comment > .comments {
+    margin: 74px 0 150px 0;
+}
+
 .postComment {
     display: flex;
     flex-direction: row;
@@ -27,14 +31,15 @@
 }
 
 .commentWrite {
-    position: absolute;
+    position: fixed;
     bottom: 62px;
     left: 0;
     width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 20px;
+    padding: 5px 20px 20px;
+    background-color: $secondary-white;
 
     .userImage {
         width: 50px;
@@ -43,7 +48,7 @@
         border-radius: 100%;
     }
 
-    .comment {
+    .commentContent {
         width: 100%;
         height: 36px;
         padding: 5px 60px 5px 15px;
@@ -55,7 +60,7 @@
         position: absolute;
         bottom: 30px;
         right: 30px;
-        width: 50px;
+        width: 56px;
         height: 30px;
         font-weight: bold;
         font-size: 14px;

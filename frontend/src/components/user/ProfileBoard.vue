@@ -15,9 +15,9 @@
       </div>
     </div>
 
-    <button class="modifyButton">
+    <!-- <button class="modifyButton">
       프로필 편집
-    </button>
+    </button> -->
   </div>
 </template>
 
