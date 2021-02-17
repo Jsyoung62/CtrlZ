@@ -6,7 +6,7 @@
     <h1 class="title">
       {{ title }}
     </h1>
-    <span class="material-icons">
+    <span class="material-icons" @click="handleRightIconClick">
       {{ rightIcon }}
     </span>
   </div>
@@ -33,10 +33,25 @@ export default {
       default: "",
       required: false,
     },
+    rightClick: {
+      type: String,
+      default: "",
+      required: false,
+    },
   },
   methods: {
     handleBackClick() {
       this.$router.go(-1);
+    },
+    handleRightIconClick() {
+      if (this.rightClick === "logout") {
+        this.$store.commit("LOGOUT");
+        this.$router.push("/");
+      }
+
+      if (this.rightClick === "notification") {
+        console.log("notification");
+      }
     },
   },
 };

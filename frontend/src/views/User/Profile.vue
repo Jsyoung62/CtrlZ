@@ -1,21 +1,23 @@
 <template>
-  <div class="profile">
-    <Header title="마이페이지" />
-    <Navigation />
+  <div>
+    <Header title="마이페이지" right-icon="logout" right-click="logout" />
+    <div class="profile">
+      <Navigation />
 
-    <ProfileBoard
-      :user-name="user.userName"
-      :user-image="user.userImage"
-      :user-introduce="user.userIntroduce"
-    />
-    <ZScore
-      :score="userScore.zscore"
-      :percent="userRank[1]"
-      :rank="userRank[0]"
-      :zbti="userScore.zbtiId"
-    />
-    <ChallengeBoard :challenges="challenges" />
-    <ZFeed :data="feed" />
+      <ProfileBoard
+        :user-name="user.userName"
+        :user-image="user.userImage"
+        :user-introduce="user.userIntroduce"
+      />
+      <ZScore
+        :score="userScore.zscore"
+        :percent="userRank[1]"
+        :rank="userRank[0]"
+        :zbti="userScore.zbtiId"
+      />
+      <ChallengeBoard :challenges="challenges" />
+      <ZFeed :data="feed" />
+    </div>
   </div>
 </template>
 
