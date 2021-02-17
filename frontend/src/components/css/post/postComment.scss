@@ -1,7 +1,7 @@
 @import "../colors.scss";
 
-.comment:first-child {
-    margin-top: 74px;
+.comment > .comments {
+    margin: 74px 0 150px 0;
 }
 
 .postComment {
