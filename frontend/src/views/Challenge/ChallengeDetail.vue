@@ -171,7 +171,7 @@ export default {
           }
         })
         .catch((error) => {
-          console.log("현재 사용자가 해당 챌린지에 참여하지 않고 있는 경우");
+          // 현재 사용자가 해당 챌린지에 참여하지 않고 있는 경우
           console.error(error);
         });
     },

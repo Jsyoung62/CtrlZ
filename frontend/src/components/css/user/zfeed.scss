@@ -6,24 +6,30 @@
     margin-bottom: 85px;
 
     img {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        bottom: 0px;
+        right: 0px;
         width:100%;
         height: 100%;
         border-radius: 100%;
         margin: 0;
+        object-fit: cover;
         cursor: pointer;
     }
 
     .feed{
+        position: relative;
         width: 100%;
-        height: 100%;
         display: flex;
         flex-direction: row;
 
         &::before {
             content: "";
-            width: 1px;
-            height: 0;
-            padding-top: calc(100%);
+            display: block;
+            width: 100%;
+            padding-top: 100%;
         }
     }
 }
