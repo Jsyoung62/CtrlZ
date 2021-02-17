@@ -139,7 +139,7 @@ public class UserController {
 	@GetMapping("/namecheck")
 	public ResponseEntity<Boolean> userNameCheck(String userName) {
 		if (userService.findByUserName(userName) != null) {
-			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
 		}
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
@@ -148,7 +148,7 @@ public class UserController {
 	@GetMapping("/emailcheck")
 	public ResponseEntity<Boolean> userEmailCheck(String userEmail) {
 		if (userService.findByUserEmail(userEmail) != null) {
-			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
 		}
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}

@@ -106,8 +106,9 @@ export default {
       this.validateUserName ? (this.userNameStatus = "success") : (this.userNameStatus = "fail");
     },
     userEmail() {
-      this.validateUserEmail = this.checkEmail(this.userEmail);
-      this.validateUserEmail ? (this.userEmailStatus = "success") : (this.userEmailStatus = "fail");
+      if (this.checkEmail(this.userEmail)) {
+        this.unique(this.userEmail);
+      }
     },
     userPassword() {
       this.validateUserPassword = this.checkPassword(this.userPassword);
@@ -152,6 +153,25 @@ export default {
       ) {
         return true;
       }
+    },
+    unique(userEmail) {
+      this.$axios({
+        url: "/user/emailcheck",
+        method: "GET",
+        params: {
+          userEmail,
+        },
+      })
+        .then((response) => {
+          const uniqueEmail = response.data;
+          this.validateUserEmail = this.checkEmail(this.userEmail) && uniqueEmail;
+          this.validateUserEmail
+            ? (this.userEmailStatus = "success")
+            : (this.userEmailStatus = "fail");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
     register() {
       if (this.checkForm) {
