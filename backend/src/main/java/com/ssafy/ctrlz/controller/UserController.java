@@ -137,20 +137,20 @@ public class UserController {
 
 	@ApiOperation(value = "회원 이름 중복 체크")
 	@GetMapping("/namecheck")
-	public ResponseEntity<String> userNameCheck(String userName) {
+	public ResponseEntity<Boolean> userNameCheck(String userName) {
 		if (userService.findByUserName(userName) != null) {
-			return new ResponseEntity<String>("Duplicated Name", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<String>("Possible Name", HttpStatus.OK);
+		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "회원 이메일 중복 체크")
 	@GetMapping("/emailcheck")
-	public ResponseEntity<String> userEmailCheck(String userEmail) {
+	public ResponseEntity<Boolean> userEmailCheck(String userEmail) {
 		if (userService.findByUserEmail(userEmail) != null) {
-			return new ResponseEntity<String>("Duplicated Email", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<String>("Possible Email", HttpStatus.OK);
+		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
 
 }
