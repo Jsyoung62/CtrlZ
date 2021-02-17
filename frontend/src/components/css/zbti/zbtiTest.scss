@@ -40,4 +40,16 @@
         background-color: $primary-green3;
         color: $secondary-white;
     }
+
+    .progressBar {
+        margin-top: 60px;
+
+        .front {
+            border-radius: 15px 0px 0px 15px;
+        }
+
+        .back {
+            border-radius: 15px;
+        }
+    }
 }
