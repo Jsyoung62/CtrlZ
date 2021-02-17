@@ -44,11 +44,7 @@
     .progressBar {
         margin-top: 60px;
 
-        .front {
-            border-radius: 15px 0px 0px 15px;
-        }
-
-        .back {
+        .front, .back {
             border-radius: 15px;
         }
     }
