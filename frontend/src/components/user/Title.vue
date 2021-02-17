@@ -1,6 +1,6 @@
 <template>
   <div class="pageTitle">
-    <Logo />
+    <Logo @click="handleLogoClick" />
     <h1 class="title">
       {{ title }}
     </h1>
@@ -18,6 +18,11 @@ export default {
     title: {
       type: String,
       required: true,
+    },
+  },
+  methods: {
+    handleLogoClick() {
+      this.$router.go(-1);
     },
   },
 };
