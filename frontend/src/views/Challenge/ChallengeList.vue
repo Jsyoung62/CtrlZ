@@ -102,8 +102,31 @@ export default {
         return "blue";
       }
     },
-    // 해당 챌린지 상세보기로 이동
+    // 챌린지 진행 사항에 따른 화면 이동
     handleChallengeClick(challengeId) {
+      if (this.$store.state.userInfo.userId > 0) {
+        this.$axios({
+          url: `/challenge/status/${challengeId}/${this.$store.state.userInfo.userId}`,
+          method: "GET",
+        })
+          .then(() => {
+            // 챌린지 진행 사항이 있는 경우
+            this.moveChallengeInProgress(challengeId);
+          })
+          .catch(() => {
+            // 챌린지 진행 사항이 없는 경우
+            this.moveChallengeDetail(challengeId);
+          });
+      } else {
+        this.moveChallengeDetail(challengeId);
+      }
+    },
+    // 카테고리별로 분류
+    handleDivision(type) {
+      this.challenges = this[type];
+    },
+    // 챌린지 상세보기로 이동
+    moveChallengeDetail(challengeId) {
       this.$router.push({
         name: "ChallengeDetail",
         params: {
@@ -111,9 +134,14 @@ export default {
         },
       });
     },
-    // 카테고리별로 분류
-    handleDivision(type) {
-      this.challenges = this[type];
+    // 챌린지 진행 중으로 이동
+    moveChallengeInProgress(challengeId) {
+      this.$router.push({
+        name: "InProgressChallenge",
+        params: {
+          challengeId,
+        },
+      });
     },
   },
 };
