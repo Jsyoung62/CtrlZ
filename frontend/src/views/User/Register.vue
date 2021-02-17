@@ -14,12 +14,30 @@
       <form action="" method="post">
         <div>
           <label for="userName">닉네임</label>
-          <input id="userName" v-model="userName" type="text" :class="userNameStatus" />
+          <input
+            id="userName"
+            v-model="userName"
+            type="text"
+            :class="userNameStatus"
+            placeholder="영문, 20자 이내"
+          />
+          <span v-show="validateUserName" class="material-icons done">
+            done
+          </span>
         </div>
 
         <div>
           <label for="userEmail">이메일</label>
-          <input id="userEmail" v-model="userEmail" type="email" :class="userEmailStatus" />
+          <input
+            id="userEmail"
+            v-model="userEmail"
+            type="email"
+            :class="userEmailStatus"
+            placeholder="ex. ssafy@samsung.com"
+          />
+          <span v-show="validateUserEmail" class="material-icons done">
+            done
+          </span>
         </div>
 
         <div>
@@ -29,7 +47,11 @@
             v-model="userPassword"
             type="password"
             :class="userPasswordStatus"
+            placeholder="영문, 숫자, 8자 이상"
           />
+          <span v-show="validateUserPassword" class="material-icons done">
+            done
+          </span>
         </div>
 
         <div>
@@ -40,6 +62,9 @@
             type="password"
             :class="passwordConfirmStatus"
           />
+          <span v-show="passwordConfirmStatus === 'success'" class="material-icons done">
+            done
+          </span>
         </div>
       </form>
 

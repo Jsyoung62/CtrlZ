@@ -24,6 +24,7 @@
         width: 100%;
     
         div {
+            position: relative;
             display: flex;
             flex-direction: column;
             margin-bottom: 18px;
@@ -49,6 +50,19 @@
                 &.fail {
                     border-bottom: 1px solid $fail;
                 }
+
+                &::placeholder {
+                    color: #C4C4C4;
+                    font-weight: normal;
+                    font-size: 14px;
+                }
+            }
+
+            .done {
+                position: absolute;
+                right: 10px;
+                bottom: 10px;
+                color: $success;
             }
         }
     }
