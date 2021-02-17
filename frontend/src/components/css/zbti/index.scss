@@ -1,0 +1,80 @@
+@import "../colors.scss";
+
+.zbti {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+    padding: 0 30px;
+
+    .title {
+        color: $primary-green;
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 35px;
+        margin-bottom: 8px;
+    }
+
+    .description {
+        font-size: 15px;
+        line-height: 18px;
+        margin-bottom: 30px;
+        white-space: pre-line;
+
+        .highlightWrapper {
+            display: inline;
+            position: relative;
+            font-weight: bold;
+            
+            span {
+                position: relative;
+                z-index: 1;
+            }
+
+            .highlight {
+                display: inline;
+                position: absolute;
+                top: 11px;
+                left: -1px;
+                width: 100%;
+                height: 11px;
+                background-color: $primary-green3;
+                opacity: 50%;
+            }
+        }
+    }
+
+    .intro {
+        width: 80%;
+        object-position: 0 -10px;
+        margin-bottom: 10px;
+    }
+
+    button {
+        width: 100%;
+        height: 57px;
+        background-color: $primary-green;
+        color: $secondary-white;
+        font-weight: 700;
+        font-size: 17px;
+        border-radius: 18px;
+        margin-top:20px;
+    }
+
+    .skipButton {
+        background-color: $secondary-white;
+        color: $primary-green;
+        border: 2px solid $primary-green;
+    }
+
+    .resultImage {
+        width: 150px;
+        height: 150px;
+        border-radius: 100%;
+        margin-top: 13px;
+        margin-bottom: 30px;
+    }
+}

@@ -32,7 +32,10 @@ public class ChallengeStatusController {
 
 	@ApiOperation(value = "챌린지 현황 데이터 추가")
 	@PostMapping(value="/")
-	public ResponseEntity<ChallengeStatus> save(@RequestBody ChallengeStatus challengeStatus) {
+	public ResponseEntity<ChallengeStatus> save(@RequestBody ChallengeStatusId challengeStatusId) {
+		ChallengeStatus challengeStatus = new ChallengeStatus();
+		challengeStatus.setId(challengeStatusId);
+
 		return new ResponseEntity<ChallengeStatus>(challengeStatusService.save(challengeStatus), HttpStatus.OK);
 	}
 
@@ -43,7 +46,7 @@ public class ChallengeStatusController {
 	}
 
 	@ApiOperation(value = "챌린지별 현황 데이터")
-	@GetMapping(value="/challenge")
+	@GetMapping(value="/")
 	public ResponseEntity<List<ChallengeStatus>> findByChallenge(@RequestParam String challengeId) {
 		return new ResponseEntity<List<ChallengeStatus>>(challengeStatusService.findByChallenge(challengeId), HttpStatus.OK);
 	}
@@ -77,6 +80,8 @@ public class ChallengeStatusController {
 			challengeStatus.setChallengeMissionCurrent(challengeStatus.getChallengeMissionCurrent() + 1);
 
 			if (challengeStatus.getChallenge().getChallengeMissionTotal() == challengeStatus.getChallengeMissionCurrent()) {
+				challengeStatus.setChallengeFinishOrder(challengeStatusService.countAchivedByChallenge(challengeId) + 1);
+
 				String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 				challengeStatus.setChallengeFinishDate(now);
 			}
@@ -85,6 +90,18 @@ public class ChallengeStatusController {
 		}
 
 		return new ResponseEntity<ChallengeStatus>(challengeStatus, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "특정 챌린지 현황 참여자수")
+	@GetMapping(value="/count/inprogress")
+	public long countByChallengeId(@RequestParam String challengeId) {
+		return challengeStatusService.countInprogressByChallenge(challengeId);
+	}
+
+	@ApiOperation(value = "특정 챌린지 완료자수")
+	@GetMapping(value="/count/achived")
+	public long countAchivedByChallengeId(@RequestParam String challengeId) {
+		return challengeStatusService.countAchivedByChallenge(challengeId);
 	}
 
 }

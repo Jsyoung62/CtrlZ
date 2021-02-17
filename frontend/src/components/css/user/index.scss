@@ -1,6 +1,6 @@
 @import "../colors.scss";
 
-.container {
+.userContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -24,6 +24,7 @@
         width: 100%;
     
         div {
+            position: relative;
             display: flex;
             flex-direction: column;
             margin-bottom: 18px;
@@ -49,6 +50,19 @@
                 &.fail {
                     border-bottom: 1px solid $fail;
                 }
+
+                &::placeholder {
+                    color: #C4C4C4;
+                    font-weight: normal;
+                    font-size: 14px;
+                }
+            }
+
+            .done {
+                position: absolute;
+                right: 10px;
+                bottom: 10px;
+                color: $success;
             }
         }
     }
@@ -82,4 +96,11 @@
 
 .findButton {
     margin-top: 33px;
+}
+.profileImage {
+    width: 99.32px;
+    height: 99px;
+    border-radius: 100%;
+    margin-top: 13px;
+    margin-bottom: 30px;
 }

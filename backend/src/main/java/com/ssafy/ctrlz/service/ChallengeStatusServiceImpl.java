@@ -26,9 +26,7 @@ public class ChallengeStatusServiceImpl implements ChallengeStatusService {
 		if (challengeStatusList.size() > 0) {
 			return challengeStatusList;
 		}
-		else {
-			return null;
-		}
+		return null;
 	}
 
 	@Override
@@ -38,9 +36,7 @@ public class ChallengeStatusServiceImpl implements ChallengeStatusService {
 		if (challengeStatusList.size() > 0) {
 			return challengeStatusList;
 		}
-		else {
-			return null;
-		}
+		return null;
 	}
 
 	@Override
@@ -50,14 +46,22 @@ public class ChallengeStatusServiceImpl implements ChallengeStatusService {
 		if (challengeStatusList.size() > 0) {
 			return challengeStatusList;
 		}
-		else {
-			return null;
-		}
+		return null;
 	}
 
 	@Override
 	public ChallengeStatus findByChallengeAndUser(ChallengeStatusId challengeStatusId) {
 		return challengeStatusRepository.findById(challengeStatusId).orElseThrow(() -> new NoDataFoundException("challengeStatus"));
+	}
+
+	@Override
+	public long countInprogressByChallenge(String challengeId) {
+		return challengeStatusRepository.countByIdChallengeIdAndChallengeFinishDateNull(challengeId);
+	}
+
+	@Override
+	public long countAchivedByChallenge(String challengeId) {
+		return challengeStatusRepository.countByIdChallengeIdAndChallengeFinishDateNotNull(challengeId);
 	}
 
 }

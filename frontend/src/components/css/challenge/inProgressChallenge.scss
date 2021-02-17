@@ -1,19 +1,19 @@
 @import "../colors.scss";
 
 .inProgressChallenge {
+    .thumbnailWrapper {
+        display: flex;
+        flex-direction: column;
 
-    .header {
-        margin: 0 30px;
-    }
-
-    .thumbnail {
-        margin: 0;
-        width: 100%;
-        height: calc((9 / (16* 100%)));
+        .thumbnail {
+            width: 100%;
+            height: calc(100% * 9/16);
+        }
     }
     
     .contentsContainer {
         padding: 0 20px;
+        margin-bottom: 90px;
         display: flex;
         flex-direction: column;
 
@@ -36,8 +36,8 @@
                 width: 162px;
                 height: 49px;
                 background-color: $primary-green;
-                border-radius: 13px;
-                color: $basic-white;
+                border-radius: 18px;
+                color: $secondary-white;
                 font-weight: bold;
                 font-size: 16px;
             }

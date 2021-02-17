@@ -1,0 +1,39 @@
+@import "../colors.scss";
+
+.post {
+  padding: 0 20px;
+
+  .postImage {
+    width: 330px;
+    height: 330px;
+    border-radius: 15px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .user {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  .userImage {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    margin-right: 12px;
+  }
+
+  .postContent {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    white-space: pre-line;
+    margin-top: 10px;
+  }
+}

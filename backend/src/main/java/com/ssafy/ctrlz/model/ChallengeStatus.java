@@ -19,7 +19,8 @@ public class ChallengeStatus {
 	@Column(insertable = false, updatable = false)
 	private LocalDateTime challengeStartDate;
 	private String challengeFinishDate;
-	private int challengeMissionCurrent;
+	private long challengeMissionCurrent;
+	private long challengeFinishOrder;
 
 	@OneToOne
 	@JoinColumn(name = "challengeId", insertable = false, updatable = false)

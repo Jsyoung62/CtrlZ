@@ -1,89 +1,27 @@
 @import "../colors";
 
-@mixin board() {
-    width: 100%;
-    height: 100%;
-    background-color: $basic-white;
-    border: 1px solid #F2F2F2;
-    border-radius: 13px;
-}
-
 .main {
     position: relative;
-    padding: 0 30px;
 }
 
-.scoreBoard {
-    margin-bottom: 23px;
-    .contents {
-        @include board();
-        padding: 15px 0;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-    }
-    .gauge {
-        position: relative;
-        .bar {
-            position: absolute;
-            bottom: 0;
-            left: 57px;
-            transform-origin: bottom;
-        }
-    }
-    .score {
-        margin-left:20px;
-        .number {
-            font-size: 24px;
-            font-weight: 700;
-        }
-        span {
-            font-size: 15px;
-            font-weight: 700;
-        }
-        p {
-            margin-top: 10px;
-            font-size: 11px;
-            font-weight: 400;
-        }
-    }
-}
+.topic {
+    margin: 6px 0 20px 0;
+    color: $primary-green;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 15px;
+    letter-spacing: 0.32px;
+    display: flex;
+    flex-basis: 100%;
+    align-items: center;
 
-.recommendBoard {
-    margin-bottom: 25px;
-    
-    .contents {
-        position: relative;
-        margin-top: 10px;
-
-        .overlay {
-            position: absolute;
-            left: 0;
-            top: 0;
-            background: linear-gradient(359.34deg, rgba(0, 0, 0, 0.6) 1.76%, rgba(0, 0, 0, 0) 55.64%);
-            width: 100%;
-            height: 215px;
-            border-radius: 20px;
-        }
-        .thumbnail {
-            width: 100%;
-            height: 215px;
-            border-radius: 20px;
-        }
-        .title {
-            position: absolute;
-            left: 20px;
-            bottom: 15px;
-            font-weight: bold;
-            font-size: 22px;
-            color: $basic-white;
-        }
-    }
-}
-
-.challenge {
-    .leaf {
-        display: inline;
+    &::after {
+        content: "";
+        flex-grow: 1;
+        height: 2px;
+        background: $primary-green3;
+        opacity: 50%;
+        border-radius: 10px;
+        margin: 0px 0px 0px 16px;
     }
 }

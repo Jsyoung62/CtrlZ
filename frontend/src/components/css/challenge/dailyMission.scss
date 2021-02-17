@@ -1,0 +1,47 @@
+@import "../colors.scss";
+
+.dailyMission {
+    .thumbnail {
+        width: 100%;
+        height: calc(100% * 9/16);
+        cursor: default;   
+    }
+
+    .InfoContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 30px 20px 15px 20px;
+        font-weight: bold;
+        line-height: 15px;
+        
+        .title {
+            font-size: 20px;
+            color: $basic-black;
+        }
+
+        .participants {
+            margin-top: 10px;
+            font-size: 14px;
+            color: $primary-green3;
+        }
+
+        button {
+            height: 49px;
+            padding: 10px 25px;
+            background-color: $primary-green;
+            border-radius: 18px;
+            font-weight: bold;
+            font-size: 16px;
+            line-height: 24px;
+            color: $secondary-white;
+        }
+    }
+
+    .description {
+        padding: 0 20px;
+        text-align: justify;
+        font-size: 16px;
+        line-height: 21px;
+    }
+}

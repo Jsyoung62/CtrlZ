@@ -1,5 +1,5 @@
 <template>
-  <div class="findPassword container">
+  <div class="findPassword userContainer">
     <Title title="비밀번호 찾기" />
 
     <form action="" method="post">
@@ -15,7 +15,7 @@
   </div>
 </template>
 <script>
-import Title from "@/components/user/title.vue";
+import Title from "@/components/user/Title.vue";
 import "@/components/css/user/index.scss";
 
 export default {

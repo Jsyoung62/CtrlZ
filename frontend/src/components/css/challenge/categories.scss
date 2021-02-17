@@ -1,0 +1,64 @@
+@import "../colors.scss";
+
+.categories {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 2px;
+    margin: 20px 0;
+    cursor: pointer;
+
+    .category {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: 55px;
+        
+        .text {
+            .type {
+                font-weight: bold;
+                font-size: 14px;
+                line-height: 21px;
+            }
+            
+            .total {
+                font-size: 10px;
+                line-height: 15px;
+                color: #7b7b7b;
+            }
+        }
+
+        &.type1 {
+            border-bottom: 2px solid $type-yellow;
+
+            &.active {
+                background-color: $type-yellow50;
+            }
+        }
+
+        &.type2 {
+            border-bottom: 2px solid $type-purple;
+
+            &.active {
+                background-color: $type-purple50;
+            }
+        }
+
+        &.type3 {
+            border-bottom: 2px solid $type-pink;
+
+            &.active {
+                background-color: $type-pink50;
+            }
+        }
+
+        &.type4 {
+            border-bottom: 2px solid $type-blue;
+
+            &.active {
+                background-color: $type-blue50;
+            }
+        }
+    }
+}

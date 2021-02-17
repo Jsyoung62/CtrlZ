@@ -25,6 +25,7 @@ public class Challenge {
 	private int challengeMissionTotal;
 	private String challengeCreated;
 	private String challengeClosed;
+	private long participants;
 
 	@OneToOne
 	@JoinColumn(name = "badgeId")

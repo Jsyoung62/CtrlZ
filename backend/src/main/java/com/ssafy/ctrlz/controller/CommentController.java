@@ -40,9 +40,6 @@ public class CommentController {
 	@ApiOperation(value = "게시글별 댓글 등록")
 	@PostMapping(value = "/add")
 	public ResponseEntity<Comment> addComment(@RequestBody Comment comment) {
-		
-		commentService.save(comment);
-		
 		return new ResponseEntity<Comment>(commentService.save(comment), HttpStatus.OK);
 	}
 

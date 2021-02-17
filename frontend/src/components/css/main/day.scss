@@ -1,0 +1,30 @@
+@import "../colors";
+
+.swiper-slide > .day {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+
+    .thumbnail {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: calc(100% - 56px);
+        border-radius: 15px 15px 0 0;
+    }
+
+    .title {
+        width: 100%;
+        height: 56px;
+        position: absolute;
+        bottom: -29px;
+        left: 0;
+        font-weight: normal !important;
+        font-size: 16px !important;
+        line-height: 56px !important;
+        color: $basic-white !important;
+        background-color: $primary-green;
+        border-radius: 0px 0px 15px 15px;
+    }
+}

@@ -1,5 +1,5 @@
 <template>
-  <div class="login container">
+  <div class="login userContainer">
     <Title title="로그인" />
     <form action="" method="post">
       <div>
@@ -9,7 +9,7 @@
 
       <div>
         <label for="password">비밀번호</label>
-        <input id="password" v-model="password" type="password" />
+        <input id="password" v-model="password" type="password" @keyup.enter="login" />
       </div>
     </form>
 
@@ -33,13 +33,10 @@
   </div>
 </template>
 <script>
-import axios from "axios";
 import firebase from "firebase";
-import Title from "@/components/user/title.vue";
+import Title from "@/components/user/Title.vue";
 import "@/components/css/user/index.scss";
 import "@/components/css/user/login.scss";
-
-axios.defaults.baseURL = "https://i4a202.p.ssafy.io:8888";
 
 export default {
   name: "Login",
@@ -70,17 +67,19 @@ export default {
     },
     login() {
       if (this.checkForm) {
-        axios({
-          url: "/user",
-          method: "GET",
-          params: {
+        this.$axios({
+          url: "/user/login",
+          method: "POST",
+          data: {
             userEmail: this.email,
             userPassword: this.password,
           },
         })
           .then((res) => {
             const token = res.data.accesstoken;
-            this.$store.commit("LOGIN", token);
+            this.$store.commit("LOGIN", token); // vuex에 회원정보 저장
+
+            this.updateZbtiResult(); // user ZBTI 결과 업데이트
             this.$router.push("/");
           })
           .catch((error) => {
@@ -88,7 +87,6 @@ export default {
           });
         return;
       }
-      console.log("로그인 실패");
     },
     googleLogin() {
       const provider = new firebase.auth.GoogleAuthProvider();
@@ -96,19 +94,47 @@ export default {
         .auth()
         .signInWithPopup(provider)
         .then((res) => {
-          const userInfo = {
-            userId: res.user.uid,
-            userEmail: res.user.email,
-            userName: res.user.displayName,
-            userImage: res.user.photoURL,
-            userIntroduce: "",
-          };
-          this.$store.commit("GOOGLELOGIN", userInfo);
-          this.$router.push("/");
+          this.$axios({
+            url: "/user/google/register",
+            method: "POST",
+            data: {
+              userGid: res.user.uid,
+              userEmail: res.user.email,
+              userName: res.user.displayName,
+              userImage: res.user.photoURL,
+              userPassword: res.user.uid,
+              userType: "Y",
+            },
+          }).then((res) => {
+            const token = res.data.accesstoken;
+            this.$store.commit("LOGIN", token); // vuex에 회원정보 저장
+
+            this.updateZbtiResult(); // user ZBTI 결과 업데이트
+            this.$router.push("/");
+          });
         })
         .catch((error) => {
           console.error(error);
         });
+    },
+    updateZbtiResult() {
+      // ZBTI 테스트 결과가 있는 경우
+      if (this.$store.state.zbtiId !== "") {
+        this.$axios({
+          url: "/user/zbti",
+          method: "PUT",
+          data: {
+            userId: this.$store.state.userInfo.userId,
+            zbtiId: this.$store.state.zbtiId,
+          },
+        })
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
     },
   },
 };
