@@ -31,14 +31,15 @@
 }
 
 .commentWrite {
-    position: absolute;
+    position: fixed;
     bottom: 62px;
     left: 0;
     width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 20px;
+    padding: 5px 20px 20px;
+    background-color: $secondary-white;
 
     .userImage {
         width: 50px;
