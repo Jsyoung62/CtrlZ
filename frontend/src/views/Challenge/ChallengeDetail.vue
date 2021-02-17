@@ -31,18 +31,25 @@
         {{ challenge.challengeContent }}
       </p>
 
-      <p v-if="isInprogress" class="status">
-        {{ progress }}
-        % 진행중
-      </p>
-      <p v-else-if="isAchived" class="status">
-        {{ challengeStatus.challengeFinishOrder | numberWithComma }}
-        번째로 완료했어요!
-      </p>
-      <button v-else class="startButton" @click="handleStartButton">
-        {{ (achived + challenge.participants + 1) | numberWithComma }}
-        번째 참여자 되기
-      </button>
+      <div v-if="isUser">
+        <p v-if="isInprogress" class="status">
+          {{ progress }}
+          % 진행중
+        </p>
+        <p v-else-if="isAchived" class="status">
+          {{ challengeStatus.challengeFinishOrder | numberWithComma }}
+          번째로 완료했어요!
+        </p>
+        <button v-else class="startButton" @click="handleStartButtonClick">
+          {{ (achived + challenge.participants + 1) | numberWithComma }}
+          번째 참여자 되기
+        </button>
+      </div>
+      <div v-else>
+        <button class="startButton" @click="handleLoginButtonClick">
+          로그인 후 이용해주세요
+        </button>
+      </div>
     </div>
 
     <ChallengeFeed :posts="challengePosts" />
@@ -74,6 +81,7 @@ export default {
   data: () => {
     return {
       userId: "",
+      isUser: false,
       challengeId: "",
       challenge: "",
       challengeStatus: "",
@@ -99,7 +107,8 @@ export default {
     this.getAchivedCount(this.challengeId);
 
     // 로그인 한 경우
-    if (this.userId > 0) {
+    if (this.userId !== "") {
+      this.isUser = true;
       this.getUserChallengeStatus();
     }
   },
@@ -175,24 +184,25 @@ export default {
           console.error(error);
         });
     },
-    handleStartButton() {
-      if (this.userId > 0) {
-        this.$axios({
-          url: "/challenge/status/",
-          method: "POST",
-          data: {
-            challengeId: this.challengeId,
-            userId: this.userId,
-          },
+    handleStartButtonClick() {
+      this.$axios({
+        url: "/challenge/status/",
+        method: "POST",
+        data: {
+          challengeId: this.challengeId,
+          userId: this.userId,
+        },
+      })
+        .then(() => {
+          // 챌린지 시작하면 페이지 새로고침
+          this.$router.go(this.$router.currentRoute);
         })
-          .then(() => {
-            // 챌린지 시작하면 페이지 새로고침
-            this.$router.go(this.$router.currentRoute);
-          })
-          .catch((error) => {
-            console.error(error);
-          }); // 현재 사용자의 해당 챌린지 참여 현황 추가
-      }
+        .catch((error) => {
+          console.error(error);
+        }); // 현재 사용자의 해당 챌린지 참여 현황 추가
+    },
+    handleLoginButtonClick() {
+      this.$router.push("/login");
     },
   },
 };

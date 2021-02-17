@@ -11,10 +11,14 @@
         </div>
       </div>
       <div class="modalButton">
-        <label for="uploadImage" class="uploadImageButton">
+        <label v-if="isUser" for="uploadImage" class="uploadImageButton">
           인증샷 올리기
         </label>
+        <label v-else for="loginButton" class="uploadImageButton">
+          로그인 후 이용해주세요
+        </label>
         <input
+          v-if="isUser"
           id="uploadImage"
           ref="postImage"
           type="file"
@@ -22,6 +26,14 @@
           name="uploadImage"
           class="uploadImage"
           @change="uploadImage"
+        />
+        <input
+          v-else
+          id="loginButton"
+          type="button"
+          name="loginButton"
+          class="uploadImage"
+          @click="handleLoginButtonClick"
         />
       </div>
     </div>
@@ -42,9 +54,18 @@ export default {
   data() {
     return {
       postImage: "",
+      isUser: false,
     };
   },
+  created() {
+    if (this.$store.state.userInfo.userId !== "") {
+      this.isUser = true;
+    }
+  },
   methods: {
+    handleLoginButtonClick() {
+      this.$router.push("/login");
+    },
     uploadImage() {
       this.postImage = this.$refs.postImage.files[0];
       if (this.postImage !== null) {

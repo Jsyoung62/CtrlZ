@@ -21,11 +21,18 @@
       <p>챌린지</p>
     </div>
 
-    <div class="buttonWrapper" @click="handleMypageClick">
+    <div v-if="isUser" class="buttonWrapper" @click="handleMypageClick">
       <span class="material-icons">
         account_circle
       </span>
       <p>마이페이지</p>
+    </div>
+
+    <div v-else class="buttonWrapper" @click="handleLoginClick">
+      <span class="material-icons">
+        login
+      </span>
+      <p>로그인</p>
     </div>
   </nav>
 </template>
@@ -66,13 +73,12 @@ export default {
     },
     handleMypageClick() {
       // 이미 로그인 한 경우  & 같은 URL 중복 접근 못하게 처리
-      if (this.isUser) {
-        if (this.$router.currentRoute.path !== "/user/profile") {
-          this.$router.push("/user/profile");
-        }
-      } else {
-        this.$router.push("/login");
+      if (this.$router.currentRoute.path !== "/user/profile") {
+        this.$router.push("/user/profile");
       }
+    },
+    handleLoginClick() {
+      this.$router.push("/login");
     },
   },
 };
