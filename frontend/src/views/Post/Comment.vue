@@ -46,7 +46,12 @@ export default {
         },
       })
         .then((response) => {
-          this.comments = response.data;
+          this.comments = response.data.map((comment) => {
+            if (comment.user.userImage === null) {
+              comment.user.userImage = "http://i4a202.p.ssafy.io/img/no_profile.png";
+            }
+            return comment;
+          });
         })
         .catch((error) => {
           console.error(error);
