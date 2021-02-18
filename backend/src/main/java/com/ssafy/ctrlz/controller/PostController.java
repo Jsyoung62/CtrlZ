@@ -97,6 +97,12 @@ public class PostController {
 		return new ResponseEntity<List<Post>>(postService.findByUserAndChallenge(userId, challengeId), HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "챌린지ID, 미션ID로 게시글 검색", notes = "챌린지ID, 미션ID에 맞는 게시글을 조회합니다.")
+	@GetMapping("/find/challenge/mission")
+	public ResponseEntity<List<Post>> findByChallengeAndMission(String challengeId, String missionId) {
+		return new ResponseEntity<List<Post>>(postService.findByChallengeAndMission(challengeId, missionId), HttpStatus.OK);
+	}
+
 	@ApiOperation(value = "유저ID, 챌린지ID, 미션ID로 게시글 검색", notes = "유저ID, 챌린지ID, 미션ID에 맞는 게시글을 조회합니다.")
 	@GetMapping("/find/challenge/user/mission")
 	public ResponseEntity<Post> findByUserAndChallengeAndMission(Long userId, String challengeId, String missionId) {

@@ -74,6 +74,16 @@ public class PostServiceImpl implements PostService{
 	}
 
 	@Override
+	public List<Post> findByChallengeAndMission(String challengeId, String missionId) {
+		List<Post> postList = postRepository.findByChallengeIdAndMissionId(challengeId, missionId);
+
+		if(postList.size() > 0) {
+			return postList;
+		}
+		return null;
+	}
+
+	@Override
 	public Post findByUserAndChallengeAndMission(Long userId, String challengeId, String missionId) {
 		return postRepository.findByUserIdAndChallengeIdAndMissionId(userId, challengeId, missionId);
 	}
