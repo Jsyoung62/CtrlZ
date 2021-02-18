@@ -85,16 +85,22 @@ public class PostController {
 		return new ResponseEntity<List<Post>>(postService.findByUser(userId), HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "유저ID,미션ID로 게시글 검색", notes = "유저ID,미션ID에 맞는 게시글을 조회합니다.")
+	@ApiOperation(value = "유저ID, 미션ID로 게시글 검색", notes = "유저ID, 미션ID에 맞는 게시글을 조회합니다.")
 	@GetMapping("/find/mission")
 	public ResponseEntity<List<Post>> findByUserAndMission(Long userId, String missionId) {
 		return new ResponseEntity<List<Post>>(postService.findByUserAndMission(userId, missionId), HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "유저ID,챌린지ID로 게시글 검색", notes = "유저ID,챌린지ID에 맞는 게시글을 조회합니다.")
+	@ApiOperation(value = "유저ID, 챌린지ID로 게시글 검색", notes = "유저ID, 챌린지ID에 맞는 게시글을 조회합니다.")
 	@GetMapping("/find/challenge/user")
 	public ResponseEntity<List<Post>> findByUserAndChallenge(Long userId, String challengeId) {
 		return new ResponseEntity<List<Post>>(postService.findByUserAndChallenge(userId, challengeId), HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "유저ID, 챌린지ID, 미션ID로 게시글 검색", notes = "유저ID, 챌린지ID, 미션ID에 맞는 게시글을 조회합니다.")
+	@GetMapping("/find/challenge/user/mission")
+	public ResponseEntity<Post> findByUserAndChallengeAndMission(Long userId, String challengeId, String missionId) {
+		return new ResponseEntity<Post>(postService.findByUserAndChallengeAndMission(userId, challengeId, missionId), HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "좋아요 누르기", notes = "유저가 좋아요를 누르면 postLike +1 && postLike 데이터 생성, 다시 한번 누르면 postLike -1 && postLike 데이터 삭제가 됩니다.")

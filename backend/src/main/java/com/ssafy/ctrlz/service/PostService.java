@@ -19,6 +19,8 @@ public interface PostService {
 
 	public List<Post> findByUserAndChallenge(Long userId, String challengeId);
 
+	public Post findByUserAndChallengeAndMission(Long userId, String challengeId, String missionId);
+
 	public long countAll();
 
 }

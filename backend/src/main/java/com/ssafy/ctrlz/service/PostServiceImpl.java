@@ -74,6 +74,11 @@ public class PostServiceImpl implements PostService{
 	}
 
 	@Override
+	public Post findByUserAndChallengeAndMission(Long userId, String challengeId, String missionId) {
+		return postRepository.findByUserIdAndChallengeIdAndMissionId(userId, challengeId, missionId);
+	}
+
+	@Override
 	public long countAll() {
 		return postRepository.count();
 	}

@@ -16,4 +16,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
 	public List<Post> findByUserIdAndChallengeId(Long userId, String challengeId);
 
+	public Post findByUserIdAndChallengeIdAndMissionId(Long userId, String challengeId, String missionId);
+
 }
