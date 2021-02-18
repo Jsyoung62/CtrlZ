@@ -73,7 +73,12 @@ export default {
         })
         .then(() => {
           this.updateUserZScore();
-          this.updateChallengeStatus();
+
+          if (this.challengeId !== "1") {
+            this.updateChallengeStatus();
+          } else {
+            this.updateDailyMissionStatus();
+          }
 
           this.$router.push({
             name: "InProgressChallenge",
@@ -107,6 +112,36 @@ export default {
         method: "PUT",
       })
         .then(() => {})
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    // 데일리 미션을 업로드하는 사용자의 경우 챌린지 진행 사항 수정
+    updateDailyMissionStatus() {
+      this.$axios({
+        url: `/challenge/status/${this.challengeId}/${this.userId}`,
+        method: "GET",
+      })
+        .then(() => {
+          this.updateChallengeStatus();
+        })
+        .catch(() => {
+          this.joinDailyMission();
+        });
+    },
+    // 현재 사용자의 해당 챌린지 참여 현황 추가
+    joinDailyMission() {
+      this.$axios({
+        url: "/challenge/status/",
+        method: "POST",
+        data: {
+          challengeId: this.challengeId,
+          userId: this.userId,
+        },
+      })
+        .then(() => {
+          this.updateChallengeStatus();
+        })
         .catch((error) => {
           console.error(error);
         });
