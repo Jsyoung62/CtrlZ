@@ -137,9 +137,7 @@ export default {
             zbtiId: this.$store.state.zbtiId,
           },
         })
-          .then((response) => {
-            console.log(response);
-          })
+          .then(() => {})
           .catch((error) => {
             console.error(error);
           });
