@@ -8,7 +8,7 @@ import com.ssafy.ctrlz.model.Post;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-	public List<Post> findByChallengeId(String challengeId);
+	public List<Post> findByChallengeIdOrderByPostId(String challengeId);
 
 	public List<Post> findByUserId(Long userId);
 

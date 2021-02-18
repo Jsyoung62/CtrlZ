@@ -16,7 +16,12 @@
           <span>참여중</span>
         </p>
       </div>
-      <UploadModal v-show="isModalViewed" :mission="modalData" @close="isModalViewed = false" />
+      <UploadModal
+        v-show="isModalViewed"
+        :mission="modalData"
+        :is-button="true"
+        @close="isModalViewed = false"
+      />
       <button @click="handleMissionClick()">
         실천 리스트
       </button>

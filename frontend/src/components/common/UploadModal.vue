@@ -6,11 +6,11 @@
       </div>
       <div class="modalContent">
         {{ mission.missionContent }}
-        <div v-show="mission.missionImage != null">
+        <div v-show="mission.missionImage != null" class="modalImageWrapper">
           <img class="modalImage" :src="mission.missionImage" />
         </div>
       </div>
-      <div class="modalButton">
+      <div v-show="isButton" class="modalButton">
         <label v-if="isUser" for="uploadImage" class="uploadImageButton">
           인증샷 올리기
         </label>
@@ -48,6 +48,10 @@ export default {
   props: {
     mission: {
       type: Object,
+      required: true,
+    },
+    isButton: {
+      type: Boolean,
       required: true,
     },
   },

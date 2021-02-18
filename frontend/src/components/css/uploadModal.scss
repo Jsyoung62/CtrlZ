@@ -43,14 +43,17 @@
     white-space: pre-line;
 }
 
+.modalImageWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .modalImage {
     margin-top: 15px;
     width: 248px;
     height: 248px;
     border-radius: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .modalButton {

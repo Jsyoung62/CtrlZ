@@ -32,7 +32,7 @@
       </p>
 
       <div v-if="isUser">
-        <p v-if="isInprogress" class="status">
+        <p v-if="isInprogress" class="status" @click="moveChallengeInProgress">
           {{ progress }}
           % 진행중
         </p>
@@ -194,8 +194,8 @@ export default {
         },
       })
         .then(() => {
-          // 챌린지 시작하면 페이지 새로고침
-          this.$router.go(this.$router.currentRoute);
+          // 챌린지 시작하면 진행 중인 챌린지 화면으로 이동
+          this.moveChallengeInProgress();
         })
         .catch((error) => {
           console.error(error);
@@ -203,6 +203,15 @@ export default {
     },
     handleLoginButtonClick() {
       this.$router.push("/login");
+    },
+    // 진행 중인 챌린지 화면으로 이동
+    moveChallengeInProgress() {
+      this.$router.push({
+        name: "InProgressChallenge",
+        params: {
+          challengeId: this.challengeId,
+        },
+      });
     },
   },
 };

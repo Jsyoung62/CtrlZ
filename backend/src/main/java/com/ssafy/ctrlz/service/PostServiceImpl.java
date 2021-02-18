@@ -35,7 +35,7 @@ public class PostServiceImpl implements PostService{
 
 	@Override
 	public List<Post> findByChallenge(String challengeId) {
-		List<Post> postList = postRepository.findByChallengeId(challengeId);
+		List<Post> postList = postRepository.findByChallengeIdOrderByPostId(challengeId);
 
 		if(postList.size() > 0) {
 			return postList;
