@@ -16,6 +16,7 @@
         :zbti="userScore.zbtiId"
       />
       <ChallengeBoard :challenges="challenges" />
+      <FinishBoard :challenges="finishChallenges" />
       <ZFeed :data="feed" />
     </div>
   </div>
@@ -26,6 +27,7 @@ import Header from "@/components/common/Header.vue";
 import Navigation from "@/components/common/Navigation.vue";
 import ProfileBoard from "@/components/user/ProfileBoard.vue";
 import ChallengeBoard from "@/components/user/ChallengeBoard.vue";
+import FinishBoard from "@/components/user/FinishBoard.vue";
 import ZScore from "@/components/user/ZScore.vue";
 import ZFeed from "@/components/user/ZFeed.vue";
 import "@/components/css/user/profile.scss";
@@ -37,6 +39,7 @@ export default {
     Navigation,
     ProfileBoard,
     ChallengeBoard,
+    FinishBoard,
     ZScore,
     ZFeed,
   },
@@ -50,6 +53,7 @@ export default {
       // eslint-disable-next-line prettier/prettier
       userRank: [ 0, 0 ],
       challenges: [],
+      finishChallenges: [],
       feed: [],
     };
   },
@@ -108,6 +112,19 @@ export default {
         .then((response) => {
           this.challenges = response.data
             .filter((challengeInfo) => challengeInfo.challengeFinishDate === null)
+            .map((challengeInfo) => {
+              return {
+                challengeId: challengeInfo.challenge.challengeId,
+                challengeName: challengeInfo.challenge.challengeName,
+                challengeMissionTotal: challengeInfo.challenge.challengeMissionTotal,
+                challengeMissionCurrent: challengeInfo.challengeMissionCurrent,
+                missionNonAchieve:
+                  challengeInfo.challenge.challengeMissionTotal -
+                  challengeInfo.challengeMissionCurrent,
+              };
+            });
+          this.finishChallenges = response.data
+            .filter((challengeInfo) => challengeInfo.challengeFinishDate !== null)
             .map((challengeInfo) => {
               return {
                 challengeId: challengeInfo.challenge.challengeId,
