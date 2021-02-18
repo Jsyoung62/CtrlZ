@@ -8,6 +8,7 @@ import lombok.Getter;
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
 public class NoDataFoundException extends RuntimeException {
 
+	private static final long serialVersionUID = 1L;
 	private String tableName;
 
 	public NoDataFoundException(String tableName) {

@@ -6,6 +6,7 @@
       type="text"
       class="commentContent"
       placeholder="댓글 남기기..."
+      @keyup.enter="handleCommentUploadClick"
     />
     <button class="uploadComment" @click="handleCommentUploadClick">
       게시
@@ -31,23 +32,24 @@ export default {
   },
   methods: {
     handleCommentUploadClick() {
-      console.log("댓글 업로드");
-      this.$axios({
-        url: "/comment/add",
-        method: "POST",
-        data: {
-          postId: this.$route.params.postId,
-          userId: this.$store.state.userInfo.userId,
-          commentContent: this.commentContent,
-        },
-      })
-        .then((response) => {
-          console.log(response);
-          this.$router.go(this.$router.currentRoute);
+      if (this.commentContent !== "") {
+        this.$axios({
+          url: "/comment/add",
+          method: "POST",
+          data: {
+            postId: this.$route.params.postId,
+            userId: this.$store.state.userInfo.userId,
+            commentContent: this.commentContent,
+          },
         })
-        .catch((error) => {
-          console.error(error);
-        });
+          .then((response) => {
+            console.log(response);
+            this.$router.go(this.$router.currentRoute);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
     },
   },
 };

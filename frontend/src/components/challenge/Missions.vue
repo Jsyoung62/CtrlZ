@@ -1,6 +1,11 @@
 <template>
   <div class="missions">
-    <UploadModal v-show="isModalViewed" :mission="missions[index]" @close="isModalViewed = false" />
+    <UploadModal
+      v-show="isModalViewed"
+      :mission="missions[index]"
+      :is-button="isButton"
+      @close="isModalViewed = false"
+    />
     <div v-for="post in posts" :key="post.postId" @click="handlePostClick(post.postId)">
       <img :src="post.postImage" alt="Thumbnail" class="mission" />
     </div>
@@ -33,6 +38,7 @@ export default {
       isMissionViewd: true,
       missions: [],
       posts: [],
+      isButton: "",
     };
   },
   created() {
@@ -89,6 +95,12 @@ export default {
     handleMissionClick(index) {
       this.isModalViewed = true;
       this.index = index;
+
+      if (index === 0) {
+        this.isButton = true;
+      } else {
+        this.isButton = false;
+      }
     },
     handlePostClick(postId) {
       this.$router.push({

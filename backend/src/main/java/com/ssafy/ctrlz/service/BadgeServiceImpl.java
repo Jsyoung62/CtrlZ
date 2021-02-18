@@ -24,9 +24,7 @@ public class BadgeServiceImpl implements BadgeService {
 		if(userBadgeList.size() > 0) {
 			return userBadgeList;
 		}
-		else {
-			return null;
-		}
+		return null;
 	}
 
 	@Override
@@ -36,9 +34,7 @@ public class BadgeServiceImpl implements BadgeService {
 		if(userBadgeList.size() > 0) {
 			return userBadgeList;
 		}
-		else {
-			return null;
-		}
+		return null;
 	}
 
 }

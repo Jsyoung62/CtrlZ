@@ -11,7 +11,7 @@
         :comment="comment.commentContent"
       />
     </div>
-    <CommentWrite :user-image="user.userImage" />
+    <CommentWrite v-show="isUser" :user-image="user.userImage" />
   </div>
 </template>
 
@@ -33,10 +33,17 @@ export default {
     return {
       user: "",
       comments: [],
+      isUser: "",
     };
   },
   created() {
     this.getComments(this.$route.params.postId);
+
+    if (this.$store.state.userInfo.userId > 0) {
+      this.isUser = true;
+    } else {
+      this.isUser = false;
+    }
   },
   methods: {
     getComments(postId) {
