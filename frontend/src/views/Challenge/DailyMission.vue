@@ -19,7 +19,7 @@
       <UploadModal
         v-show="isModalViewed"
         :mission="modalData"
-        :is-button="true"
+        :is-button="isModalButton"
         @close="isModalViewed = false"
       />
       <button @click="handleMissionClick()">
@@ -32,6 +32,7 @@
     </p>
 
     <WeeklyFeed />
+    <ChallengeFeed :posts="challengePosts" />
   </div>
 </template>
 <script>
@@ -39,6 +40,7 @@ import Header from "@/components/common/Header.vue";
 import Navigation from "@/components/common/Navigation.vue";
 import WeeklyFeed from "@/components/challenge/WeeklyFeed.vue";
 import UploadModal from "@/components/common/UploadModal.vue";
+import ChallengeFeed from "@/components/challenge/ChallengeFeed.vue";
 import "@/components/css/challenge/dailyMission.scss";
 
 export default {
@@ -48,6 +50,7 @@ export default {
     Navigation,
     WeeklyFeed,
     UploadModal,
+    ChallengeFeed,
   },
   filters: {
     numberWithComma(num) {
@@ -60,12 +63,15 @@ export default {
       participants: 0,
       isModalViewed: false,
       modalData: {},
+      isModalButton: true,
+      challengePosts: {},
     };
   },
   created() {
     const day = new Date().getDay();
     this.getDailyMission(day);
     this.getParticipants();
+    this.getChallengeFeed();
   },
   methods: {
     // 데일리 미션 정보 불러오기
@@ -124,7 +130,46 @@ export default {
     },
 
     handleMissionClick() {
+      this.checkMissionUploaded();
       this.isModalViewed = true;
+    },
+    checkMissionUploaded() {
+      this.$axios({
+        url: "/post/find/challenge/user/mission",
+        method: "GET",
+        params: {
+          userId: this.$store.state.userInfo.userId,
+          challengeId: "1",
+          missionId: this.modalData.id.missionId,
+        },
+      })
+        .then((response) => {
+          if (response.data === "") {
+            this.isModalButton = true;
+          } else {
+            this.isModalButton = false;
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    // 해당 챌린지의 오늘 미션의 모든 게시글 조회
+    getChallengeFeed() {
+      this.$axios({
+        url: "/post/find/challenge/mission",
+        method: "GET",
+        params: {
+          challengeId: "1",
+          misisonId: this.modalData.id.missionId,
+        },
+      })
+        .then((response) => {
+          this.challengePosts = response.data;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
   },
 };
