@@ -110,32 +110,34 @@ export default {
         },
       })
         .then((response) => {
-          this.challenges = response.data
-            .filter((challengeInfo) => challengeInfo.challengeFinishDate === null)
-            .map((challengeInfo) => {
-              return {
-                challengeId: challengeInfo.challenge.challengeId,
-                challengeName: challengeInfo.challenge.challengeName,
-                challengeMissionTotal: challengeInfo.challenge.challengeMissionTotal,
-                challengeMissionCurrent: challengeInfo.challengeMissionCurrent,
-                missionNonAchieve:
-                  challengeInfo.challenge.challengeMissionTotal -
-                  challengeInfo.challengeMissionCurrent,
-              };
-            });
-          this.finishChallenges = response.data
-            .filter((challengeInfo) => challengeInfo.challengeFinishDate !== null)
-            .map((challengeInfo) => {
-              return {
-                challengeId: challengeInfo.challenge.challengeId,
-                challengeName: challengeInfo.challenge.challengeName,
-                challengeMissionTotal: challengeInfo.challenge.challengeMissionTotal,
-                challengeMissionCurrent: challengeInfo.challengeMissionCurrent,
-                missionNonAchieve:
-                  challengeInfo.challenge.challengeMissionTotal -
-                  challengeInfo.challengeMissionCurrent,
-              };
-            });
+          if (response.data !== "") {
+            this.challenges = response.data
+              .filter((challengeInfo) => challengeInfo.challengeFinishDate === null)
+              .map((challengeInfo) => {
+                return {
+                  challengeId: challengeInfo.challenge.challengeId,
+                  challengeName: challengeInfo.challenge.challengeName,
+                  challengeMissionTotal: challengeInfo.challenge.challengeMissionTotal,
+                  challengeMissionCurrent: challengeInfo.challengeMissionCurrent,
+                  missionNonAchieve:
+                    challengeInfo.challenge.challengeMissionTotal -
+                    challengeInfo.challengeMissionCurrent,
+                };
+              });
+            this.finishChallenges = response.data
+              .filter((challengeInfo) => challengeInfo.challengeFinishDate !== null)
+              .map((challengeInfo) => {
+                return {
+                  challengeId: challengeInfo.challenge.challengeId,
+                  challengeName: challengeInfo.challenge.challengeName,
+                  challengeMissionTotal: challengeInfo.challenge.challengeMissionTotal,
+                  challengeMissionCurrent: challengeInfo.challengeMissionCurrent,
+                  missionNonAchieve:
+                    challengeInfo.challenge.challengeMissionTotal -
+                    challengeInfo.challengeMissionCurrent,
+                };
+              });
+          }
         })
         .catch((error) => {
           console.error(error);
