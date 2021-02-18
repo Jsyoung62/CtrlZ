@@ -20,6 +20,7 @@
             type="text"
             :class="userNameStatus"
             placeholder="영문, 20자 이내"
+            autocomplete="off"
           />
           <span v-show="validateUserName" class="material-icons done">
             done
@@ -34,6 +35,7 @@
             type="email"
             :class="userEmailStatus"
             placeholder="ex. ssafy@samsung.com"
+            autocomplete="off"
           />
           <span v-show="validateUserEmail" class="material-icons done">
             done
@@ -68,7 +70,7 @@
         </div>
       </form>
 
-      <button type="submit" class="registerButton" @click="register">
+      <button type="submit" class="registerButton" :disabled="!isSubmit" @click="register">
         회원가입
       </button>
     </div>
@@ -98,16 +100,26 @@ export default {
       userEmailStatus: "",
       userPasswordStatus: "",
       passwordConfirmStatus: "",
+      isSubmit: false,
     };
   },
   watch: {
     userName() {
-      this.validateUserName = this.checkUserName(this.userName);
-      this.validateUserName ? (this.userNameStatus = "success") : (this.userNameStatus = "fail");
+      if (this.checkUserName(this.userName)) {
+        this.uniqueName(this.userName);
+      } else {
+        this.userNameStatus = "fail";
+        this.validateUserName = false;
+        this.checkForm();
+      }
     },
     userEmail() {
       if (this.checkEmail(this.userEmail)) {
-        this.unique(this.userEmail);
+        this.uniqueEmail(this.userEmail);
+      } else {
+        this.userEmailStatus = "fail";
+        this.validateUserEmail = false;
+        this.checkForm();
       }
     },
     userPassword() {
@@ -118,11 +130,15 @@ export default {
       this.validateUserPassword
         ? (this.userPasswordStatus = "success")
         : (this.userPasswordStatus = "fail");
+
+      this.checkForm();
     },
     passwordConfirm() {
-      this.checkPasswordConfirm()
+      this.checkPasswordConfirm() && this.checkPassword(this.userPassword)
         ? (this.passwordConfirmStatus = "success")
         : (this.passwordConfirmStatus = "fail");
+
+      this.checkForm();
     },
   },
   methods: {
@@ -149,12 +165,36 @@ export default {
         this.validateUserName &&
         this.validateUserEmail &&
         this.validateUserPassword &&
-        this.password === this.passwordConfirm
+        this.userPassword === this.passwordConfirm
       ) {
+        this.isSubmit = true;
         return true;
+      } else {
+        this.isSubmit = false;
+        return false;
       }
     },
-    unique(userEmail) {
+    uniqueName(userName) {
+      this.$axios({
+        url: "/user/namecheck",
+        method: "GET",
+        params: {
+          userName,
+        },
+      })
+        .then((response) => {
+          const uniqueName = response.data;
+          this.validateUserName = this.checkUserName(this.userName) && uniqueName;
+          this.validateUserName
+            ? (this.userNameStatus = "success")
+            : (this.userNameStatus = "fail");
+          this.checkForm();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    uniqueEmail(userEmail) {
       this.$axios({
         url: "/user/emailcheck",
         method: "GET",
@@ -168,6 +208,7 @@ export default {
           this.validateUserEmail
             ? (this.userEmailStatus = "success")
             : (this.userEmailStatus = "fail");
+          this.checkForm();
         })
         .catch((error) => {
           console.error(error);

@@ -75,6 +75,17 @@
         font-weight: 700;
         font-size: 17px;
         border-radius: 18px;
+
+        &:disabled {
+            background-color: $primary-green3;
+            cursor: default;
+            &:hover,
+            &:focus,
+            &.active {
+                box-shadow: none;
+                -webkit-box-shadow: none;
+            }
+        }
     }
 }
 

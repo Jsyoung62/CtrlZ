@@ -4,7 +4,7 @@
     <form action="" method="post">
       <div>
         <label for="email">이메일</label>
-        <input id="email" v-model="email" type="email" />
+        <input id="email" v-model="email" type="email" autocomplete="off" />
       </div>
 
       <div>
@@ -16,7 +16,7 @@
     <router-link to="find" class="toFindButton">
       비밀번호 찾기
     </router-link>
-    <button type="submit" class="loginButton" @click="login">
+    <button type="submit" class="loginButton" :disabled="!isSubmit" @click="login">
       로그인
     </button>
     <p class="registerText">
@@ -48,11 +48,16 @@ export default {
       email: "",
       password: "",
       validateEmail: false,
+      isSubmit: false,
     };
   },
   watch: {
     email() {
       this.validateEmail = this.checkEmail(this.email);
+      this.checkForm();
+    },
+    password() {
+      this.checkForm();
     },
   },
   methods: {
@@ -62,7 +67,11 @@ export default {
     },
     checkForm() {
       if (this.validateEmail && this.password.length > 0) {
+        this.isSubmit = true;
         return true;
+      } else {
+        this.isSubmit = false;
+        return false;
       }
     },
     login() {
