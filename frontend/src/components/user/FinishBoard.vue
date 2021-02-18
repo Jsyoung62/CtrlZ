@@ -1,8 +1,8 @@
 <template>
   <div class="challenge">
     <div class="boardHeader">
-      <h1>¿Ï·áµÈ Ã§¸°Áö</h1>
-      <p>({{ challenges.length }}°³)</p>
+      <h1>ì™„ë£Œëœ ì±Œë¦°ì§€</h1>
+      <p>({{ challenges.length }}ê°œ)</p>
       <span class="material-icons" @click="onClickExpand">
         {{ expand }}
       </span>
