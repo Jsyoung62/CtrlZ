@@ -1,11 +1,12 @@
 <template>
   <div>
+    <ProfileModal v-show="isModalViewed" :user="post.user" @close="isModalViewed = false" />
     <Header left-icon="chevron_left" />
     <Navigation />
 
     <div class="post">
       <div class="user">
-        <img :src="post.user.userImage" class="userImage" />
+        <img :src="post.user.userImage" class="userImage" @click="handleUserClick" />
         <span>{{ post.user.userName }}</span>
       </div>
       <img class="postImage" :src="post.postImage" />
@@ -21,6 +22,7 @@
 import Header from "@/components/common/Header.vue";
 import Navigation from "@/components/common/Navigation.vue";
 import PostReview from "@/components/post/PostReview.vue";
+import ProfileModal from "@/components/user/ProfileModal.vue";
 import "@/components/css/post/post.scss";
 
 export default {
@@ -29,12 +31,14 @@ export default {
     Header,
     Navigation,
     PostReview,
+    ProfileModal,
   },
   data: () => {
     return {
       post: "",
       postId: "",
       comments: [],
+      isModalViewed: false,
     };
   },
   created() {
@@ -69,6 +73,10 @@ export default {
         console.error(error);
       });
   },
-  methods: {},
+  methods: {
+    handleUserClick() {
+      this.isModalViewed = true;
+    },
+  },
 };
 </script>
