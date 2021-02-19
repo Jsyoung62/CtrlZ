@@ -83,9 +83,7 @@ export default {
             this.isActive = true;
             location.reload();
           })
-          .catch((error) => {
-            console.error(error);
-          });
+          .catch(() => {});
       } else {
         this.$router.push("/login");
       }
@@ -99,7 +97,7 @@ export default {
       });
     },
     handleMoreClick() {
-      console.log("POST REVIEW MORE");
+      // 게시글 기능 추가 구현
     },
   },
 };

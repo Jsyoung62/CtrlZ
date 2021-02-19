@@ -50,7 +50,7 @@ export default {
       }
 
       if (this.rightClick === "notification") {
-        console.log("notification");
+        // 알림 기능 구현
       }
     },
   },

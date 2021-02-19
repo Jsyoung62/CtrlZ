@@ -42,13 +42,10 @@ export default {
             commentContent: this.commentContent,
           },
         })
-          .then((response) => {
-            console.log(response);
+          .then(() => {
             this.$router.go(this.$router.currentRoute);
           })
-          .catch((error) => {
-            console.error(error);
-          });
+          .catch(() => {});
       }
     },
   },
