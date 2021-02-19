@@ -94,9 +94,7 @@ export default {
         .then((response) => {
           this.challenge = response.data;
         })
-        .catch((error) => {
-          console.log(error);
-        });
+        .catch(() => {});
     },
     // 현재 사용자의 해당 챌린지 참여 현황 조회
     getUserChallengeStatus() {
@@ -107,9 +105,7 @@ export default {
         .then((response) => {
           this.challengeStatus = response.data;
         })
-        .catch((error) => {
-          console.error(error);
-        });
+        .catch(() => {});
     },
     handleDetailClick() {
       this.$router.push({

@@ -73,9 +73,7 @@ export default {
             this.setWeeklyFeed(this.missions);
           }
         })
-        .catch((error) => {
-          console.error(error);
-        });
+        .catch(() => {});
     },
     // 서버에서 가져온 데이터를 missions 배열에 저장
     setWeeklyFeed(data) {

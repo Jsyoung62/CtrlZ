@@ -190,9 +190,7 @@ export default {
             : (this.userNameStatus = "fail");
           this.checkForm();
         })
-        .catch((error) => {
-          console.error(error);
-        });
+        .catch(() => {});
     },
     uniqueEmail(userEmail) {
       this.$axios({
@@ -210,9 +208,7 @@ export default {
             : (this.userEmailStatus = "fail");
           this.checkForm();
         })
-        .catch((error) => {
-          console.error(error);
-        });
+        .catch(() => {});
     },
     register() {
       if (this.checkForm) {
@@ -229,9 +225,7 @@ export default {
           .then(() => {
             this.registerSuccess = true;
           })
-          .catch((error) => {
-            console.error(error);
-          });
+          .catch(() => {});
       }
     },
   },

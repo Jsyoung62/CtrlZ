@@ -94,9 +94,7 @@ export default {
             missionImage: null,
           };
         })
-        .catch((error) => {
-          console.error(error);
-        });
+        .catch(() => {});
     },
     // 데일리 미션에 참여중인 사람 수 불러오기 (완료한 사람 수 + 참여중인 사람 수)
     getParticipants() {
@@ -110,9 +108,7 @@ export default {
         .then((response) => {
           this.participants += response.data;
         })
-        .catch((error) => {
-          console.error(error);
-        });
+        .catch(() => {});
 
       this.$axios({
         url: "/challenge/status/count/inprogress",
@@ -124,9 +120,7 @@ export default {
         .then((response) => {
           this.participants += response.data;
         })
-        .catch((error) => {
-          console.error(error);
-        });
+        .catch(() => {});
     },
 
     handleMissionClick() {
@@ -150,9 +144,7 @@ export default {
             this.isModalButton = false;
           }
         })
-        .catch((error) => {
-          console.error(error);
-        });
+        .catch(() => {});
     },
     // 해당 챌린지의 오늘 미션의 모든 게시글 조회
     getChallengeFeed() {
@@ -167,9 +159,7 @@ export default {
         .then((response) => {
           this.challengePosts = response.data;
         })
-        .catch((error) => {
-          console.error(error);
-        });
+        .catch(() => {});
     },
   },
 };

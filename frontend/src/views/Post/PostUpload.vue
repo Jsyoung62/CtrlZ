@@ -87,9 +87,7 @@ export default {
             },
           });
         })
-        .catch((error) => {
-          console.error(error);
-        });
+        .catch(() => {});
     },
     // 게시글 업로드에 따른 사용자 Z 점수 수정
     updateUserZScore() {
@@ -101,9 +99,7 @@ export default {
         },
       })
         .then(() => {})
-        .catch((error) => {
-          console.error(error);
-        });
+        .catch(() => {});
     },
     // 게시글 업로드에 따른 사용자의 챌린지 진행 사항 수정
     updateChallengeStatus() {
@@ -112,9 +108,7 @@ export default {
         method: "PUT",
       })
         .then(() => {})
-        .catch((error) => {
-          console.error(error);
-        });
+        .catch(() => {});
     },
     // 데일리 미션을 업로드하는 사용자의 경우 챌린지 진행 사항 수정
     updateDailyMissionStatus() {
@@ -142,9 +136,7 @@ export default {
         .then(() => {
           this.updateChallengeStatus();
         })
-        .catch((error) => {
-          console.error(error);
-        });
+        .catch(() => {});
     },
   },
 };

@@ -56,9 +56,7 @@ export default {
           this.post.user.userImage = "http://i4a202.p.ssafy.io/img/no_profile.png";
         }
       })
-      .catch((error) => {
-        console.error(error);
-      });
+      .catch(() => {});
     this.$axios({
       url: "/comment/find",
       method: "GET",
@@ -69,9 +67,7 @@ export default {
       .then((response) => {
         this.comments = response.data;
       })
-      .catch((error) => {
-        console.error(error);
-      });
+      .catch(() => {});
   },
   methods: {
     handleUserClick() {
