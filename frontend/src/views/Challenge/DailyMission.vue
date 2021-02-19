@@ -71,7 +71,6 @@ export default {
     const day = new Date().getDay();
     this.getDailyMission(day);
     this.getParticipants();
-    this.getChallengeFeed();
   },
   methods: {
     // 데일리 미션 정보 불러오기
@@ -93,6 +92,8 @@ export default {
             ...result[0],
             missionImage: null,
           };
+
+          this.getChallengeFeed();
         })
         .catch(() => {});
     },
@@ -153,7 +154,7 @@ export default {
         method: "GET",
         params: {
           challengeId: "1",
-          misisonId: this.modalData.id.missionId,
+          missionId: this.modalData.id.missionId,
         },
       })
         .then((response) => {
