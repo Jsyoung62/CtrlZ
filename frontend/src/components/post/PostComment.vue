@@ -1,8 +1,9 @@
 <template>
   <div class="postComment">
-    <img :src="userImage" class="userImage" />
+    <ProfileModal v-show="isModalViewed" :user="user" @close="isModalViewed = false" />
+    <img :src="user.userImage" class="userImage" @click="handleUserClick" />
     <p>
-      <span class="userName">{{ userName }}</span>
+      <span class="userName">{{ user.userName }}</span>
       <span class="comment">
         {{ comment }}
       </span>
@@ -11,22 +12,33 @@
 </template>
 
 <script>
+import ProfileModal from "@/components/user/ProfileModal.vue";
 import "@/components/css/post/postComment.scss";
+import "@/components/css/post/post.scss";
 
 export default {
   name: "PostComment",
+  components: {
+    ProfileModal,
+  },
   props: {
-    userName: {
-      type: String,
-      required: true,
-    },
     comment: {
       type: String,
       required: true,
     },
-    userImage: {
-      type: String,
+    user: {
+      type: Object,
       required: true,
+    },
+  },
+  data: () => {
+    return {
+      isModalViewed: false,
+    };
+  },
+  methods: {
+    handleUserClick() {
+      this.isModalViewed = true;
     },
   },
 };

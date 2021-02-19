@@ -6,8 +6,7 @@
       <PostComment
         v-for="comment in comments"
         :key="comment.commentId"
-        :user-image="comment.user.userImage"
-        :user-name="comment.user.userName"
+        :user="comment.user"
         :comment="comment.commentContent"
       />
     </div>
@@ -62,9 +61,10 @@ export default {
             return comment;
           });
         })
-        .catch((error) => {
-          console.error(error);
-        });
+        .catch(() => {});
+    },
+    handleUserClick() {
+      this.isModalViewed = true;
     },
   },
 };

@@ -91,9 +91,7 @@ export default {
             this.updateZbtiResult(); // user ZBTI 결과 업데이트
             this.$router.push("/");
           })
-          .catch((error) => {
-            console.error(error);
-          });
+          .catch(() => {});
         return;
       }
     },
@@ -122,9 +120,7 @@ export default {
             this.$router.push("/");
           });
         })
-        .catch((error) => {
-          console.error(error);
-        });
+        .catch(() => {});
     },
     updateZbtiResult() {
       // ZBTI 테스트 결과가 있는 경우
@@ -138,9 +134,7 @@ export default {
           },
         })
           .then(() => {})
-          .catch((error) => {
-            console.error(error);
-          });
+          .catch(() => {});
       }
     },
   },

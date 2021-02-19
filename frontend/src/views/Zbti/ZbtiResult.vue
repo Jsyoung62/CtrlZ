@@ -61,9 +61,7 @@ export default {
           // 하이라이트 분리
           this.zbtiResult.zbtiDescription = this.zbtiResult.zbtiDescription.split("\b");
         })
-        .catch((error) => {
-          console.error(error);
-        });
+        .catch(() => {});
     },
     setZbtiResult() {
       // 로그인 후 ZBTI 테스트 하는 경우
@@ -77,9 +75,7 @@ export default {
           },
         })
           .then(() => {})
-          .catch((error) => {
-            console.error(error);
-          });
+          .catch(() => {});
       } else {
         // 로그인안하고 ZBTI 테스트 하는 경우 vuex에 저장
         this.$store.commit("SETZBTI", this.zbtiId);

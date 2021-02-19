@@ -55,9 +55,7 @@ export default {
         this.zbtiTest = response.data;
         this.selectInit();
       })
-      .catch((error) => {
-        console.error(error);
-      });
+      .catch(() => {});
   },
   methods: {
     selectInit() {

@@ -125,9 +125,7 @@ export default {
         .then((response) => {
           this.challenge = response.data;
         })
-        .catch((error) => {
-          console.error(error);
-        });
+        .catch(() => {});
     },
     // 해당 챌린지의 모든 게시글 조회
     getChallengeFeed(challengeId) {
@@ -141,9 +139,7 @@ export default {
         .then((response) => {
           this.challengePosts = response.data;
         })
-        .catch((error) => {
-          console.error(error);
-        });
+        .catch(() => {});
     },
     // 해당 챌린지 완료자 수 조회
     getAchivedCount(challengeId) {
@@ -157,9 +153,7 @@ export default {
         .then((response) => {
           this.achived = response.data;
         })
-        .catch((error) => {
-          console.error(error);
-        });
+        .catch(() => {});
     },
     // 현재 사용자의 해당 챌린지 참여 현황 조회
     getUserChallengeStatus() {
@@ -179,10 +173,7 @@ export default {
             }
           }
         })
-        .catch((error) => {
-          // 현재 사용자가 해당 챌린지에 참여하지 않고 있는 경우
-          console.error(error);
-        });
+        .catch(() => {});
     },
     handleStartButtonClick() {
       this.$axios({
@@ -197,9 +188,7 @@ export default {
           // 챌린지 시작하면 진행 중인 챌린지 화면으로 이동
           this.moveChallengeInProgress();
         })
-        .catch((error) => {
-          console.error(error);
-        }); // 현재 사용자의 해당 챌린지 참여 현황 추가
+        .catch(() => {}); // 현재 사용자의 해당 챌린지 참여 현황 추가
     },
     handleLoginButtonClick() {
       this.$router.push("/login");

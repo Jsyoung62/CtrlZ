@@ -61,9 +61,7 @@ export default {
 
           this.getPosts();
         })
-        .catch((error) => {
-          console.log(error);
-        });
+        .catch(() => {});
     },
     // 챌린지에 모든 사용자가 올린 게시글 정보 불러오기
     getPosts() {
@@ -82,9 +80,7 @@ export default {
 
           this.removeCompletedMissions();
         })
-        .catch((error) => {
-          console.log(error);
-        });
+        .catch(() => {});
     },
     // 사용자가 이미 완료한 미션 정보 제거
     removeCompletedMissions() {

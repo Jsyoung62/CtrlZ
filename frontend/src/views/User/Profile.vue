@@ -80,9 +80,7 @@ export default {
 
           this.changeZbtiResult();
         })
-        .catch((error) => {
-          console.error(error);
-        });
+        .catch(() => {});
     },
     // 유저의 [등수, 상위 퍼센트]
     getRank() {
@@ -96,9 +94,7 @@ export default {
         .then((response) => {
           this.userRank = response.data;
         })
-        .catch((error) => {
-          console.error(error);
-        });
+        .catch(() => {});
     },
     // 진행중인 챌린지 조회
     getChallenges() {
@@ -139,9 +135,7 @@ export default {
               });
           }
         })
-        .catch((error) => {
-          console.error(error);
-        });
+        .catch(() => {});
     },
     // 유저가 작성한 게시글 조회
     getFeed() {
@@ -157,9 +151,7 @@ export default {
             this.feed = response.data;
           }
         })
-        .catch((error) => {
-          console.error(error);
-        });
+        .catch(() => {});
     },
     // zbitId를 zbti 유형 이름으로 변경
     changeZbtiResult() {

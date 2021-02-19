@@ -83,9 +83,7 @@ export default {
           });
           this.challenges = this.challenges.concat(this[challengeName]);
         })
-        .catch((error) => {
-          console.error(error);
-        });
+        .catch(() => {});
     },
     // 챌린지 유형별로 스타일 구분
     setStyle(type) {

@@ -43,7 +43,7 @@ export default {
     },
     sendEmail() {
       if (this.validateEmail) {
-        console.log("sendEmail");
+        // 인증메일 전송
       }
     },
   },
