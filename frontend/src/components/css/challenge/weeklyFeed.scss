@@ -1,5 +1,20 @@
 @import "../colors.scss";
 
+@keyframes clear {
+    0% {
+        width: 0px;
+        height: 0px;
+    }
+    50% {
+        width: 100px;
+        height: 100px;
+    }
+    100% {
+        width: 75px;
+        height: 74px;
+    }
+}
+
 .weeklyFeed {
     margin: 40px 0 80px 0;
     padding: 0 20px;
@@ -17,14 +32,31 @@
         position: relative;
         padding-right: 20px;
         
-        img {
-            border-radius: 100%;
-            width: 150px;
-            height: 150px;
-            cursor: pointer;
+        .missionPost {
+            position: relative;
+
+            img {
+                border-radius: 100%;
+                width: 150px;
+                height: 150px;
+                cursor: pointer;
+            }
+
+            .missionClear {
+                position: absolute;
+                bottom: 0;
+                right: -5px;
+                width: 75px;
+                height: 74px;
+                z-index: 1;
+                animation-name: clear;
+                animation-duration: 0.7s;
+                animation-timing-function:cubic-bezier(0, 1.29, 1, 1.47);
+            }
         }
 
         .emptyFeed {
+            position: relative;
             border-radius: 100%;
             width: 150px;
             height: 150px;
@@ -48,6 +80,16 @@
                 font-weight: bold;
                 font-size: 22px;
                 color:  #C4C4C4;
+            }
+
+            .missionUnclear {
+                position: absolute;
+                bottom: 0;
+                right: -5px;
+                width: 75px;
+                height: 74px;
+                z-index: 1;
+                filter: grayscale(100%);
             }
         }
     }

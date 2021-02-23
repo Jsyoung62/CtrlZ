@@ -1,15 +1,15 @@
 <template>
   <div class="weeklyFeed">
     <div v-for="(mission, index) in missions" :key="index" class="feed">
-      <img
-        v-if="mission.upload"
-        :src="mission.postImage"
-        @click="handlePostClick(mission.postId)"
-      />
+      <div v-if="mission.upload" class="missionPost">
+        <img :src="mission.postImage" @click="handlePostClick(mission.postId)" />
+        <img src="@/assets/missionclear.png" class="missionClear" />
+      </div>
       <div v-else class="emptyFeed" :class="mission.disabled">
         <div class="day">
           {{ mission.missionDay }}
         </div>
+        <img src="@/assets/missionclear.png" class="missionUnclear" />
       </div>
     </div>
   </div>

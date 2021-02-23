@@ -29,7 +29,9 @@
             {{ challenge.challengeName }}
           </p>
           <p class="participants">
-            {{ challenge.participants }}
+            <span class="number">
+              {{ challenge.participants }}
+            </span>
             명 도전 중
           </p>
         </div>

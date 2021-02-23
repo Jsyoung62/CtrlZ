@@ -6,8 +6,15 @@
       :is-button="isButton"
       @close="isModalViewed = false"
     />
-    <div v-for="post in posts" :key="post.postId" @click="handlePostClick(post.postId)">
+    <div
+      v-for="post in posts"
+      :key="post.postId"
+      class="postWrapper"
+      @click="handlePostClick(post.postId)"
+    >
       <img :src="post.postImage" alt="Thumbnail" class="mission" />
+      <img src="@/assets/missionclear.png" class="missionClear" />
+      <p>{{ post.postCreated | trimDate }}</p>
     </div>
     <div
       v-for="(mission, index) in missions"
@@ -29,6 +36,12 @@ export default {
   name: "Missions",
   components: {
     UploadModal,
+  },
+  filters: {
+    trimDate(date) {
+      const newDate = date.split("T")[0];
+      return newDate.replaceAll("-", ".");
+    },
   },
   data: () => {
     return {
