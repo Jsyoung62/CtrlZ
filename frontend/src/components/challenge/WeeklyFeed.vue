@@ -3,14 +3,14 @@
     <div v-for="(mission, index) in missions" :key="index" class="feed">
       <div v-if="mission.upload" class="missionPost">
         <img :src="mission.postImage" @click="handlePostClick(mission.postId)" />
-        <img src="@/assets/missionclear.png" class="missionClear" />
+        <img src="@/assets/missioncomplete.png" class="missionClear" />
       </div>
       <div v-else class="emptyFeed" :class="mission.disabled">
         <div v-if="mission.disabled === 'failed'">
           <div class="day">
             {{ mission.missionDay }}
           </div>
-          <img src="@/assets/missionclear.png" class="missionUnclear" />
+          <!-- <img src="@/assets/missioncomplete.png" class="missionUnclear" /> -->
         </div>
         <div v-else>
           <div class="day">
