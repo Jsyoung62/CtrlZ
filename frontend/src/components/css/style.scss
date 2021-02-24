@@ -94,13 +94,13 @@ button, a {
 }
 
 // moblie first responsive
-@media only screen and (max-width: 384px) {
+@media only screen and (max-width: 387px) {
   /* For mobile phones: */
   #app {
     width: 100%;
   }
 }
-@media only screen and (min-width: 385px){ 
+@media only screen and (min-width: 388px){ 
   html {
     display: flex;
     justify-content: center;
