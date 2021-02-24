@@ -6,10 +6,17 @@
         <img src="@/assets/missionclear.png" class="missionClear" />
       </div>
       <div v-else class="emptyFeed" :class="mission.disabled">
-        <div class="day">
-          {{ mission.missionDay }}
+        <div v-if="mission.disabled === 'failed'">
+          <div class="day">
+            {{ mission.missionDay }}
+          </div>
+          <img src="@/assets/missionclear.png" class="missionUnclear" />
         </div>
-        <img src="@/assets/missionclear.png" class="missionUnclear" />
+        <div v-else>
+          <div class="day">
+            {{ mission.missionDay }}
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -94,7 +101,8 @@ export default {
         // 업로드 안된 부분은 빈 공간으로 표시
         if (week[index] === undefined) {
           week[index] = {
-            disabled: this.isDisabled(index),
+            disabled: this.isDisabled(index, false),
+            upload: false,
             missionDay: this.getDay(index),
           };
         }
@@ -102,9 +110,16 @@ export default {
       this.missions = week;
     },
     // 미래 미션들은 비활성화
-    isDisabled(num) {
+    isDisabled(num, uploaded) {
       const day = new Date().getDay();
-      return day <= num ? "disabled" : "";
+
+      let ret = "";
+      if (day <= num) {
+        ret = "disabled";
+      } else {
+        ret = !uploaded ? "failed" : "";
+      }
+      return ret;
     },
     // 요일에 맞는 글자 표기를 위한 작업
     getDay(num) {
