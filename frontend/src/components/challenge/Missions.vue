@@ -13,8 +13,8 @@
       @click="handlePostClick(post.postId)"
     >
       <img :src="post.postImage" alt="Thumbnail" class="mission" />
-      <img src="@/assets/missionclear.png" class="missionClear" />
-      <p>{{ post.postCreated | trimDate }}</p>
+      <img src="@/assets/missioncomplete_circlewhite.gif" class="missionClear" />
+      <!-- <p>{{ post.postCreated | trimDate }}</p> -->
     </div>
     <div
       v-for="(mission, index) in missions"
